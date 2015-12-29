@@ -1,0 +1,23 @@
+<a href="/">Index</a>
+<a href="/new">New</a>
+
+<main><%- tag %></main>
+
+<script>
+  if('querySelector' in document
+      && 'localStorage' in window
+      && 'addEventListener' in window
+      && 'history' in window && history.pushState){
+    var scripts = [
+      {src: '/js/bundle.js', type: 'text/javascript', defer: false}
+    ];
+    for(var i = 0; i < scripts.length; ++i){
+      var script = scripts[i];
+      var tag = document.createElement('script');
+      if(script.defer) tag.setAttribute('defer', '');
+      tag.setAttribute('src', script.src);
+      tag.setAttribute('type', script.type);
+      document.getElementsByTagName('head')[0].appendChild(tag);
+    }
+  }
+</script>
