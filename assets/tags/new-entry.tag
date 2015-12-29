@@ -3,4 +3,8 @@
     <textarea id="new-entry-text" name="text"></textarea>
     <input type="submit"/>
   </form>
+
+  <script>
+    
+  </script>
 </new-entry>

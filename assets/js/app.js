@@ -2,8 +2,8 @@ var fs = require('fs');
 var page = require('page');
 var riot = require('riot');
 var promise = require('zousan');
-var superagent = require('superagent-cache')();
-require('superagent-promise')(superagent, promise);
+var xhr = require('superagent-cache')();
+require('superagent-promise')(xhr, promise);
 
 page.base('/');
 page('/', entries);
@@ -13,7 +13,7 @@ page({dispatch: false});
 
 function fetchData(dPath, cache){
   var fn = (cache) ? 'end' : '_end';
-  return superagent.get(dPath).accept('application/json')[fn]();
+  return xhr.get(dPath).accept('application/json')[fn]();
 }
 
 function renderView(riotMarkup, riotTag, data){
@@ -23,16 +23,12 @@ function renderView(riotMarkup, riotTag, data){
 
 function entries(){
   var entryList = require('../tags/entry-list.tag');
-  fetchData('/', false).then(function (response){
-    renderView('<entry-list></entry-list>', entryList, {entries: response.body.entries});
-  });
+  renderView('<entry-list></entry-list>', entryList, {xhr: xhr});
 }
 
 function entry(ctx){
   var entryView = require('../tags/entry-view.tag');
-  fetchData('/entry/' + ctx.params.id, true).then(function (response){
-    renderView('<entry-view></entry-view>', entryView, {entry: response.body.entry});
-  });
+  renderView('<entry-view></entry-view>', entryView, {entry: {id: ctx.params.id}, xhr: xhr});
 }
 
 function newEntry(){

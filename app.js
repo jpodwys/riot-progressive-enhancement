@@ -71,10 +71,10 @@ app.get('/', vary, formOrAjax, function (req, res){
       var entryList = require('./assets/tags/entry-list.tag');
       res.render('wrapper', {
         title: 'Entries (rendered by the server)',
-        tag: riot.render(entryList, {entries: entries})
+        tag: riot.render(entryList, {state: 'server', entries: entries})
       });
     },
-    function(){ res.send({title: 'Entries (rendered by the client)', entries: entries}); }
+    function(){ res.send(entries); }
   );
 });
 
@@ -84,10 +84,10 @@ app.get('/entry/:id', vary, formOrAjax, function (req, res){
       var entryView = require('./assets/tags/entry-view.tag');
       res.render('wrapper', {
         title: 'Entry (rendered by the server)',
-        tag: riot.render(entryView, {entry: getEntryById(req.params.id)})
+        tag: riot.render(entryView, {state: 'server', entry: getEntryById(req.params.id)})
       });
     },
-    function(){ res.send({title: 'Entry (rendered by the client)', entry: getEntryById(req.params.id)}); }
+    function(){ res.send(getEntryById(req.params.id)); }
   );
 });
 
@@ -100,7 +100,7 @@ app.get('/new', vary, formOrAjax, function (req, res){
         tag: riot.render(newEntry)
       });
     },
-    function(){ res.send({title: 'New (rendered by the client)'}); }
+    function(){ res.send({}); }
   );
 });
 
