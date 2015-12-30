@@ -14,19 +14,19 @@ page('entry/:id', entry);
 page('new', newEntry);
 page({dispatch: false});
 
-function renderView(riotMarkup, riotTag, data){
-  document.querySelector('main').innerHTML = riotMarkup;
-  riot.mount(riotTag, data);
+function renderView(tagName, data){
+  document.querySelector('main').innerHTML = '<' + tagName + '></' + tagName + '>';
+  riot.mount(tagName, data);
 }
 
 function entries(){
-  renderView('<entry-list></entry-list>', entryListTag, {xhr: xhr});
+  renderView('entry-list', {xhr: xhr});
 }
 
 function entry(ctx){
-  renderView('<entry-view></entry-view>', entryViewTag, {entry: {id: ctx.params.id, text: ctx.state.text}, xhr: xhr});
+  renderView('entry-view', {entry: {id: ctx.params.id, text: ctx.state.text}, xhr: xhr});
 }
 
 function newEntry(){
-  renderView('<new-entry></new-entry>', newEntryTag, {page: page, xhr: xhr});
+  renderView('new-entry', {page: page, xhr: xhr});
 }
