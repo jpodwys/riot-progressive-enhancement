@@ -1,5 +1,6 @@
 <new-entry>
-  <form method="post" onsubmit="{create}">
+  <form method="post" action="/entry" onsubmit="{create}">
+    <input type="hidden" name="method" value="post"/>
     <textarea name="text"></textarea>
     <input type="submit"/>
   </form>
@@ -10,7 +11,7 @@
     var page = opts.page;
     this.create = function(e){
       e.preventDefault();
-      xhr.post('/new')
+      xhr.post('/entry')
         .type('application/json')
         .accept('application/json')
         .send({text: self.text.value})
