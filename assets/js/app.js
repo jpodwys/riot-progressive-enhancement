@@ -11,11 +11,6 @@ page('entry/:id', entry);
 page('new', newEntry);
 page({dispatch: false});
 
-function fetchData(dPath, cache){
-  var fn = (cache) ? 'end' : '_end';
-  return xhr.get(dPath).accept('application/json')[fn]();
-}
-
 function renderView(riotMarkup, riotTag, data){
   document.querySelector('main').innerHTML = riotMarkup;
   riot.mount(riotTag, data);
@@ -28,10 +23,10 @@ function entries(){
 
 function entry(ctx){
   var entryView = require('../tags/entry-view.tag');
-  renderView('<entry-view></entry-view>', entryView, {entry: {id: ctx.params.id}, xhr: xhr});
+  renderView('<entry-view></entry-view>', entryView, {entry: {id: ctx.params.id, text: ctx.state.text}, xhr: xhr});
 }
 
 function newEntry(){
   var newEntry = require('../tags/new-entry.tag');
-  renderView('<new-entry></new-entry>', newEntry);
+  renderView('<new-entry></new-entry>', newEntry, {page: page, xhr: xhr});
 }

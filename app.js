@@ -1,5 +1,4 @@
-var fs = require('fs'),
-  express = require('express'),
+var express = require('express'),
   bodyParser = require('body-parser'),
   superagent = require('superagent'),
   ejs = require('ejs'),
@@ -7,6 +6,10 @@ var fs = require('fs'),
   riot = require('riot');
   app = express(),
   PORT = process.env.PORT || 3000;
+
+var entryList = require('./assets/tags/entry-list.tag'),
+  entryView = require('./assets/tags/entry-view.tag'),
+  newEntry = require('./assets/tags/new-entry.tag');
 
 app.set('views', './views');
 app.set('view engine', 'ejs');
@@ -23,22 +26,8 @@ var entries = [
   {id: '5', text: 'This is the fifth of many test entries. Hopefully I can make some good progress.'}
 ];
 
-function cache(req, res, next){
-  res.set({'Cache-Control': 'public, max-age=5000'});
-  next();
-}
-
-function noCache(req, res, next){
-  res.set({'Cache-Control': 'no-cache no-store'});
-  next();
-}
-
 function vary(req, res, next){
   res.set({'Vary': 'Accept'});
-  next();
-}
-
-function latency(req, res, next){
   next();
 }
 
@@ -67,39 +56,21 @@ function createEntry(text){
 
 app.get('/', vary, formOrAjax, function (req, res){
   res.formOrAjax(
-    function(){
-      var entryList = require('./assets/tags/entry-list.tag');
-      res.render('wrapper', {
-        title: 'Entries (rendered by the server)',
-        tag: riot.render(entryList, {state: 'server', entries: entries})
-      });
-    },
+    function(){ res.render('wrapper', {tag: riot.render(entryList, {entries: entries})}); },
     function(){ res.send(entries); }
   );
 });
 
 app.get('/entry/:id', vary, formOrAjax, function (req, res){
   res.formOrAjax(
-    function(){
-      var entryView = require('./assets/tags/entry-view.tag');
-      res.render('wrapper', {
-        title: 'Entry (rendered by the server)',
-        tag: riot.render(entryView, {state: 'server', entry: getEntryById(req.params.id)})
-      });
-    },
+    function(){ res.render('wrapper', {tag: riot.render(entryView, {entry: getEntryById(req.params.id)})}); },
     function(){ res.send(getEntryById(req.params.id)); }
   );
 });
 
 app.get('/new', vary, formOrAjax, function (req, res){
   res.formOrAjax(
-    function(){
-      var newEntry = require('./assets/tags/new-entry.tag');
-      res.render('wrapper', {
-        title: 'New (rendered by the server)',
-        tag: riot.render(newEntry)
-      });
-    },
+    function(){ res.render('wrapper', {tag: riot.render(newEntry)}); },
     function(){ res.send({}); }
   );
 });

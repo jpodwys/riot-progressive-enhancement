@@ -2,7 +2,6 @@
   <div each={opts.entries}><a href="/entry/{id}">{text}</a></div>
 
   <script>
-    if(opts.state === 'server') return;
     var self = this;
     var xhr = opts.xhr;
     var entry = opts.entry;

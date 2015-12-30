@@ -2,7 +2,6 @@
   <div>{opts.entry.text}</div>
 
   <script>
-    if(opts.state === 'server') return;
     var self = this;
     var xhr = opts.xhr;
     var entry = opts.entry;
