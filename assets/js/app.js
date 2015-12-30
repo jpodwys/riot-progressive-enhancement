@@ -1,4 +1,3 @@
-var fs = require('fs');
 var page = require('page');
 var riot = require('riot');
 var promise = require('zousan');
