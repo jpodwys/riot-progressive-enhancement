@@ -1,5 +1,5 @@
 <new-entry>
-  <form id="new-entry" method="post" onsubmit="{create}">
+  <form method="post" onsubmit="{create}">
     <textarea name="text"></textarea>
     <input type="submit"/>
   </form>
