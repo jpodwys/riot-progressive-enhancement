@@ -7,7 +7,7 @@
     var xhr = opts.xhr;
     var page = opts.page;
     if(opts.entry.id && !opts.entry.text){
-      xhr.get('/entry/' + opts.entry.id).accept('application/json').then(function (response){
+      xhr.get('/entry/' + opts.entry.id).accept('application/json').end().then(function (response){
         opts.entry = response.body;
         self.update();
       });

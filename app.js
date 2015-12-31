@@ -1,4 +1,5 @@
 var express = require('express'),
+  methodOverride = require('method-override'),
   bodyParser = require('body-parser'),
   superagent = require('superagent'),
   ejs = require('ejs'),
@@ -11,6 +12,7 @@ app.set('views', './views');
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+app.use(methodOverride('_method'))
 app.use(express.static('assets'));
 app.use(express.static('views'));
 
@@ -32,7 +34,7 @@ app.get('/entry/:id', vary, formOrAjax, BL.getEntry);
 app.get('/entry/:id/edit', vary, formOrAjax, BL.getEditEntry);
 app.get('/new', vary, formOrAjax, BL.getNew);
 app.post('/entry', vary, formOrAjax, BL.postEntry);
-app.put('/entry', vary, formOrAjax, BL.putEntry);
+app.put('/entry/:id', vary, formOrAjax, BL.putEntry);
 
 var server = app.listen(PORT, function () {
   var host = server.address().address;

@@ -71,14 +71,8 @@ function newGetAjax(req, res){
 
 function entryPostForm(req, res){
   if(req.body && req.body.text){
-    //Necessary to catch form submissions that need to PUT rather than POST
-    if(typeof req.body.id === 'string'){
-      entryPutForm(req, res);
-    }
-    else{
-      var entryId = createEntry(req.body.text);
-      res.redirect('/entry/' + entryId);
-    }
+    var entryId = createEntry(req.body.text);
+    res.redirect('/entry/' + entryId);
   }
   else{
     res.redirect('/new');
