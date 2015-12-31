@@ -12,9 +12,9 @@
     this.create = function(e){
       e.preventDefault();
       xhr.post('/entry')
-        .type('application/json')
         .accept('application/json')
         .send({text: self.text.value})
+        .pruneOptions(['content-type'])
         .end().then(function (response){
           page.replace('/entry/' + response.body.id, {text: self.text.value});
         }

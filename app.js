@@ -24,7 +24,8 @@ app.get('/entry/:id', handlers.getEntry);
 app.get('/entry/:id/edit', handlers.getEditEntry);
 app.get('/new', handlers.getNew);
 app.post('/entry', handlers.postEntry);
-app.put('/entry', handlers.putEntry);
+app.put('/entry/:id', handlers.putEntry);
+app.delete('/entry', handlers.deleteEntry);
 
 var server = app.listen(PORT, function () {
   var host = server.address().address;

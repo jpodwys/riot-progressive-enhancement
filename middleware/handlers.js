@@ -37,6 +37,16 @@ function updateEntry(id, text){
   return false;
 }
 
+function deleteEntry(id){
+  for(var i = 0; i < entries.length; ++i){
+    if(entries[i].id === id){
+      entries.splice(i, 1);
+      return true;
+    }
+  }
+  return false;
+}
+
 function indexGetForm(req, res){
   res.render('wrapper', {tag: riot.render(entryList, {entries: entries})});
 }
@@ -109,6 +119,26 @@ function entryPutAjax(req, res){
   }
 }
 
+function entryDeleteForm(req, res){
+  if(req.body && req.body.id){
+    deleteEntry(req.body.id);
+    res.redirect('/');
+  }
+  else{
+    res.redirect('/');
+  }
+}
+
+function entryDeleteAjax(req, res){
+  if(req.body && req.body.id){
+    deleteEntry(req.body.id);
+    res.status(200).send('ok');
+  }
+  else{
+    res.status(500).send('Sorry, something went wrong.');
+  }
+}
+
 exports.getIndex = function(req, res){
   res.formOrAjax(indexGetForm, indexGetAjax);
 }
@@ -131,4 +161,8 @@ exports.postEntry = function(req, res){
 
 exports.putEntry = function(req, res){
   res.formOrAjax(entryPutForm, entryPutAjax);
+}
+
+exports.deleteEntry = function(req, res){
+  res.formOrAjax(entryDeleteForm, entryDeleteAjax);
 }
