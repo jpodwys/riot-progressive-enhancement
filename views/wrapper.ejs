@@ -11,7 +11,7 @@
       && 'addEventListener' in window
       && 'history' in window && history.pushState){
     var scripts = [
-      {src: '/js/bundle.js', type: 'text/javascript', defer: false}
+      {src: '/js/bundle.js', type: 'text/javascript', defer: true}
     ];
     for(var i = 0; i < scripts.length; ++i){
       var script = scripts[i];

@@ -1,13 +1,13 @@
-var page = require('page');
-var riot = require('riot');
-var promise = require('zousan');
-var xhr = require('superagent-cache')();
+var page = require('page'),
+  riot = require('riot'),
+  promise = require('zousan'),
+  xhr = require('superagent-cache')();
 require('superagent-promise')(xhr, promise);
 
-var entryListTag = require('../tags/entry-list.tag');
-var entryViewTag = require('../tags/entry-view.tag');
-var newEntryTag = require('../tags/new-entry.tag');
-var editEntryTag = require('../tags/edit-entry.tag');
+var entryListTag = require('../tags/entry-list.tag'),
+  entryViewTag = require('../tags/entry-view.tag'),
+  newEntryTag = require('../tags/new-entry.tag'),
+  editEntryTag = require('../tags/edit-entry.tag');
 
 page.base('/');
 page('/', entries);
