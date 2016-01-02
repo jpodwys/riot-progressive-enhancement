@@ -4,8 +4,8 @@ var express = require('express'),
   ejs = require('ejs'),
   // stream = require('express-stream'),
   app = express(),
-  resMods = require('./middleware/response-mods');
-  handlers = require('./middleware/handlers');
+  resMods = require('./middleware/response-mods'),
+  handlers = require('./middleware/handlers'),
   PORT = process.env.PORT || 3000;
 
 app.set('views', './views');
