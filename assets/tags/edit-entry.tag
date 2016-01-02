@@ -7,28 +7,20 @@
 
   <script>
     var self = this;
-    var xhr = opts.xhr;
     var page = opts.page;
-    if(opts.entry.id && !opts.entry.text){
-      xhr.get('/entry/' + opts.entry.id)
-        .accept('application/json')
-        .end().then(function (response){
-          opts.entry = response.body;
-          self.update();
-        }
-      );
+    var entryService = opts.entryService;
+    if(opts.entry.id && !opts.entry.text && entryService){
+      entryService.getEntryById(opts.entry.id).then(function (response){
+        opts.entry = response.body;
+        self.update();
+      });
     }
     this.edit = function(e){
       e.preventDefault();
-      var data = {id: opts.entry.id, text: self.text.value};
-      xhr.put('/entry/' + opts.entry.id)
-        .accept('application/json')
-        .send(data)
-        .pruneOptions(['content-type'])
-        .end().then(function (response){
-          page.replace('/entry/' + opts.entry.id, data);
-        }
-      );
+      var state = {text: self.text.value};
+      entryService.updateEntry(self.id.value, self.text.value).then(function (response){
+        page.replace('/entry/' + self.id.value, state);
+      });
     }
   </script>
 </edit-entry>

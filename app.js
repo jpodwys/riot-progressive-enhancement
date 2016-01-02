@@ -1,9 +1,8 @@
 var express = require('express'),
   methodOverride = require('method-override'),
   bodyParser = require('body-parser'),
-  superagent = require('superagent'),
   ejs = require('ejs'),
-  stream = require('express-stream'),
+  // stream = require('express-stream'),
   app = express(),
   resMods = require('./middleware/response-mods');
   handlers = require('./middleware/handlers');
@@ -25,7 +24,7 @@ app.get('/entry/:id/edit', handlers.getEditEntry);
 app.get('/new', handlers.getNew);
 app.post('/entry', handlers.postEntry);
 app.put('/entry/:id', handlers.putEntry);
-app.delete('/entry', handlers.deleteEntry);
+app.delete('/entry/:id', handlers.deleteEntry);
 
 var server = app.listen(PORT, function () {
   var host = server.address().address;

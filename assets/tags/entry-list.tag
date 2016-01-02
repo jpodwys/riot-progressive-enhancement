@@ -3,16 +3,12 @@
 
   <script>
     var self = this;
-    var xhr = opts.xhr;
-    var entry = opts.entry;
-    if(!opts.entries){
-      xhr.get('/')
-        .accept('application/json')
-        ._end().then(function (response){
-          opts.entries = response.body;
-          self.update();
-        }
-      );
+    var entryService = opts.entryService;
+    if(!opts.entries && entryService){
+      entryService.getAllEntries().then(function (response){
+        opts.entries = response.body;
+        self.update();
+      });
     }
   </script>
 </entry-list>

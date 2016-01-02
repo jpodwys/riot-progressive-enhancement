@@ -7,18 +7,14 @@
 
   <script>
     var self = this;
-    var xhr = opts.xhr;
     var page = opts.page;
+    var entryService = opts.entryService;
     this.create = function(e){
       e.preventDefault();
-      xhr.post('/entry')
-        .accept('application/json')
-        .send({text: self.text.value})
-        .pruneOptions(['content-type'])
-        .end().then(function (response){
-          page.replace('/entry/' + response.body.id, {text: self.text.value});
-        }
-      );
+      var state = {text: self.text.value};
+      entryService.createEntry(self.text.value).then(function (response){
+        page.replace('/entry/' + response.body.id, state);
+      });
     }
   </script>
 </new-entry>
