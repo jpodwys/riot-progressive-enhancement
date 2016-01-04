@@ -9,26 +9,27 @@
 
   <script>
     var self = this;
-    var page = opts.page;
-    var entryService = opts.entryService;
-    if(opts.server){
+    (opts.server) ? serverInit() : clientInit();
+    function serverInit(){
       formatDate();
-      self.update();
     }
-    else if(opts.entry.id && !opts.entry.text && entryService){
-      entryService.getEntryById(opts.entry.id).then(function (response){
-        opts.entry = response.body;
-        self.update();
-      });
+    function clientInit(){
+      if(opts.entry.id && !opts.entry.text){
+        opts.entryService.getEntryById(opts.entry.id).then(function (response){
+          opts.entry = response;
+          formatDate();
+        });
+      }
     }
     function formatDate(){
-      opts.entry.date = new Date(opts.entry.date).toISOString().slice(0,10);
+      opts.entry.date = new Date(opts.entry.date).toISOString().slice(0, 10);
+      self.update();
     }
     this.edit = function(e){
       e.preventDefault();
       var state = {id: self.id.value, date: self.date.value, text: self.text.value, isPublic: self.isPublic.checked};
-      entryService.updateEntry(state).then(function (response){
-        page.replace('/entry/' + self.id.value, {entry: state});
+      opts.entryService.updateEntry(state).then(function (response){
+        opts.page.replace('/entry/' + self.id.value, {entry: state});
       });
     }
   </script>

@@ -10,30 +10,30 @@
 
   <script>
     var self = this;
-    var page = opts.page;
-    var entryService = opts.entryService;
-    if(opts.server){
+    (opts.server) ? serverInit() : clientInit();
+    function serverInit(){
       formatDate();
-      self.update();
     }
-    else if(opts.entry.id && !opts.entry.text && entryService){
-      entryService.getEntryById(opts.entry.id).then(function (response){
-        opts.entry = response.body;
-        formatDate();
-        self.update();
-      });
+    function clientInit(){
+      if(opts.entry.id && !opts.entry.text){
+        opts.entryService.getEntryById(opts.entry.id).then(function (response){
+          opts.entry = response;
+          formatDate();
+        });
+      }
     }
     function formatDate(){
       opts.entry.date = new Date(opts.entry.date).toISOString().slice(0, 10);
+      self.update();
     }
     self.edit = function(e){
       e.preventDefault();
-      page('/entry/' + opts.entry.id + '/edit', {entry: opts.entry});
+      opts.page('/entry/' + opts.entry.id + '/edit', {entry: opts.entry});
     }
     self.del = function(e){
       e.preventDefault();
-      entryService.deleteEntry(opts.entry.id).then(function (response){
-        page.replace('/');
+      opts.entryService.deleteEntry(opts.entry.id).then(function (response){
+        opts.page.replace('/');
       });
     }
   </script>

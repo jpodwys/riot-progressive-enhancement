@@ -8,9 +8,8 @@
 
   <script>
     var self = this;
-    var entryService = opts.entryService;
-    if(!opts.entries && entryService){
-      entryService.getAllEntries().then(function (response){
+    if(!opts.entries && opts.entryService){
+      opts.entryService.getAllEntries().then(function (response){
         opts.entries = response.body;
         self.update();
       });
