@@ -1,11 +1,11 @@
 var promise = require('zousan');
 
 var entries = [
-  {id: '1', date: '1451695928417', isPublic: 0, text: 'This is the first of many test entries. Hopefully I can make some good progress.'},
-  {id: '2', date: '1451695928417', isPublic: 0, text: 'This is the second of many test entries. Hopefully I can make some good progress.'},
-  {id: '3', date: '1451695928417', isPublic: 0, text: 'This is the third of many test entries. Hopefully I can make some good progress.'},
-  {id: '4', date: '1451695928417', isPublic: 0, text: 'This is the fourth of many test entries. Hopefully I can make some good progress.'},
-  {id: '5', date: '1451695928417', isPublic: 0, text: 'This is the fifth of many test entries. Hopefully I can make some good progress.'}
+  {id: '1', ownerId: '1', date: 1451695928417, isPublic: false, text: 'This is the first of many test entries. Hopefully I can make some good progress.'},
+  {id: '2', ownerId: '2', date: 1451695928417, isPublic: false, text: 'This is the second of many test entries. Hopefully I can make some good progress.'},
+  {id: '3', ownerId: '3', date: 1451695928417, isPublic: false, text: 'This is the third of many test entries. Hopefully I can make some good progress.'},
+  {id: '4', ownerId: '4', date: 1451695928417, isPublic: false, text: 'This is the fourth of many test entries. Hopefully I can make some good progress.'},
+  {id: '5', ownerId: '1', date: 1451695928417, isPublic: false, text: 'This is the fifth of many test entries. Hopefully I can make some good progress.'}
 ];
 
 exports.getAllEntries = function(){
@@ -25,19 +25,23 @@ exports.getEntryById = function(id){
   });
 }
 
-exports.createEntry = function(text){
+exports.createEntry = function(entry){
   return new promise(function (resolve, reject){
-    var entryId = Math.random().toString(36).substr(2, 5);
-    entries.push({id: entryId, text: text});
-    resolve(entryId);
+    entry.id = Math.random().toString(36).substr(2, 5);
+    entry.date = (new Date(entry.date)).getTime();
+    entry.isPublic = !!entry.isPublic;
+    entries.push(entry);
+    resolve(entry.id);
   });
 }
 
-exports.updateEntry = function(id, text){
+exports.updateEntry = function(entry){
   return new promise(function (resolve, reject){
     for(var i = 0; i < entries.length; ++i){
-      if(entries[i].id === id){
-        entries[i].text = text;
+      if(entries[i].id === entry.id){
+        entry.date = (new Date(entry.date)).getTime();
+        entry.isPublic = !!entry.isPublic;
+        entries[i] = entry;
         resolve(true);
       }
     }

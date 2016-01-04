@@ -32,7 +32,7 @@ function entryDeleteAjax(req, res, data){
 exports.getIndex = function(req, res){
   entryService.getAllEntries().then(function (response){
     res.formOrAjax(
-      function(){ res.render('wrapper', {tag: riot.render(entryList, {entries: response})}); },
+      function(){ res.render('wrapper', {tag: riot.render(entryList, {server: true, entries: response})}); },
       function(){ res.send(response); }
     );
   });
@@ -41,7 +41,7 @@ exports.getIndex = function(req, res){
 exports.getEntry = function(req, res){
   entryService.getEntryById(req.params.id).then(function (response){
     res.formOrAjax(
-      function(){ res.render('wrapper', {tag: riot.render(entryView, {entry: response})}); },
+      function(){ res.render('wrapper', {tag: riot.render(entryView, {server: true, entry: response})}); },
       function(){ res.send(response); }
     );
   });
@@ -50,7 +50,7 @@ exports.getEntry = function(req, res){
 exports.getEditEntry = function(req, res){
   entryService.getEntryById(req.params.id).then(function (response){
     res.formOrAjax(
-      function(){ res.render('wrapper', {tag: riot.render(editEntry, {entry: response})}); },
+      function(){ res.render('wrapper', {tag: riot.render(editEntry, {server: true, entry: response})}); },
       function(){ res.send(response); }
     );
   });
@@ -58,19 +58,19 @@ exports.getEditEntry = function(req, res){
 
 exports.getNew = function(req, res){
   res.formOrAjax(
-    function(){ res.render('wrapper', {tag: riot.render(newEntry)}); },
+    function(){ res.render('wrapper', {tag: riot.render(newEntry, {server: true, entry: {date: new Date().getTime()}})}); },
     function(){ res.status(200).send('ok'); }
   );
 }
 
 exports.postEntry = function(req, res){
-  entryService.createEntry(req.body.text).then(function (response){
+  entryService.createEntry(req.body).then(function (response){
     res.formOrAjax(entryPostForm, entryPostAjax, response);
   });
 }
 
 exports.putEntry = function(req, res){
-  entryService.updateEntry(req.params.id, req.body.text).then(function (response){
+  entryService.updateEntry(req.body).then(function (response){
     res.formOrAjax(entryPutForm, entryPutAjax, response);
   });
 }

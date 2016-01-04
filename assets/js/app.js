@@ -23,7 +23,9 @@ function entries(){
 }
 
 function entry(ctx){
-  renderView('entry-view', {page: page, entryService: entryService, entry: {id: ctx.params.id, text: ctx.state.text}});
+  var entry = ctx.state.entry || {};
+  entry.id = ctx.params.id;
+  renderView('entry-view', {page: page, entryService: entryService, entry: entry});
 }
 
 function newEntry(){
@@ -31,5 +33,7 @@ function newEntry(){
 }
 
 function editEntry(ctx){
-  renderView('edit-entry', {page: page, entryService: entryService, entry: {id: ctx.params.id, text: ctx.state.text}});
+  var entry = ctx.state.entry || {};
+  entry.id = ctx.params.id;
+  renderView('edit-entry', {page: page, entryService: entryService, entry: entry});
 }
