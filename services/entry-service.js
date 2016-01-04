@@ -2,10 +2,10 @@ var promise = require('zousan');
 
 var entries = [
   {id: '1', ownerId: '1', date: 1451695928417, isPublic: false, text: 'This is the first of many test entries. Hopefully I can make some good progress.'},
-  {id: '2', ownerId: '2', date: 1451695928417, isPublic: false, text: 'This is the second of many test entries. Hopefully I can make some good progress.'},
-  {id: '3', ownerId: '3', date: 1451695928417, isPublic: false, text: 'This is the third of many test entries. Hopefully I can make some good progress.'},
-  {id: '4', ownerId: '4', date: 1451695928417, isPublic: false, text: 'This is the fourth of many test entries. Hopefully I can make some good progress.'},
-  {id: '5', ownerId: '1', date: 1451695928417, isPublic: false, text: 'This is the fifth of many test entries. Hopefully I can make some good progress.'}
+  {id: '2', ownerId: '2', date: 1441695928417, isPublic: true, text: 'This is the second of many test entries. This is a pretty cool demo.'},
+  {id: '3', ownerId: '3', date: 1431695928417, isPublic: false, text: 'This is the third of many test entries. I\'m really enjoying riotjs and this stack.'},
+  {id: '4', ownerId: '4', date: 1421695928417, isPublic: true, text: 'This is the fourth of many test entries. I\'m really excited to show this demo off.'},
+  {id: '5', ownerId: '1', date: 1411695928417, isPublic: false, text: 'This is the fifth of many test entries. I think I\'ll write all my future projects like this.'}
 ];
 
 exports.getAllEntries = function(){
