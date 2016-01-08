@@ -21,7 +21,7 @@ exports.getEntry = function(req, res){
 exports.getEditEntry = function(req, res){
   res.formOrAjax(
     function(){ res.render('wrapper', {tag: riot.render(editEntry, {entry: req.response})}); },
-    function(){ res.send(response); }
+    function(){ res.send(req.response); }
   );
 }
 
