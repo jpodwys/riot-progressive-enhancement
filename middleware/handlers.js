@@ -6,28 +6,28 @@ var riot = require('riot'),
 
 exports.getIndex = function(req, res){
   res.formOrAjax(
-    function(){ res.render('wrapper', {tag: riot.render(entryList, {server: true, entries: req.response})}); },
+    function(){ res.render('wrapper', {tag: riot.render(entryList, {entries: req.response})}); },
     function(){ res.send(req.response); }
   );
 }
 
 exports.getEntry = function(req, res){
   res.formOrAjax(
-    function(){ res.render('wrapper', {tag: riot.render(entryView, {server: true, entry: req.response})}); },
+    function(){ res.render('wrapper', {tag: riot.render(entryView, {entry: req.response})}); },
     function(){ res.send(req.response); }
   );
 }
 
 exports.getEditEntry = function(req, res){
   res.formOrAjax(
-    function(){ res.render('wrapper', {tag: riot.render(editEntry, {server: true, entry: req.response})}); },
+    function(){ res.render('wrapper', {tag: riot.render(editEntry, {entry: req.response})}); },
     function(){ res.send(response); }
   );
 }
 
 exports.getNew = function(req, res){
   res.formOrAjax(
-    function(){ res.render('wrapper', {tag: riot.render(newEntry, {server: true, entry: {date: new Date().getTime()}})}); },
+    function(){ res.render('wrapper', {tag: riot.render(newEntry, {entry: {date: new Date().getTime()}})}); },
     function(){ res.status(200).send('ok'); }
   );
 }
