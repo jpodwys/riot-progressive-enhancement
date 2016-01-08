@@ -6,7 +6,7 @@ var express = require('express'),
   app = express(),
   resMods = require('./middleware/response-mods'),
   entryService = require('./services/entry-service'),
-  entry = new (require('./middleware/entry'))(entryService),
+  entry = new (require('./middleware/service-wrapper'))(entryService),
   handlers = require('./middleware/handlers'),
   PORT = process.env.PORT || 3000;
 

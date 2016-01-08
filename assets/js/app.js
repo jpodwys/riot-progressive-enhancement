@@ -1,5 +1,6 @@
 var page = require('page'),
-  entryService = require('./entry-service.js');
+  entryService = require('./entry-service'),
+  entry = new (require('../../middleware/service-wrapper'))(entryService),
   riot = require('riot'),
   entryListTag = require('../tags/entry-list.tag'),
   entryViewTag = require('../tags/entry-view.tag'),
@@ -7,10 +8,10 @@ var page = require('page'),
   editEntryTag = require('../tags/edit-entry.tag');
 
 page.base('/');
-page('/', entries);
-page('entry/:id', entry);
-page('entry/:id/edit', editEntry);
-page('new', newEntry);
+page('/', entry.getAllEntries, entriesHandler);
+page('entry/:id', entry.getEntryById, entryHandler);
+page('entry/:id/edit', editEntryHandler);
+page('new', newEntryHandler);
 page({dispatch: false});
 
 function renderView(tagName, data){
@@ -18,21 +19,21 @@ function renderView(tagName, data){
   riot.mount(tagName, data);
 }
 
-function entries(){
-  renderView('entry-list', {entryService: entryService});
+function entriesHandler(ctx){
+  renderView('entry-list', {entries: ctx.response});
 }
 
-function entry(ctx){
+function entryHandler(ctx){
   var entry = ctx.state.entry || {};
   entry.id = ctx.params.id;
-  renderView('entry-view', {page: page, entryService: entryService, entry: entry});
+  renderView('entry-view', {page: page, entry: ctx.response});
 }
 
-function newEntry(){
+function newEntryHandler(){
   renderView('new-entry', {page: page, entryService: entryService});
 }
 
-function editEntry(ctx){
+function editEntryHandler(ctx){
   var entry = ctx.state.entry || {};
   entry.id = ctx.params.id;
   renderView('edit-entry', {page: page, entryService: entryService, entry: entry});

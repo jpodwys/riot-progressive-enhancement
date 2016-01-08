@@ -9,18 +9,7 @@
 
   <script>
     var self = this;
-    (opts.server) ? serverInit() : clientInit();
-    function serverInit(){
-      formatDate();
-    }
-    function clientInit(){
-      if(opts.entry.id && !opts.entry.text){
-        opts.entryService.getEntryById(opts.entry.id).then(function (response){
-          opts.entry = response;
-          formatDate();
-        });
-      }
-    }
+    formatDate();
     function formatDate(){
       opts.entry.date = new Date(opts.entry.date).toISOString().slice(0, 10);
       self.update();
