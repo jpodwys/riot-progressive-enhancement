@@ -18,7 +18,8 @@
       e.preventDefault();
       var state = {date: self.date.value, text: self.text.value, isPublic: self.isPublic.checked};
       entryService.createEntry(state).then(function (response){
-        page.replace('/entry/' + response.body.id, {entry: state});
+        state.id = response.body.id;
+        page.replace('/entry/' + response.body.id, {data: state});
       });
     }
   </script>

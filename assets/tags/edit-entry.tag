@@ -9,7 +9,7 @@
 
   <script>
     var self = this;
-    formatDate();
+    if(opts.entry.date.toString().indexOf('-') < 0) formatDate();
     function formatDate(){
       opts.entry.date = new Date(opts.entry.date).toISOString().slice(0, 10);
       self.update();

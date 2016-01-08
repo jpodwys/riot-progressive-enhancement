@@ -10,7 +10,7 @@ var page = require('page'),
 page.base('/');
 page('/', entry.getAllEntries, entriesHandler);
 page('entry/:id', entry.getEntryById, entryHandler);
-page('entry/:id/edit', editEntryHandler);
+page('entry/:id/edit', entry.getEntryById, editEntryHandler);
 page('new', newEntryHandler);
 page({dispatch: false});
 
@@ -24,9 +24,8 @@ function entriesHandler(ctx){
 }
 
 function entryHandler(ctx){
-  var entry = ctx.state.entry || {};
-  entry.id = ctx.params.id;
-  renderView('entry-view', {page: page, entry: ctx.response});
+  var entry = ctx.state.data || null;
+  renderView('entry-view', {page: page, entry: entry || ctx.response});
 }
 
 function newEntryHandler(){
@@ -34,7 +33,6 @@ function newEntryHandler(){
 }
 
 function editEntryHandler(ctx){
-  var entry = ctx.state.entry || {};
-  entry.id = ctx.params.id;
-  renderView('edit-entry', {page: page, entryService: entryService, entry: entry});
+  var entry = ctx.state.data || null;
+  renderView('edit-entry', {page: page, entryService: entryService, entry: entry || ctx.response});
 }

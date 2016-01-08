@@ -10,14 +10,14 @@
 
   <script>
     var self = this;
-    formatDate();
+    if(opts.entry.date.toString().indexOf('-') < 0) formatDate();
     function formatDate(){
       opts.entry.date = new Date(opts.entry.date).toISOString().slice(0, 10);
       self.update();
     }
     self.edit = function(e){
       e.preventDefault();
-      opts.page('/entry/' + opts.entry.id + '/edit', {entry: opts.entry});
+      opts.page('/entry/' + opts.entry.id + '/edit', {data: opts.entry});
     }
     self.del = function(e){
       e.preventDefault();
