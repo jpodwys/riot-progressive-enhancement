@@ -5,6 +5,8 @@ var express = require('express'),
   // stream = require('express-stream'),
   app = express(),
   resMods = require('./middleware/response-mods'),
+  entryService = require('./services/entry-service'),
+  entry = new (require('./middleware/entry'))(entryService),
   handlers = require('./middleware/handlers'),
   PORT = process.env.PORT || 3000;
 
@@ -18,13 +20,13 @@ app.use(resMods.formOrAjax);
 app.use(express.static('assets'));
 app.use(express.static('views'));
 
-app.get('/', handlers.getIndex);
-app.get('/entry/:id', handlers.getEntry);
-app.get('/entry/:id/edit', handlers.getEditEntry);
+app.get('/', entry.getAllEntries, handlers.getIndex);
+app.get('/entry/:id', entry.getEntryById, handlers.getEntry);
+app.get('/entry/:id/edit', entry.getEntryById, handlers.getEditEntry);
 app.get('/new', handlers.getNew);
-app.post('/entry', handlers.postEntry);
-app.put('/entry/:id', handlers.putEntry);
-app.delete('/entry/:id', handlers.deleteEntry);
+app.post('/entry', entry.createEntry, handlers.postEntry);
+app.put('/entry/:id', entry.updateEntry, handlers.putEntry);
+app.delete('/entry/:id', entry.deleteEntry, handlers.deleteEntry);
 
 var server = app.listen(PORT, function () {
   var host = server.address().address;

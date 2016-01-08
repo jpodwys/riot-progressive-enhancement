@@ -1,59 +1,28 @@
-var entryService = require('../services/entry-service'),
-  riot = require('riot'),
+var riot = require('riot'),
   entryList = require('../assets/tags/entry-list.tag'),
   entryView = require('../assets/tags/entry-view.tag'),
   newEntry = require('../assets/tags/new-entry.tag'),
   editEntry = require('../assets/tags/edit-entry.tag');
 
-function entryPostForm(req, res, data){
-  res.redirect('/entry/' + data);
-}
-
-function entryPostAjax(req, res, data){
-  res.send({id: data});
-}
-
-function entryPutForm(req, res, data){
-  res.redirect('/entry/' + req.body.id);
-}
-
-function entryPutAjax(req, res, data){
-  res.status(200).send('ok');
-}
-
-function entryDeleteForm(req, res, data){
-  res.redirect('/');
-}
-
-function entryDeleteAjax(req, res, data){
-  res.status(200).send('ok');
-}
-
 exports.getIndex = function(req, res){
-  entryService.getAllEntries().then(function (response){
-    res.formOrAjax(
-      function(){ res.render('wrapper', {tag: riot.render(entryList, {server: true, entries: response})}); },
-      function(){ res.send(response); }
-    );
-  });
+  res.formOrAjax(
+    function(){ res.render('wrapper', {tag: riot.render(entryList, {server: true, entries: req.response})}); },
+    function(){ res.send(req.response); }
+  );
 }
 
 exports.getEntry = function(req, res){
-  entryService.getEntryById(req.params.id).then(function (response){
-    res.formOrAjax(
-      function(){ res.render('wrapper', {tag: riot.render(entryView, {server: true, entry: response})}); },
-      function(){ res.send(response); }
-    );
-  });
+  res.formOrAjax(
+    function(){ res.render('wrapper', {tag: riot.render(entryView, {server: true, entry: req.response})}); },
+    function(){ res.send(req.response); }
+  );
 }
 
 exports.getEditEntry = function(req, res){
-  entryService.getEntryById(req.params.id).then(function (response){
-    res.formOrAjax(
-      function(){ res.render('wrapper', {tag: riot.render(editEntry, {server: true, entry: response})}); },
-      function(){ res.send(response); }
-    );
-  });
+  res.formOrAjax(
+    function(){ res.render('wrapper', {tag: riot.render(editEntry, {server: true, entry: req.response})}); },
+    function(){ res.send(response); }
+  );
 }
 
 exports.getNew = function(req, res){
@@ -64,19 +33,22 @@ exports.getNew = function(req, res){
 }
 
 exports.postEntry = function(req, res){
-  entryService.createEntry(req.body).then(function (response){
-    res.formOrAjax(entryPostForm, entryPostAjax, response);
-  });
+  res.formOrAjax(
+    function(){ res.redirect('/entry/' + req.response); },
+    function(){ res.send({id: req.response}); }
+  );
 }
 
 exports.putEntry = function(req, res){
-  entryService.updateEntry(req.body).then(function (response){
-    res.formOrAjax(entryPutForm, entryPutAjax, response);
-  });
+  res.formOrAjax(
+    function(){ res.redirect('/entry/' + req.body.id); },
+    function(){ res.status(200).send('ok'); }
+  );
 }
 
 exports.deleteEntry = function(req, res){
-  entryService.deleteEntry(req.params.id).then(function (response){
-    res.formOrAjax(entryDeleteForm, entryDeleteAjax, response);
-  });
+  res.formOrAjax(
+    function(){ res.redirect('/'); },
+    function(){ res.status(200).send('ok'); }
+  );
 }

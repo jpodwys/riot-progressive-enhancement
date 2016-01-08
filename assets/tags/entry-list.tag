@@ -10,7 +10,7 @@
     var self = this;
     if(!opts.entries && opts.entryService){
       opts.entryService.getAllEntries().then(function (response){
-        opts.entries = response.body;
+        opts.entries = response.body || response;
         self.update();
       });
     }
