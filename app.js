@@ -8,8 +8,7 @@ var express = require('express'),
   entryService = require('./services/entry-service'),
   entry = new (require('./middleware/service-wrapper'))(entryService),
   handlers = require('./middleware/handlers'),
-  PORT = process.env.PORT || 3000,
-  exp = 1000 * 60 * 60;
+  PORT = process.env.PORT || 3000;
 
 app.set('views', './views');
 app.set('view engine', 'ejs');
@@ -18,7 +17,7 @@ app.use(bodyParser.json());
 app.use(methodOverride('_method'));
 app.use(resMods.vary);
 app.use(resMods.formOrAjax);
-app.use(express.static('assets'), {maxAge: exp});
+app.use(express.static('assets'));
 app.use(express.static('views'));
 
 app.get('/', entry.getAllEntries, handlers.getIndex);
