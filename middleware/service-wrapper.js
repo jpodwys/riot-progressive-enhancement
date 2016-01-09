@@ -1,4 +1,4 @@
-function entry(service){
+function serviceWrapper(service){
   var self = this;
   var availableFunctions = Object.keys(service);
 
@@ -15,4 +15,4 @@ function entry(service){
   });
 }
 
-module.exports = entry;
+module.exports = serviceWrapper;
