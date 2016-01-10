@@ -57,6 +57,7 @@ exports.deleteEntry = function(id){
         resolve(true);
       }
     }
-    reject(false);
+    resolve(true);
+    // reject(false);
   });
 }
