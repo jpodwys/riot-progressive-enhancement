@@ -19,7 +19,6 @@ exports.getEntryById = function(id){
     for(var i = 0; i < entries.length; ++i){
       if(entries[i].id === id){
         resolve(entries[i]);
-        return;
       }
     }
     reject({id: id, text: 'Entry not found'});
@@ -33,7 +32,6 @@ exports.createEntry = function(entry){
     entry.isPublic = !!entry.isPublic;
     entries.push(entry);
     resolve(entry.id);
-    return;
   });
 }
 
@@ -45,7 +43,6 @@ exports.updateEntry = function(entry){
         entry.isPublic = !!entry.isPublic;
         entries[i] = entry;
         resolve(true);
-        return;
       }
     }
     reject(false);
@@ -58,7 +55,6 @@ exports.deleteEntry = function(id){
       if(entries[i].id === id){
         entries.splice(i, 1);
         resolve(true);
-        return;
       }
     }
     reject(false);
