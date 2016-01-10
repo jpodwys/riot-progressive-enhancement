@@ -1,11 +1,11 @@
 var promise = require('zousan'),
-  xhr = require('superagent-cache')(null, null, {responseProp: 'body'});
+  xhr = require('superagent-cache')(null, null, null);
 require('superagent-promise')(xhr, promise);
 
 exports.getAllEntries = function(){
   return xhr.get('/')
     .accept('application/json')
-    .end();
+    ._end();
 }
 
 exports.getEntryById = function(id){
