@@ -14,7 +14,7 @@ exports.getIndex = function(req, res){
 exports.getEntry = function(req, res){
   res.formOrAjax(
     function(){ res.render('wrapper', {tag: riot.render(entryView, {entry: req.response})}); },
-    function(){ res.status(200).send(req.response); }
+    function(){ res.status(200).send('ok'); }
   );
 }
 
