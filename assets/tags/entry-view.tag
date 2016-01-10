@@ -22,7 +22,6 @@
     self.del = function(e){
       e.preventDefault();
       opts.entryService.deleteEntry(opts.entry.id).then(function (response){
-        opts.entryService.xhr.reset();
         opts.page.replace('/');
       });
     }

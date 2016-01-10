@@ -2,8 +2,6 @@ var promise = require('zousan'),
   xhr = require('superagent-cache')(null, null, {responseProp: 'body'});
 require('superagent-promise')(xhr, promise);
 
-exports.xhr = xhr;
-
 exports.getAllEntries = function(){
   return xhr.get('/')
     .accept('application/json')
