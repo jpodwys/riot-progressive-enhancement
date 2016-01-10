@@ -25,7 +25,7 @@ function entriesHandler(ctx){
 
 function entryHandler(ctx){
   var entry = ctx.state.data || null;
-  renderView('entry-view', {page: page, entry: entry || ctx.response});
+  renderView('entry-view', {page: page, entryService: entryService, entry: entry || ctx.response});
 }
 
 function newEntryHandler(){
