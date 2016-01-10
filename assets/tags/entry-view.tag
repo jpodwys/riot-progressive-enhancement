@@ -24,7 +24,7 @@
       opts.entryService.deleteEntry(opts.entry.id).then(function (response){
         setTimeout(function(){
           opts.page.replace('/');
-        }, 500);
+        }, 1000);
       });
     }
   </script>
