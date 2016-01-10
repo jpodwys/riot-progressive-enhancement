@@ -1,5 +1,5 @@
 var promise = require('zousan'),
-  xhr = require('superagent-cache')(null, null, null);
+  xhr = require('superagent-cache')(null, null, {responseProp: 'body'});
 require('superagent-promise')(xhr, promise);
 
 exports.getAllEntries = function(){
