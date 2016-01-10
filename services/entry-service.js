@@ -10,7 +10,6 @@ var entries = [
 
 exports.getAllEntries = function(){
   return new promise(function (resolve, reject){
-    console.log('getAllEntriesCalled', entries);
     return resolve(entries);
   });
 }

@@ -5,6 +5,7 @@ var riot = require('riot'),
   editEntry = require('../assets/tags/edit-entry.tag');
 
 exports.getIndex = function(req, res){
+  console.log('req.response', req.response);
   res.formOrAjax(
     function(){ res.render('wrapper', {tag: riot.render(entryList, {entries: req.response})}); },
     function(){ res.send(req.response); }
