@@ -18,7 +18,7 @@ exports.getEntryById = function(id){
   return new promise(function (resolve, reject){
     for(var i = 0; i < entries.length; ++i){
       if(entries[i].id === id){
-        resolve(entries[i]);
+        return resolve(entries[i]);
       }
     }
     reject({id: id, text: 'Entry not found'});
@@ -54,10 +54,9 @@ exports.deleteEntry = function(id){
     for(var i = 0; i < entries.length; ++i){
       if(entries[i].id === id){
         entries.splice(i, 1);
-        resolve(true);
+        return resolve(true);
       }
     }
-    resolve(true);
-    // reject(false);
+    reject(false);
   });
 }
