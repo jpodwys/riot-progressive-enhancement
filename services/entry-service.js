@@ -21,7 +21,7 @@ exports.getEntryById = function(id){
         return resolve(entries[i]);
       }
     }
-    reject({id: id, text: 'Entry not found'});
+    return reject({id: id, text: 'Entry not found'});
   });
 }
 
@@ -31,7 +31,7 @@ exports.createEntry = function(entry){
     entry.date = (new Date(entry.date)).getTime();
     entry.isPublic = !!entry.isPublic;
     entries.push(entry);
-    resolve(entry.id);
+    return resolve(entry.id);
   });
 }
 
@@ -42,10 +42,10 @@ exports.updateEntry = function(entry){
         entry.date = (new Date(entry.date)).getTime();
         entry.isPublic = !!entry.isPublic;
         entries[i] = entry;
-        resolve(true);
+        return resolve(true);
       }
     }
-    reject(false);
+    return reject(false);
   });
 }
 
@@ -57,6 +57,6 @@ exports.deleteEntry = function(id){
         return resolve(true);
       }
     }
-    reject(false);
+    return reject(false);
   });
 }
