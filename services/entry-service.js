@@ -10,8 +10,7 @@ var entries = [
 
 exports.getAllEntries = function(){
   return new promise(function (resolve, reject){
-    resolve(entries);
-    return;
+    return resolve(entries);
   });
 }
 
@@ -19,12 +18,10 @@ exports.getEntryById = function(id){
   return new promise(function (resolve, reject){
     for(var i = 0; i < entries.length; ++i){
       if(entries[i].id === id){
-        resolve(entries[i]);
-        return;
+        return resolve(entries[i]);
       }
     }
-    reject({id: id, text: 'Entry not found'});
-    return;
+    return reject({id: id, text: 'Entry not found'});
   });
 }
 
@@ -34,8 +31,7 @@ exports.createEntry = function(entry){
     entry.date = (new Date(entry.date)).getTime();
     entry.isPublic = !!entry.isPublic;
     entries.push(entry);
-    resolve(entry.id);
-    return;
+    return resolve(entry.id);
   });
 }
 
@@ -46,12 +42,10 @@ exports.updateEntry = function(entry){
         entry.date = (new Date(entry.date)).getTime();
         entry.isPublic = !!entry.isPublic;
         entries[i] = entry;
-        resolve(true);
-        return;
+        return resolve(true);
       }
     }
-    reject(false);
-    return;
+    return reject(false);
   });
 }
 
@@ -60,11 +54,9 @@ exports.deleteEntry = function(id){
     for(var i = 0; i < entries.length; ++i){
       if(entries[i].id === id){
         entries.splice(i, 1);
-        resolve(true);
-        return;
+        return resolve(true);
       }
     }
-    resolve(true);
-    return;
+    return resolve(true);
   });
 }

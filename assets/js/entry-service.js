@@ -5,7 +5,7 @@ require('superagent-promise')(xhr, promise);
 exports.getAllEntries = function(){
   return xhr.get('/')
     .accept('application/json')
-    ._end();
+    .end();
 }
 
 exports.getEntryById = function(id){
