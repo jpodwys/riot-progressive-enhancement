@@ -9,11 +9,9 @@ var entries = [
 ];
 
 exports.getAllEntries = function(){
-  setTimeout(function(){
-    return new promise(function (resolve, reject){
-      resolve(entries);
-    });
-  }, 100);
+  return new promise(function (resolve, reject){
+    resolve(entries);
+  });
 }
 
 exports.getEntryById = function(id){
