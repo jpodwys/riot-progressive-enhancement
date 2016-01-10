@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 app.use(methodOverride('_method'));
 app.use(resMods.vary);
 app.use(resMods.formOrAjax);
-app.use(express.static('assets'), {maxAge: oneDay});
+app.use(express.static('assets', {maxAge: '1h'}));
 app.use(express.static('views'));
 
 app.get('/', entry.getAllEntries, handlers.getIndex);
