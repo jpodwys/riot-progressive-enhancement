@@ -5,12 +5,10 @@ var riot = require('riot'),
   editEntry = require('../assets/tags/edit-entry.tag');
 
 exports.getIndex = function(req, res){
-  setTimeout(function(){
-    res.formOrAjax(
-      function(){ res.render('wrapper', {tag: riot.render(entryList, {entries: req.response})}); },
-      function(){ res.status(200).send(req.response); }
-    );
-  }, 1000);
+  res.formOrAjax(
+    function(){ res.render('wrapper', {tag: riot.render(entryList, {entries: req.response})}); },
+    function(){ res.status(200).send(req.response); }
+  );
 }
 
 exports.getEntry = function(req, res){
