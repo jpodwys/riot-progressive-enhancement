@@ -1,4 +1,5 @@
 var express = require('express'),
+  compress = require('compression'),
   methodOverride = require('method-override'),
   bodyParser = require('body-parser'),
   ejs = require('ejs'),
@@ -12,6 +13,7 @@ var express = require('express'),
 
 app.set('views', './views');
 app.set('view engine', 'ejs');
+app.use(compress());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(methodOverride('_method'));
