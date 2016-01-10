@@ -15,7 +15,7 @@
     this.create = function(e){
       e.preventDefault();
       var state = {date: self.date.value, text: self.text.value, isPublic: self.isPublic.checked};
-      opts.createEntry(state).then(function (response){
+      opts.entryService.createEntry(state).then(function (response){
         state.id = response.body.id;
         opts.page.replace('/entry/' + response.body.id, {data: state});
       });
