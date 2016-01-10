@@ -4,10 +4,9 @@ function serviceWrapper(service){
 
   availableFunctions.forEach(function (func){
     self[func] = function (req, res, next){
-      console.log('Is On Server:', !!next);
       var data = null;
-      if(next) data = ((Object.keys(req.body).length) ? req.body : req.params.id) || null;
-      else data = req.state.entry || req.params.id || null;
+      if(next) data = ((Object.keys(req.body).length) ? req.body : req.params.id);
+      else data = req.state.entry || req.params.id;
       service[func](data).then(function (response){
         req.response = response.body || response;
         (next) ? next() : res();

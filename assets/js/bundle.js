@@ -19,7 +19,7 @@ var riot=require("riot");module.exports=riot.tag2("entry-view",'<h1>{opts.entry.
 var riot=require("riot");module.exports=riot.tag2("new-entry",'<form method="post" action="/entry" onsubmit="{create}"> <input name="date" value="{opts.entry.date}"> <textarea name="text"></textarea> Is Public: <input type="checkbox" name="isPublic" __checked="{opts.entry.isPublic}"> <input type="submit"> </form>',"","",function(e){var t=this;e.entry={date:(new Date).toISOString().slice(0,10)},t.update(),this.create=function(a){a.preventDefault();var i={date:t.date.value,text:t.text.value,isPublic:t.isPublic.checked};e.entryService.createEntry(i).then(function(t){i.id=t.body.id,e.page.replace("/entry/"+t.body.id,{data:i})})}},"{ }");
 
 },{"riot":12}],8:[function(require,module,exports){
-function serviceWrapper(e){var n=this,r=Object.keys(e);r.forEach(function(r){n[r]=function(n,o,s){console.log("Is On Server:",!!s);var t=null;t=s?(Object.keys(n.body).length?n.body:n.params.id)||null:n.state.entry||n.params.id||null,e[r](t).then(function(e){n.response=e.body||e,s?s():o()})}})}module.exports=serviceWrapper;
+function serviceWrapper(e){var r=this,n=Object.keys(e);n.forEach(function(n){r[n]=function(r,t,o){var s=null;s=o?Object.keys(r.body).length?r.body:r.params.id:r.state.entry||r.params.id,e[n](s).then(function(e){r.response=e.body||e,o?o():t()})}})}module.exports=serviceWrapper;
 
 },{}],9:[function(require,module,exports){
 (function (process){
