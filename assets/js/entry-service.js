@@ -3,9 +3,11 @@ var promise = require('zousan'),
 require('superagent-promise')(xhr, promise);
 
 exports.getAllEntries = function(){
-  return xhr.get('/')
+  var p = xhr.get('/')
     .accept('application/json')
     ._end();
+    console.log('Promise', p);
+  return p;
 }
 
 exports.getEntryById = function(id){
