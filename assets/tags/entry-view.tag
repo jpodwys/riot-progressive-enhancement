@@ -22,7 +22,9 @@
     self.del = function(e){
       e.preventDefault();
       opts.entryService.deleteEntry(opts.entry.id).then(function (response){
-        opts.page.replace('/');
+        setTimeout(function(){
+          opts.page.replace('/');
+        }, 1);
       });
     }
   </script>
