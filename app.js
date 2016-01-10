@@ -22,7 +22,7 @@ app.use(resMods.formOrAjax);
 app.use(express.static('assets'/*, {maxAge: '1h'}*/));
 app.use(express.static('views'));
 
-app.get('/', /*entry.getAllEntries, */handlers.getIndex);
+app.get('/', entry.getAllEntries, handlers.getIndex);
 app.get('/entry/:id', entry.getEntryById, handlers.getEntry);
 app.get('/entry/:id/edit', entry.getEntryById, handlers.getEditEntry);
 app.get('/new', handlers.getNew);

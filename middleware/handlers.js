@@ -4,15 +4,13 @@ var riot = require('riot'),
   newEntry = require('../assets/tags/new-entry.tag'),
   editEntry = require('../assets/tags/edit-entry.tag');
 
-var entryService = require('../services/entry-service');
-
 exports.getIndex = function(req, res){
-  entryService.getAllEntries().then(function (response){
+  setTimeout(function(){
     res.formOrAjax(
-      function(){ res.render('wrapper', {tag: riot.render(entryList, {entries: response})}); },
-      function(){ res.status(200).send(response); }
+      function(){ res.render('wrapper', {tag: riot.render(entryList, {entries: req.response})}); },
+      function(){ res.status(200).send(req.response); }
     );
-  });
+  }, 1000);
 }
 
 exports.getEntry = function(req, res){
