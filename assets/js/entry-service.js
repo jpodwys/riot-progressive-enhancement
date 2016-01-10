@@ -3,6 +3,7 @@ var promise = require('zousan'),
 require('superagent-promise')(xhr, promise);
 
 exports.getAllEntries = function(){
+  console.log('HERE');
   var p = xhr.get('/')
     .accept('application/json')
     ._end();
