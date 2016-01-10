@@ -5,24 +5,23 @@ var riot = require('riot'),
   editEntry = require('../assets/tags/edit-entry.tag');
 
 exports.getIndex = function(req, res){
-  console.log('req.response', req.response);
   res.formOrAjax(
     function(){ res.render('wrapper', {tag: riot.render(entryList, {entries: req.response})}); },
-    function(){ res.send(req.response); }
+    function(){ res.status(200).send(req.response); }
   );
 }
 
 exports.getEntry = function(req, res){
   res.formOrAjax(
     function(){ res.render('wrapper', {tag: riot.render(entryView, {entry: req.response})}); },
-    function(){ res.send(req.response); }
+    function(){ res.status(200).send(req.response); }
   );
 }
 
 exports.getEditEntry = function(req, res){
   res.formOrAjax(
     function(){ res.render('wrapper', {tag: riot.render(editEntry, {entry: req.response})}); },
-    function(){ res.send(req.response); }
+    function(){ res.status(200).send(req.response); }
   );
 }
 
@@ -36,7 +35,7 @@ exports.getNew = function(req, res){
 exports.postEntry = function(req, res){
   res.formOrAjax(
     function(){ res.redirect('/entry/' + req.response); },
-    function(){ res.send({id: req.response}); }
+    function(){ res.status(200).send({id: req.response}); }
   );
 }
 
