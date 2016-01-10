@@ -6,7 +6,7 @@ exports.getAllEntries = function(){
   console.log('HERE');
   var p = xhr.get('/')
     .accept('application/json')
-    ._end();
+    .end();
     console.log('Promise', p);
   return p;
 }
