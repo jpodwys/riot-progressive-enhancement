@@ -8,7 +8,7 @@
 
   <script>
     var self = this;
-    if(!opts.entry){
+    if(!opts.entry && opts.entryService){
       opts.entryService.getAllEntries().then(function (response){
         opts.entries = response.body;
         self.update();
