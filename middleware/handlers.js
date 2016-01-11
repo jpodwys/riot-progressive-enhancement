@@ -28,7 +28,7 @@ exports.getEditEntry = function(req, res){
 exports.getNew = function(req, res){
   res.formOrAjax(
     function(){ res.render('wrapper', {tag: riot.render(newEntry, {entry: {date: new Date().getTime()}})}); },
-    function(){ res.status(200).send('ok'); }
+    function(){ res.status(204); }
   );
 }
 
@@ -42,13 +42,13 @@ exports.postEntry = function(req, res){
 exports.putEntry = function(req, res){
   res.formOrAjax(
     function(){ res.redirect('/entry/' + req.body.id); },
-    function(){ res.status(200).send('ok'); }
+    function(){ res.status(204); }
   );
 }
 
 exports.deleteEntry = function(req, res){
   res.formOrAjax(
     function(){ res.redirect('/'); },
-    function(){ res.status(200).send('ok'); }
+    function(){ res.status(204); }
   );
 }
