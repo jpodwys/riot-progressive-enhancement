@@ -54,9 +54,9 @@ exports.deleteEntry = function(id){
     for(var i = 0; i < entries.length; ++i){
       if(entries[i].id === id){
         entries.splice(i, 1);
-        return resolve(true);
+        resolve(true);
       }
     }
-    return resolve(true);
+    resolve(true);
   });
 }
