@@ -23,7 +23,7 @@
       e.preventDefault();
       opts.entryService.deleteEntry(opts.entry.id).then(function (response){
         opts.page.replace('/');
-      });
+      }, function(){});
     }
   </script>
 </entry-view>
