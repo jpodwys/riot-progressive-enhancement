@@ -214,13 +214,7 @@ module.exports = riot.tag2('entry-view', '<h1>{opts.entry.date}</h1> <span if="{
       e.preventDefault();
 
       opts.entryService.deleteEntry(opts.entry.id).then(function (response){
-        if (document) {
-          setTimeout(function(argument) {
-            document.querySelector('#thing').click();
-
-          }, 1500);
-        }
-
+        opts.page.replace('/');
       });
     }
 }, '{ }');
@@ -2829,7 +2823,7 @@ function setEventHandler(name, handler, dom, tag) {
     e.item = item
 
     // prevent default behaviour (by default)
-    if (handler.call(tag, e) !== true && !/radio|check/.test(dom.type)) {
+    if (handler.call(tag, e) !== true && !/submit|radio|check/.test(dom.type)) {
       if (e.preventDefault) e.preventDefault()
       e.returnValue = false
     }
