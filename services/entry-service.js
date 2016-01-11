@@ -10,9 +10,7 @@ var entries = [
 
 exports.getAllEntries = function(){
   return new promise(function (resolve, reject){
-    setTimeout(function(){
-      return resolve(entries);
-    }, 1000);
+    return resolve(entries);
   });
 }
 
