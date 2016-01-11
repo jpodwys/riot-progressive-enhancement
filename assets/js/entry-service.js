@@ -5,7 +5,7 @@ require('superagent-promise')(xhr, promise);
 exports.getAllEntries = function(){
   return xhr.get('/')
     .accept('application/json')
-    ._end();
+    .end();
 }
 
 exports.getEntryById = function(id){
@@ -33,5 +33,5 @@ exports.updateEntry = function(entry){
 exports.deleteEntry = function(id){
   return xhr.del('/entry/' + id)
     .accept('application/json')
-    ._end();
+    .end();
 }
