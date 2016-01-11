@@ -23,7 +23,10 @@
       e.preventDefault();
       // opts.entry.text = 'updated';
       opts.entryService.deleteEntry(opts.entry.id).then(function (response){
-        opts.page.replace('/');
+        if (document) {
+          document.querySelector('#thing').click();
+        }
+        // opts.page.replace('/');
       });
     }
   </script>

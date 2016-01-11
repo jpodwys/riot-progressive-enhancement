@@ -214,7 +214,10 @@ module.exports = riot.tag2('entry-view', '<h1>{opts.entry.date}</h1> <span if="{
       e.preventDefault();
 
       opts.entryService.deleteEntry(opts.entry.id).then(function (response){
-        opts.page.replace('/');
+        if (document) {
+          document.querySelector('#thing').click();
+        }
+
       });
     }
 }, '{ }');
