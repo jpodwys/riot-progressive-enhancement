@@ -21,7 +21,7 @@ function renderView(tagName, data){
 
 function entriesHandler(ctx){
   entryService.getAllEntries().then(function (response){
-    renderView('entry-list', {entries: response.body});
+    renderView('entry-list', {entries: response});
   });
 }
 

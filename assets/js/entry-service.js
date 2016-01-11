@@ -3,9 +3,20 @@ var promise = require('zousan'),
 require('superagent-promise')(xhr, promise);
 
 exports.getAllEntries = function(){
-  return xhr.get('/')
-    .accept('application/json')
-    ._end();
+  // return xhr.get('/')
+  //   .accept('application/json')
+  //   ._end();
+  return new promise(function (resolve, reject){
+    var req = new XMLHttpRequest();
+    req.onreadystatechange = function() {
+      if(req.readyState === XMLHttpRequest.DONE) {
+        resolve(JSON.parse(req.responseText));
+      }
+    }
+    req.open('GET', '/', true);
+    req.setRequestHeader('accept', 'application/json');
+    req.send(null);
+  });
 }
 
 exports.getEntryById = function(id){
