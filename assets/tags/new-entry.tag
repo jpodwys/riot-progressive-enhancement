@@ -13,7 +13,6 @@
     }
     self.update();
     this.create = function(e){
-      e.preventDefault();
       var state = {date: self.date.value, text: self.text.value, isPublic: self.isPublic.checked};
       opts.entryService.createEntry(state).then(function (response){
         state.id = response.body.id;

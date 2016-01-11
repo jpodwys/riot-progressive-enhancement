@@ -16,12 +16,9 @@
       self.update();
     }
     self.edit = function(e){
-      e.preventDefault();
       opts.page('/entry/' + opts.entry.id + '/edit', {data: opts.entry});
     }
     self.del = function(e){
-      // e.preventDefault();
-      // opts.entry.text = 'updated';
       opts.entryService.deleteEntry(opts.entry.id).then(function (response){
         opts.page.replace('/');
       });
