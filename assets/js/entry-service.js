@@ -3,16 +3,16 @@ var promise = require('zousan'),
 // require('superagent-promise')(xhr, promise);
 
 exports.getAllEntries = function(){
-  // return new promise(function (resolve, reject){
-  //   xhr.get('/')
-  //     .accept('application/json')
-  //     ._end(function (err, response){
-  //       (err) ? reject(err) : resolve(response.body);
-  //     }
-  //   );
-  // });
-  return xhr.get('/')
-    .accept('application/json');
+  return new promise(function (resolve, reject){
+    xhr.get('/')
+      .accept('application/json')
+      ._end(function (err, response){
+        (err) ? reject(err) : resolve(response.body);
+      }
+    );
+  });
+  // return xhr.get('/')
+  //   .accept('application/json');
 }
 
 exports.getEntryById = function(id){
@@ -35,6 +35,13 @@ exports.updateEntry = function(entry){
 }
 
 exports.deleteEntry = function(id){
-  return xhr.del('/entry/' + id)
-    .accept('application/json');
+  return new promise(function (resolve, reject){
+    xhr.del('/entry/' + id)
+      .accept('application/json')
+      .end(function (err, response){
+        (err) ? reject(err) : resolve(response);
+      });
+  });
+  // return xhr.del('/entry/' + id)
+  //   .accept('application/json');
 }
