@@ -19,7 +19,7 @@ exports.createEntry = function(entry){
   return xhr.post('/entry')
     .accept('application/json')
     .send(entry)
-    .pruneOptions(['content-type'])
+    // .pruneOptions(['content-type'])
     // .end();
 }
 
@@ -27,7 +27,7 @@ exports.updateEntry = function(entry){
   return xhr.put('/entry/' + entry.id)
     .accept('application/json')
     .send(entry)
-    .pruneOptions(['content-type'])
+    // .pruneOptions(['content-type'])
     // .end();
 }
 
