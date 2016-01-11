@@ -21,9 +21,9 @@
     }
     self.del = function(e){
       e.preventDefault();
-      // opts.entryService.deleteEntry(opts.entry.id).then(function (response){
+      opts.entryService.getEntryById(opts.entry.id).then(function (response){
         opts.page.replace('/');
-      // });
+      });
     }
   </script>
 </entry-view>
