@@ -1,5 +1,5 @@
 var promise = require('zousan'),
-  xhr = require('superagent-cache')(null, {defaultExpiration: 1}, {responseProp: 'body'});
+  xhr = require('superagent-cache')(null, null, {responseProp: 'body'});
 require('superagent-promise')(xhr, promise);
 
 exports.getAllEntries = function(){
@@ -33,5 +33,5 @@ exports.updateEntry = function(entry){
 exports.deleteEntry = function(id){
   return xhr.del('/entry/' + id)
     .accept('application/json')
-    .end();
+    ._end();
 }
