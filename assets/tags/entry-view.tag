@@ -10,11 +10,7 @@
 
   <script>
     var self = this;
-    opts.entryService.getEntryById(opts.params.id).then(function (response){
-      opts.entry = response;
-      self.update();
-    });
-    // if(opts.entry.date.toString().indexOf('-') < 0) formatDate();
+    if(opts.entry.date.toString().indexOf('-') < 0) formatDate();
     function formatDate(){
       opts.entry.date = new Date(opts.entry.date).toISOString().slice(0, 10);
       self.update();

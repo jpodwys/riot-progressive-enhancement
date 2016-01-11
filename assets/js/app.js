@@ -8,9 +8,9 @@ var page = require('page'),
   editEntryTag = require('../tags/edit-entry.tag');
 
 page.base('/');
-page('/', /*entry.getAllEntries,*/ entriesHandler);
-page('entry/:id', /*entry.getEntryById,*/ entryHandler);
-page('entry/:id/edit', /*entry.getEntryById,*/ editEntryHandler);
+page('/', entry.getAllEntries, entriesHandler);
+page('entry/:id', entry.getEntryById, entryHandler);
+page('entry/:id/edit', entry.getEntryById, editEntryHandler);
 page('new', newEntryHandler);
 page({dispatch: false});
 
@@ -20,11 +20,11 @@ function renderView(tagName, data){
 }
 
 function entriesHandler(ctx){
-  renderView('entry-list', {entries: ctx.response, entryService: entryService});
+  renderView('entry-list', {entries: ctx.response});
 }
 
 function entryHandler(ctx){
-  renderView('entry-view', {page: page, entryService: entryService, entry: ctx.state.data || ctx.response, params: ctx.params});
+  renderView('entry-view', {page: page, entryService: entryService, entry: ctx.state.data || ctx.response});
 }
 
 function newEntryHandler(){

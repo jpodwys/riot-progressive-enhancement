@@ -8,12 +8,6 @@
 
   <script>
     var self = this;
-    if(!opts.entry && opts.entryService){
-      opts.entryService.getAllEntries().then(function (response){
-        opts.entries = response.body;
-        self.update();
-      });
-    }
     self.formatDate = function(d){
       return new Date(d).toISOString().slice(0, 10);
     }
