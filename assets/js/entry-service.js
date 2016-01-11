@@ -1,47 +1,37 @@
-// var promise = require('zousan'),
-var xhr = require('superagent-cache')(null, null, {responseProp: 'body'});
-// require('superagent-promise')(xhr, promise);
+var promise = require('zousan'),
+  xhr = require('superagent-cache')(null, null, {responseProp: 'body'});
+require('superagent-promise')(xhr, promise);
 
 exports.getAllEntries = function(){
-  // return new promise(function (resolve, reject){
-  //   xhr.get('/')
-  //     .accept('application/json')
-  //     ._end(function (err, response){
-  //       (err) ? reject(err) : resolve(response.body);
-  //     }
-  //   );
-  // });
   return xhr.get('/')
-    .accept('application/json');
+    .accept('application/json')
+    ._end();
 }
 
 exports.getEntryById = function(id){
   return xhr.get('/entry/' + id)
-    .accept('application/json');
+    .accept('application/json')
+    .end();
 }
 
 exports.createEntry = function(entry){
   return xhr.post('/entry')
     .accept('application/json')
     .send(entry)
-    .pruneOptions(['content-type']);
+    .pruneOptions(['content-type'])
+    .end();
 }
 
 exports.updateEntry = function(entry){
   return xhr.put('/entry/' + entry.id)
     .accept('application/json')
     .send(entry)
-    .pruneOptions(['content-type']);
+    .pruneOptions(['content-type'])
+    .end();
 }
 
 exports.deleteEntry = function(id){
-  // return new promise(function (resolve, reject){
-  //   xhr.del('/entry/' + id)
-  //     .accept('application/json')
-  //     .end(function (err, response){
-  //       (err) ? reject(err) : resolve(response);
-  //     });
-  // });
   return xhr.del('/entry/' + id)
-    .accept('application/json');
+    .accept('application/json')
+    .end();
 }
