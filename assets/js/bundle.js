@@ -165,8 +165,10 @@ exports.updateEntry = function(entry){
 }
 
 exports.deleteEntry = function(id){
-  return xhr.del('/entry/' + id)
+  return xhr.post('/entry/' + id)
     .accept('application/json')
+    .query({'_method': 'DELETE'})
+    // .pruneParams(['_method'])
     // .end();
 }
 

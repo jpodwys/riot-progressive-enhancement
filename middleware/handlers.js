@@ -7,7 +7,7 @@ var riot = require('riot'),
 exports.getIndex = function(req, res){
   res.formOrAjax(
     function(){ res.render('wrapper', {tag: riot.render(entryList, {entries: req.response})}); },
-    function(){ console.log('INDEX CALLED'); res.status(200).send(req.response); console.log('INDEX DONE'); }
+    function(){ res.status(200).send(req.response); }
   );
 }
 
