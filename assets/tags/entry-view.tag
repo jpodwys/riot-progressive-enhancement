@@ -21,10 +21,9 @@
     }
     self.del = function(e){
       e.preventDefault();
-      opts.entryService.deleteEntry(opts.entry.id).then(function (response){
-        setTimeout(function(){
-          opts.page.replace('/');
-        }, 1000);
+      opts.entry.text = 'updated';
+      opts.entryService.updateEntry(opts.entry).then(function (response){
+        opts.page.replace('/');
       });
     }
   </script>
