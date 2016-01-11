@@ -5,33 +5,33 @@ require('superagent-promise')(xhr, promise);
 exports.getAllEntries = function(){
   return xhr.get('/')
     .accept('application/json')
-    .end();
+    _.end();
 }
 
 exports.getEntryById = function(id){
   return xhr.get('/entry/' + id)
     .accept('application/json')
-    .end();
+    _.end();
 }
 
 exports.createEntry = function(entry){
   return xhr.post('/entry')
     .accept('application/json')
     .send(entry)
-    .pruneOptions(['content-type'])
-    .end();
+    // .pruneOptions(['content-type'])
+    _.end();
 }
 
 exports.updateEntry = function(entry){
   return xhr.put('/entry/' + entry.id)
     .accept('application/json')
     .send(entry)
-    .pruneOptions(['content-type'])
-    .end();
+    // .pruneOptions(['content-type'])
+    _.end();
 }
 
 exports.deleteEntry = function(id){
   return xhr.del('/entry/' + id)
     .accept('application/json')
-    .end();
+    _.end();
 }
