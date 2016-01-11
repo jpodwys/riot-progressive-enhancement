@@ -1,6 +1,7 @@
-var promise = require('zousan'),
-  xhr = require('superagent-cache')(null, null, {responseProp: 'body'});
+// var promise = require('zousan'),
+//   xhr = require('superagent-cache')(null, null, {responseProp: 'body'});
 // require('superagent-promise')(xhr, promise);
+var xhr = require('superagent');
 
 exports.getAllEntries = function(){
   return xhr.get('/')
@@ -18,7 +19,7 @@ exports.createEntry = function(entry){
   return xhr.post('/entry')
     .accept('application/json')
     .send(entry)
-    .pruneOptions(['content-type'])
+    // .pruneOptions(['content-type'])
     // .end();
 }
 
@@ -26,7 +27,7 @@ exports.updateEntry = function(entry){
   return xhr.put('/entry/' + entry.id)
     .accept('application/json')
     .send(entry)
-    .pruneOptions(['content-type'])
+    // .pruneOptions(['content-type'])
     // .end();
 }
 
