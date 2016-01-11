@@ -11,7 +11,7 @@ function serviceWrapper(service){
       service[func](data).then(function (response){
         req.response = response.body || response;
         (next) ? next() : res();
-      });
+      }, function(){});
     }
   });
 }
