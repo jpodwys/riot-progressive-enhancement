@@ -24,7 +24,7 @@ function entriesHandler(ctx){
 }
 
 function entryHandler(ctx){
-  renderView('entry-view', {page: page, entryService: entryService, entry: ctx.state.data || ctx.response});
+  renderView('entry-view', {page: page, entryService: entryService, entry: ctx.state.data || ctx.response, params: ctx.params});
 }
 
 function newEntryHandler(){
