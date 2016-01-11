@@ -19,7 +19,7 @@ var riot=require("riot");module.exports=riot.tag2("entry-view",'<h1>{opts.entry.
 var riot=require("riot");module.exports=riot.tag2("new-entry",'<form method="post" action="/entry" onsubmit="{create}"> <input name="date" value="{opts.entry.date}"> <textarea name="text"></textarea> Is Public: <input type="checkbox" name="isPublic" __checked="{opts.entry.isPublic}"> <input type="submit"> </form>',"","",function(e){var t=this;e.entry={date:(new Date).toISOString().slice(0,10)},t.update(),this.create=function(a){a.preventDefault();var i={date:t.date.value,text:t.text.value,isPublic:t.isPublic.checked};e.entryService.createEntry(i).then(function(t){i.id=t.body.id,e.page.replace("/entry/"+t.body.id,{data:i})})}},"{ }");
 
 },{"riot":12}],8:[function(require,module,exports){
-function serviceWrapper(e){var r=this,t=Object.keys(e);t.forEach(function(t){r[t]=function(r,a,n){var o=null;o=n?Object.keys(r.body).length?r.body:r.params.id:r.state.data||r.params.id,e[t](o).then(function(e){r.response=e.body||e,n?n():a()})}})}module.exports=serviceWrapper;
+function serviceWrapper(e){var t=this,a=Object.keys(e);a.forEach(function(a){t[a]=function(t,r,n){if(!n&&t.state&&t.state.data)return void r();var s=null;s=n?Object.keys(t.body).length?t.body:t.params.id:t.state.data||t.params.id,e[a](s).then(function(e){t.response=e.body||e,n?n():r()})}})}module.exports=serviceWrapper;
 
 },{}],9:[function(require,module,exports){
 (function (process){
