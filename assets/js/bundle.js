@@ -215,7 +215,10 @@ module.exports = riot.tag2('entry-view', '<h1>{opts.entry.date}</h1> <span if="{
 
       opts.entryService.deleteEntry(opts.entry.id).then(function (response){
         if (document) {
-          document.querySelector('#thing').click();
+          setTimeout(function(argument) {
+            document.querySelector('#thing').click();
+
+          }, 1500);
         }
 
       });

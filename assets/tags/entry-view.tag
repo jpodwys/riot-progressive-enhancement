@@ -24,7 +24,10 @@
       // opts.entry.text = 'updated';
       opts.entryService.deleteEntry(opts.entry.id).then(function (response){
         if (document) {
-          document.querySelector('#thing').click();
+          setTimeout(function(argument) {
+            document.querySelector('#thing').click();
+            // body...
+          }, 1500);
         }
         // opts.page.replace('/');
       });
