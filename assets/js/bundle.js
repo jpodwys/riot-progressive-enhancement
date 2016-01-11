@@ -211,7 +211,6 @@ module.exports = riot.tag2('entry-view', '<h1>{opts.entry.date}</h1> <span if="{
       opts.page('/entry/' + opts.entry.id + '/edit', {data: opts.entry});
     }
     self.del = function(e){
-      e.preventDefault();
 
       opts.entryService.deleteEntry(opts.entry.id).then(function (response){
         opts.page.replace('/');

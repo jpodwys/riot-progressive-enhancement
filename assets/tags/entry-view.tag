@@ -20,7 +20,7 @@
       opts.page('/entry/' + opts.entry.id + '/edit', {data: opts.entry});
     }
     self.del = function(e){
-      e.preventDefault();
+      // e.preventDefault();
       // opts.entry.text = 'updated';
       opts.entryService.deleteEntry(opts.entry.id).then(function (response){
         opts.page.replace('/');
