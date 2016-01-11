@@ -114,6 +114,7 @@ function renderView(tagName, data){
 }
 
 function entriesHandler(ctx){
+  console.log('Context:', ctx);
   renderView('entry-list', {entries: ctx.response});
 }
 
