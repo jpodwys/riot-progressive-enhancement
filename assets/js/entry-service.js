@@ -32,7 +32,7 @@ exports.updateEntry = function(entry){
 }
 
 exports.deleteEntry = function(id){
-  return xhr.del('/entry/' + id)
+  return xhr.post('/entry/' + id + '?_method=DELETE')
     .accept('application/json')
     // .end();
 }
