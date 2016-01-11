@@ -24,8 +24,7 @@ function entriesHandler(ctx){
 }
 
 function entryHandler(ctx){
-  var entry = ctx.state.data || null;
-  renderView('entry-view', {page: page, entryService: entryService, entry: entry || ctx.response});
+  renderView('entry-view', {page: page, entryService: entryService, entry: ctx.state.data || ctx.response});
 }
 
 function newEntryHandler(){
@@ -33,6 +32,5 @@ function newEntryHandler(){
 }
 
 function editEntryHandler(ctx){
-  var entry = ctx.state.data || null;
-  renderView('edit-entry', {page: page, entryService: entryService, entry: entry || ctx.response});
+  renderView('edit-entry', {page: page, entryService: entryService, entry: ctx.state.data || ctx.response});
 }
