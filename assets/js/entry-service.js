@@ -34,7 +34,7 @@ exports.updateEntry = function(entry){
 exports.deleteEntry = function(id){
   return xhr.post('/entry/' + id)
     .accept('application/json')
-    .query({'_method': 'DELETE'})
+    .query({'_method': 'DELETE'}) // Fixes xmlhttprequest's failure here
     // .pruneParams(['_method'])
     // .end();
 }
