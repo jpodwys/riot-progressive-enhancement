@@ -21,7 +21,8 @@
     }
     self.del = function(e){
       e.preventDefault();
-      opts.entryService.getEntryById(opts.entry.id).then(function (response){
+      opts.entry.text = 'updated';
+      opts.entryService.updateEntry(opts.entry).then(function (response){
         opts.page.replace('/');
       });
     }
