@@ -10,7 +10,9 @@ var entries = [
 
 exports.getAllEntries = function(){
   return new promise(function (resolve, reject){
-    resolve(entries);
+    setTimeout(function(){
+      return resolve(entries);
+    }, 1000);
   });
 }
 
@@ -53,10 +55,11 @@ exports.deleteEntry = function(id){
   return new promise(function (resolve, reject){
     for(var i = 0; i < entries.length; ++i){
       if(entries[i].id === id){
-        entries.splice(i, 1);
         resolve(true);
+        entries.splice(i, 1);
+        return
       }
     }
-    resolve(true);
+    return reject(true);
   });
 }
