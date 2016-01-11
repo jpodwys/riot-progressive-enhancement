@@ -8,7 +8,7 @@ var page = require('page'),
   editEntryTag = require('../tags/edit-entry.tag');
 
 page.base('/');
-page('/', entriesHandler);
+page('/', entry.getAllEntries, entriesHandler);
 page('entry/:id', entry.getEntryById, entryHandler);
 page('entry/:id/edit', entry.getEntryById, editEntryHandler);
 page('new', newEntryHandler);
@@ -20,9 +20,7 @@ function renderView(tagName, data){
 }
 
 function entriesHandler(ctx){
-  entryService.getAllEntries().then(function (response){
-    renderView('entry-list', {entries: response});
-  });
+  renderView('entry-list', {entries: ctx.response});
 }
 
 function entryHandler(ctx){
