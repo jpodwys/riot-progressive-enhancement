@@ -1,7 +1,24 @@
 <!doctype html>
 <html>
   <head>
-
+    <script>
+      if('querySelector' in document
+          && 'localStorage' in window
+          && 'addEventListener' in window
+          && 'history' in window && history.pushState){
+        var scripts = [
+          {src: '/js/bundle.js', type: 'text/javascript', priority: 'async'}
+        ];
+        for(var i = 0; i < scripts.length; ++i){
+          var script = scripts[i];
+          var tag = document.createElement('script');
+          if(script.priority) tag.setAttribute(script.priority, '');
+          tag.setAttribute('src', script.src);
+          tag.setAttribute('type', script.type);
+          document.getElementsByTagName('head')[0].appendChild(tag);
+        }
+      }
+    </script>
   </head>
   <body>
     <p>
@@ -13,23 +30,5 @@
     <br/><br/>
     <p>Check out the code <a href="https://github.com/jpodwys/riot-progressive-enhancement">here!</a></p>
 
-    <script>
-      if('querySelector' in document
-          && 'localStorage' in window
-          && 'addEventListener' in window
-          && 'history' in window && history.pushState){
-        var scripts = [
-          {src: '/js/bundle.js', type: 'text/javascript', defer: true}
-        ];
-        for(var i = 0; i < scripts.length; ++i){
-          var script = scripts[i];
-          var tag = document.createElement('script');
-          if(script.defer) tag.setAttribute('defer', '');
-          tag.setAttribute('src', script.src);
-          tag.setAttribute('type', script.type);
-          document.getElementsByTagName('head')[0].appendChild(tag);
-        }
-      }
-    </script>
   </body>
 </html>
