@@ -1,6 +1,18 @@
 <!doctype html>
 <html>
   <head>
+
+  </head>
+  <body>
+    <p>
+      <a href="/">Entries</a>
+      <a href="/new">New</a>
+    </p>
+    <main><%- tag %></main>
+
+    <br/><br/>
+    <p>Check out the code <a href="https://github.com/jpodwys/riot-progressive-enhancement">here!</a></p>
+
     <script>
       if('querySelector' in document
           && 'localStorage' in window
@@ -19,16 +31,5 @@
         }
       }
     </script>
-  </head>
-  <body>
-    <p>
-      <a href="/">Entries</a>
-      <a href="/new">New</a>
-    </p>
-    <main><%- tag %></main>
-
-    <br/><br/>
-    <p>Check out the code <a href="https://github.com/jpodwys/riot-progressive-enhancement">here!</a></p>
-
   </body>
 </html>
