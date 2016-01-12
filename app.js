@@ -5,6 +5,7 @@ var express = require('express'),
   ejs = require('ejs'),
   // stream = require('express-stream'),
   app = express(),
+  forceSsl = require('force-ssl-heroku'),
   resMods = require('./middleware/response-mods'),
   entryService = require('./services/entry-service'),
   entry = new (require('./middleware/service-wrapper'))(entryService),
@@ -14,6 +15,7 @@ var express = require('express'),
 app.set('views', './views');
 app.set('view engine', 'ejs');
 app.use(compress());
+app.use(forceSsl);
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(methodOverride('_method'));
