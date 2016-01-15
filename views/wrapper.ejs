@@ -2,6 +2,7 @@
 <html>
   <head>
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
     <div id="progress-bar">
@@ -22,7 +23,7 @@
           && 'addEventListener' in window
           && 'history' in window && history.pushState){
         var scripts = [
-          {src: '/js/bundle.js', type: 'text/javascript', priority: 'async'}
+          {src: '/js/bundle.js', type: 'text/javascript', priority: 'defer'}
         ];
         for(var i = 0; i < scripts.length; ++i){
           var script = scripts[i];
