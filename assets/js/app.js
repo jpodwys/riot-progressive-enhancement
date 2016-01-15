@@ -5,7 +5,8 @@ var page = require('page'),
   entryListTag = require('../tags/entry-list.tag'),
   entryViewTag = require('../tags/entry-view.tag'),
   newEntryTag = require('../tags/new-entry.tag'),
-  editEntryTag = require('../tags/edit-entry.tag');
+  editEntryTag = require('../tags/edit-entry.tag'),
+  mainTag = document.querySelector('main');
 
 page.base('/');
 page('/', entry.getAllEntries, entriesHandler);
@@ -15,7 +16,7 @@ page('new', newEntryHandler);
 page({dispatch: false});
 
 function renderView(tagName, data){
-  document.querySelector('main').innerHTML = '<' + tagName + '></' + tagName + '>';
+  mainTag.innerHTML = '<' + tagName + '></' + tagName + '>';
   riot.mount(tagName, data);
 }
 
