@@ -1,21 +1,63 @@
 <!doctype html>
 <html>
   <head>
-    <link rel="stylesheet" href="/css/pure.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/pure.min.css">
+    <style>
+      #main-wrapper {
+        margin: auto;
+        max-width: 850px;
+      }
+      #view-wrapper {
+        box-sizing: border-box;
+        padding: 0 25px;
+      }
+      .pure-button {
+        border-radius: 4px;
+      }
+      .button-success,
+      .button-error,
+      .button-warning,
+      .button-secondary {
+        color: white;
+        border-radius: 4px;
+        text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+      }
+      .button-success {
+        background: rgb(28, 184, 65); /* this is a green */
+      }
+      .button-error {
+        background: rgb(202, 60, 60); /* this is a maroon */
+      }
+      .button-warning {
+        background: rgb(223, 117, 20); /* this is an orange */
+      }
+      .button-secondary {
+        background: rgb(66, 184, 221); /* this is a light blue */
+      }
+    </style>
   </head>
   <body>
-    <div id="progress-bar">
-      <div class="progress"></div>
-    </div>
-    <p>
-      <a href="/">Entries</a>
-      <a href="/new">New</a>
-    </p>
-    <main><%- tag %></main>
 
-    <br/><br/>
-    <p>Check out the code <a href="https://github.com/jpodwys/riot-progressive-enhancement">here!</a></p>
+    <div id="main-wrapper">
+
+      <div id="view-wrapper">
+
+        <div class="pure-menu pure-menu-horizontal">
+          <ul class="pure-menu-list">
+              <li class="pure-menu-item"><a href="/" class="pure-menu-link">Entries</a></li>
+              <li class="pure-menu-item"><a href="/new" class="pure-menu-link">New Entry</a></li>
+          </ul>
+        </div>
+
+        <main><%- tag %></main>
+
+        <br/><br/>
+        <p>Check out the code <a href="https://github.com/jpodwys/riot-progressive-enhancement">here!</a></p>
+
+      </div>
+
+    </div>
 
     <script>
       if('querySelector' in document

@@ -4,9 +4,9 @@
   <span if="{opts.entry.isPublic}">Public</span>
   <div>{opts.entry.text}</div>
   <form method="post" action="/entry/{opts.entry.id}?_method=DELETE" onsubmit="{del}">
-    <input type="submit" value="Delete"/>
+    <input type="submit" value="Delete" class="pure-button button-warning"/>
   </form>
-  <a href="/entry/{opts.entry.id}/edit" onclick="{edit}">Edit</a>
+  <a href="/entry/{opts.entry.id}/edit" onclick="{edit}" class="pure-button">Edit</a>
 
   <script>
     var self = this;

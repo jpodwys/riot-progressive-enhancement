@@ -1,10 +1,10 @@
 <edit-entry>
-  <form method="post" action="/entry/{opts.entry.id}?_method=PUT" onsubmit="{edit}">
+  <form method="post" action="/entry/{opts.entry.id}?_method=PUT" onsubmit="{edit}" class="pure-form-stacked">
     <input type="hidden" name="id" value="{opts.entry.id}"/>
     <input name="date" value="{opts.entry.date}"/>
     <textarea name="text">{opts.entry.text}</textarea>
     Is Public: <input type="checkbox" name="isPublic" checked="{opts.entry.isPublic}"/>
-    <input type="submit"/>
+    <input type="submit" class="pure-button pure-button-primary"/>
   </form>
 
   <script>
