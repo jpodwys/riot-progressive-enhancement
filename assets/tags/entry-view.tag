@@ -1,7 +1,9 @@
 <entry-view>
-  <h1>{opts.entry.date}</h1>
-  <span if="{!opts.entry.isPublic}">Private</span>
-  <span if="{opts.entry.isPublic}">Public</span>
+  <h1>
+    {opts.entry.date}
+    <span if="{!opts.entry.isPublic}">Private</span>
+    <span if="{opts.entry.isPublic}">Public</span>
+  </h1>
   <p class="entry-text">{opts.entry.text}</p>
   <form method="post" action="/entry/{opts.entry.id}?_method=DELETE" onsubmit="{del}">
     <input type="submit" value="Delete" class="pure-button"/>
