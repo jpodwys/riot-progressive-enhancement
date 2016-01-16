@@ -1,7 +1,7 @@
 <new-entry>
   <form method="post" action="/entry" onsubmit="{create}" class="pure-form-stacked">
     <input name="date" value="{opts.entry.date}"/>
-    <textarea name="text"></textarea>
+    <textarea name="text" class="entry-text"></textarea>
     Is Public: <input type="checkbox" name="isPublic" checked="{opts.entry.isPublic}"/>
     <input type="submit" class="pure-button pure-button-primary"/>
   </form>

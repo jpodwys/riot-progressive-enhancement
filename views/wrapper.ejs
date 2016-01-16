@@ -4,6 +4,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/css/pure.min.css">
     <style>
+      body {
+        line-height: 1.5;
+        font-family: 'Trebuchet MS', Helvetica, sans-serif;
+      }
+      body a {
+        transition: color 200ms;
+        color: #08c;
+        text-decoration: none;
+      }
+      body a:active {
+        outline: 0;
+      }
+      body a:hover {
+        color: #005580;
+      }
       #main-wrapper {
         margin: auto;
         max-width: 850px;
@@ -11,6 +26,9 @@
       #view-wrapper {
         box-sizing: border-box;
         padding: 0 25px;
+      }
+      .entry-text, .entry-link {
+        font-size: 22px;
       }
       .pure-button {
         border-radius: 4px;
@@ -24,16 +42,19 @@
         text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
       }
       .button-success {
-        background: rgb(28, 184, 65); /* this is a green */
+        background: rgb(28, 184, 65); /* green */
       }
       .button-error {
-        background: rgb(202, 60, 60); /* this is a maroon */
+        background: rgb(202, 60, 60); /* maroon */
       }
       .button-warning {
-        background: rgb(223, 117, 20); /* this is an orange */
+        background: rgb(223, 117, 20); /* orange */
       }
       .button-secondary {
-        background: rgb(66, 184, 221); /* this is a light blue */
+        background: rgb(66, 184, 221); /* light blue */
+      }
+      entry-list .entry-preview {
+        margin: 25px 0;
       }
     </style>
   </head>
