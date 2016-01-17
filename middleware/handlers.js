@@ -1,10 +1,18 @@
 var riot = require('riot'),
+  loginPage = require('../assets/tags/login-page.tag'),
   entryList = require('../assets/tags/entry-list.tag'),
   entryView = require('../assets/tags/entry-view.tag'),
   newEntry = require('../assets/tags/new-entry.tag'),
   editEntry = require('../assets/tags/edit-entry.tag');
 
 exports.getIndex = function(req, res){
+  res.formOrAjax(
+    function(){ res.render('wrapper', {tag: riot.render(loginPage)}); },
+    function(){ res.status(204).send(); }
+  );
+}
+
+exports.getEntries = function(req, res){
   res.formOrAjax(
     function(){ res.render('wrapper', {tag: riot.render(entryList, {entries: req.response})}); },
     function(){ res.status(200).send(req.response); }

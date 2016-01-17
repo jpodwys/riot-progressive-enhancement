@@ -2,6 +2,7 @@ var page = require('page'),
   entryService = require('./entry-service'),
   entry = new (require('../../middleware/service-wrapper'))(entryService),
   riot = require('riot'),
+  loginPageTag = require('../tags/login-page.tag'),
   entryListTag = require('../tags/entry-list.tag'),
   entryViewTag = require('../tags/entry-view.tag'),
   newEntryTag = require('../tags/new-entry.tag'),
@@ -9,7 +10,8 @@ var page = require('page'),
   mainTag = document.querySelector('main');
 
 page.base('/');
-page('/', entry.getAllEntries, entriesHandler);
+page('/', loginHandler);
+page('/entries', entry.getAllEntries, entriesHandler);
 page('entry/:id', entry.getEntryById, entryHandler);
 page('entry/:id/edit', entry.getEntryById, editEntryHandler);
 page('new', newEntryHandler);
@@ -18,6 +20,10 @@ page({dispatch: false});
 function renderView(tagName, data){
   mainTag.innerHTML = '<' + tagName + '></' + tagName + '>';
   riot.mount(tagName, data);
+}
+
+function loginHandler(){
+  renderView('login-page');
 }
 
 function entriesHandler(ctx){
