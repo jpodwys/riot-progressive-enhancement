@@ -11,7 +11,7 @@ var page = require('page'),
 
 page.base('/');
 page('/', loginHandler);
-page('/entries', entry.getAllEntries, entriesHandler);
+page('entries', entry.getAllEntries, entriesHandler);
 page('entry/:id', entry.getEntryById, entryHandler);
 page('entry/:id/edit', entry.getEntryById, editEntryHandler);
 page('new', newEntryHandler);

@@ -6,12 +6,20 @@ var empty = require('dotenv').load(),
   ejs = require('ejs'),
   // stream = require('express-stream'),
   app = express(),
-  mysql2 = require('mysql2'),
-  connection = mysql2.createConnection(process.env.JAWSDB_URL),
+  
+  Sequelize = require('sequelize'),
+  sequelize = new Sequelize(process.env.JAWSDB_URL),
+
+  userModel = require('./models/user-model')(sequelize, Sequelize),
+  userService = new (require('./services/user-service'))(userModel),
+  user = new (require('./middleware/service-wrapper'))(userService),
+
+  entryModel = require('./models/entry-model')(sequelize, Sequelize),
+  entryService = new (require('./services/entry-service'))(entryModel),
+  entry = new (require('./middleware/service-wrapper'))(entryService),
+
   forceSsl = require('force-ssl-heroku'),
   resMods = require('./middleware/response-mods'),
-  entryService = new (require('./services/entry-service'))(connection),
-  entry = new (require('./middleware/service-wrapper'))(entryService),
   handlers = require('./middleware/handlers'),
   PORT = process.env.PORT || 3000;
 
@@ -28,6 +36,8 @@ app.use(express.static('assets'/*, {maxAge: '1h'}*/));
 app.use(express.static('views'));
 
 app.get('/', handlers.getIndex);
+// app.post('/user/authenticate');
+app.post('/user', user.createUser, handlers.createUser);
 app.get('/entries', entry.getAllEntries, handlers.getEntries);
 app.get('/entry/:id', entry.getEntryById, handlers.getEntry);
 app.get('/entry/:id/edit', entry.getEntryById, handlers.getEditEntry);

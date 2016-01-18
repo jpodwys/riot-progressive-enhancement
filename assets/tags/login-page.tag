@@ -1,14 +1,20 @@
 <login-page>
-  <form method="post" action="/user/authenticate" onsubmit="{login}" class="pure-form-stacked">
-    <input name="username" placeholder="username"/>
-    <input name="password" placeholder="password"/>
-    <input type="submit" class="pure-button pure-button-primary"/>
+  <form method="post" action="/user" onsubmit="{login}" class="pure-form pure-form-stacked">
+    <fieldset>
+      <legend>Create an Account</legend>
+      <input name="username" placeholder="username"/>
+      <input name="password" placeholder="password"/>
+      <input type="submit" class="pure-button pure-button-primary"/>
+    </fieldset>
   </form>
 
-  <form method="post" action="/user" onsubmit="{join}" class="pure-form-stacked">
-    <input name="username" placeholder="username"/>
-    <input name="password" placeholder="password"/>
-    <input type="submit" class="pure-button pure-button-primary"/>
+  <form method="post" action="/user/authenticate" onsubmit="{join}" class="pure-form pure-form-stacked">
+    <fieldset>
+      <legend>or Login</legend>
+      <input name="username" placeholder="username"/>
+      <input name="password" placeholder="password"/>
+      <input type="submit" class="pure-button pure-button-primary"/>
+    </fieldset>
   </form>
 
   <script>

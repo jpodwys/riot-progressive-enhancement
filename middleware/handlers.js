@@ -5,12 +5,25 @@ var riot = require('riot'),
   newEntry = require('../assets/tags/new-entry.tag'),
   editEntry = require('../assets/tags/edit-entry.tag');
 
+/* Index Handler */
+
 exports.getIndex = function(req, res){
   res.formOrAjax(
     function(){ res.render('wrapper', {tag: riot.render(loginPage)}); },
     function(){ res.status(204).send(); }
   );
 }
+
+/* User Handlers */
+
+exports.createUser = function(req, res){
+  res.formOrAjax(
+    function(){ res.redirect('/entries'); },
+    function(){ res.status(200).send(req.response); }
+  );
+}
+
+/* Entry Handlers */
 
 exports.getEntries = function(req, res){
   res.formOrAjax(
