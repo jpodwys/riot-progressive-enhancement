@@ -5,10 +5,10 @@ module.exports = function(Entry){
 
   self.getEntriesByOwnerId = function(data, user){
     return new promise(function (resolve, reject){
-      Entry.getEntriesByOwnerId(user.id, 2, 0).then(function (entries){
-        resolve(entries);
+      Entry.getEntriesByOwnerId(user.id, 10, 0).then(function (entries){
+        return resolve(entries);
       }, function (err){
-        reject({status: 500, message: err});
+        return reject({status: 500, message: err});
       });
     });
   }
@@ -21,27 +21,55 @@ module.exports = function(Entry){
     return new promise(function (resolve, reject){
       Entry.getEntryById(entryId).then(function (entry){
         if(!entry) return reject({status: 404, message: 'Entry not found.'});
-        if(user.id === entry.owner_id || entry.is_public === 1){
-          return resolve(entry);
-        }
-        else{
+        if(user.id !== entry.owner_id && entry.is_public === 0){
           return reject({status: 404, message: 'Entry not found.'});
         }
+        return resolve(entry);
       }, function (err){
-        reject({status: 500, message: err});
+        return reject({status: 500, message: err});
       });
     });
   }
 
-  self.createEntry = function(){
-
+  self.createEntry = function(data, user){
+    return new promise(function (resolve, reject){
+      Entry.createEntry(data, user.id).then(function (entry){
+        return resolve(entry.id);
+      }, function (err){
+        return reject({status: 500, message: err});
+      });
+    });
   }
 
-  self.updateEntry = function(){
-
+  self.updateEntry = function(data, user){
+    return new promise(function (resolve, reject){
+      Entry.getEntryById(data.id).then(function (entry){
+        if(!entry) return reject({status: 404, message: 'Entry not found.'});
+        if(user.id !== entry.owner_id) return reject({status: 404, message: 'Entry not found.'});
+        Entry.updateEntry(data).then(function (response){
+          return resolve();
+        }, function (err){
+          return reject(err);
+        });
+      }, function (err){
+        return reject({status: 500, message: err});
+      });
+    });
   }
 
-  self.deleteEntry = function(){
-
+  self.deleteEntry = function(entryId, user){
+    return new promise(function (resolve, reject){
+      Entry.getEntryById(entryId).then(function (entry){
+        if(!entry) return reject({status: 404, message: 'Entry not found.'});
+        if(user.id !== entry.owner_id) return reject({status: 404, message: 'Entry not found.'});
+        Entry.deleteEntry(entryId).then(function (response){
+          return resolve();
+        }, function (err){
+          return reject(err);
+        });
+      }, function (err){
+        return reject({status: 500, message: err});
+      });
+    });
   }
 }

@@ -9,11 +9,13 @@ function serviceWrapper(service){
       if(next) data = ((Object.keys(req.body).length) ? req.body : req.params.id);
       else data = req.state.data || req.params.id;
       service[func](data, req.user).then(function (response){
-        req.response = response.body || response || null;
+        req.response = (response) ? response.body || response : false; // False here means form did execute data but nothing was returned
         (next) ? next() : res();
+        return;
       }, function (err){
         req.err = err;
         (next) ? next() : res();
+        return;
       });
     }
   });

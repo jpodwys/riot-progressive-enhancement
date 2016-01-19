@@ -6,7 +6,7 @@ module.exports = function(Entry){
   self.getEntriesByOwnerId = function(userId, index, offset){
     return Entry.findAndCountAll({
       where: {owner_id: userId},
-      limit: 2,
+      limit: offset,
       offset: 0,
       raw: true
     });
@@ -22,15 +22,15 @@ module.exports = function(Entry){
     });
   }
 
-  self.createEntry = function(data){
+  self.createEntry = function(data, ownerId){
     return new promise(function (resolve, reject){
       Entry.create({
-        owner_id: 1,
+        owner_id: ownerId,
         date: (new Date(data.date)).getTime(),
         text: data.text,
         is_public: !!data.isPublic
       }).then(function (entry){
-        return resolve(entry.id);
+        return resolve(entry);
       }, function (err){
         return reject(err);
       });
@@ -49,9 +49,9 @@ module.exports = function(Entry){
     );
   }
 
-  self.deleteEntry = function(id){
+  self.deleteEntry = function(entryId){
     return Entry.destroy({
-      where: {id: id}
+      where: {id: entryId}
     });
   }
 }

@@ -23,6 +23,8 @@
     self.del = function(e){
       opts.entryService.deleteEntry(opts.entry.id).then(function (response){
         opts.page.replace('/entries');
+      }, function (err){
+        console.log('err', err)
       });
     }
   </script>

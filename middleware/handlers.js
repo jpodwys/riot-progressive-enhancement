@@ -12,7 +12,7 @@ exports.execute = function(req, res){
   hd.responseMod = hd.responseMod || function(resp){return resp;};
   res.formOrAjax(
     function(){
-      if(req.response){
+      if(req.response || req.response === false){ // False here means form did execute data but nothing was returned
         if(hd.redirectUrl) res.redirect(hd.redirectUrl);
         else res.render('wrapper', {tag: riot.render(hd.riotTag, hd.responseMod(req.response))});
       }
@@ -74,44 +74,42 @@ exports.getEntry = function(req, res, next){
     responseMod: function(resp){return {entry: resp}}
   }
   next();
-
-  // res.formOrAjax(
-  //   function(){ res.render('wrapper', {tag: riot.render(entryView, {entry: req.response})}); },
-  //   function(){ res.status(200).send(req.response); }
-  // );
 }
 
 exports.getEditEntry = function(req, res, next){
-  res.formOrAjax(
-    function(){ res.render('wrapper', {tag: riot.render(editEntry, {entry: req.response})}); },
-    function(){ res.status(200).send(req.response); }
-  );
+  req.handlerData = {
+    riotTag: editEntry,
+    responseMod: function(resp){return {entry: resp}}
+  }
+  next();
 }
 
 exports.getNew = function(req, res, next){
-  res.formOrAjax(
-    function(){ res.render('wrapper', {tag: riot.render(newEntry, {entry: {date: new Date().getTime()}})}); },
-    function(){ res.status(204).send(); }
-  );
+  req.handlerData = {
+    riotTag: newEntry,
+    responseMod: function(resp){return {entry: {date: new Date().getTime()}}}
+  }
+  next();
 }
 
 exports.postEntry = function(req, res, next){
-  res.formOrAjax(
-    function(){ res.redirect('/entry/' + req.response); },
-    function(){ res.status(200).send({id: req.response}); }
-  );
+  req.handlerData = {
+    redirectUrl: '/entry/' + req.response,
+    responseMod: function(resp){return {id: resp}}
+  }
+  next();
 }
 
 exports.putEntry = function(req, res, next){
-  res.formOrAjax(
-    function(){ res.redirect('/entry/' + req.body.id); },
-    function(){ res.status(204).send(); }
-  );
+  req.handlerData = {
+    redirectUrl: '/entry/' + req.body.id
+  }
+  next();
 }
 
 exports.deleteEntry = function(req, res, next){
-  res.formOrAjax(
-    function(){ res.redirect('/'); },
-    function(){ res.status(204).send(); }
-  );
+  req.handlerData = {
+    redirectUrl: '/entries'
+  }
+  next();
 }
