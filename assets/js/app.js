@@ -29,7 +29,7 @@ function loginHandler(){
 }
 
 function entriesHandler(ctx){
-  renderView('entry-list', {entries: ctx.response});
+  renderView('entry-list', ctx.response);
 }
 
 function entryHandler(ctx){

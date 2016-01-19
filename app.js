@@ -12,12 +12,13 @@ var empty = require('dotenv').load(),
 
   userModel = require('./models/user-model')(sequelize, Sequelize),
   userService = new (require('./services/user-service'))(userModel),
-  userBl = new (require('./bl/user-bl'))(userService);
+  userBl = new (require('./bl/user-bl'))(userService),
   user = new (require('./middleware/service-wrapper'))(userBl),
 
   entryModel = require('./models/entry-model')(sequelize, Sequelize),
   entryService = new (require('./services/entry-service'))(entryModel),
-  entry = new (require('./middleware/service-wrapper'))(entryService),
+  entryBl = new (require('./bl/entry-bl'))(entryService),
+  entry = new (require('./middleware/service-wrapper'))(entryBl),
 
   forceSsl = require('force-ssl-heroku'),
   resMods = require('./middleware/response-mods'),
@@ -35,20 +36,21 @@ app.use(resMods.vary);
 app.use(resMods.formOrAjax);
 app.use(express.static('assets'/*, {maxAge: '1h'}*/));
 app.use(express.static('views'));
+app.use(function(req, res, next){req.user = {id: 1}; next();});
 
 app.get('/', handlers.getIndex, handlers.execute);
-app.post('/user/authenticate', user.attemptLogin, handlers.attemptLogin, handlers.execute);
+app.post('/user/authenticate', user.attemptLogin, handlers.joinOrLogin, handlers.execute);
 // app.post('/user/logout', user.getUserByUsername);
-app.post('/user', user.createAccount, handlers.createAccount, handlers.execute);
+app.post('/user', user.createAccount, handlers.joinOrLogin, handlers.execute);
 // app.put('/user/:id');
 // app.delete('/user/:id')
-app.get('/entries', entry.getAllEntries, handlers.getEntries);
-app.get('/entry/:id', entry.getEntryById, handlers.getEntry);
-app.get('/entry/:id/edit', entry.getEntryById, handlers.getEditEntry);
-app.get('/new', handlers.getNew);
-app.post('/entry', entry.createEntry, handlers.postEntry);
-app.put('/entry/:id', entry.updateEntry, handlers.putEntry);
-app.delete('/entry/:id', entry.deleteEntry, handlers.deleteEntry);
+app.get('/entries', entry.getEntriesByOwnerId, handlers.getEntries, handlers.execute);
+// app.get('/entry/:id', entry.getEntryById, handlers.getEntry);
+// app.get('/entry/:id/edit', entry.getEntryById, handlers.getEditEntry);
+// app.get('/new', handlers.getNew);
+// app.post('/entry', entry.createEntry, handlers.postEntry);
+// app.put('/entry/:id', entry.updateEntry, handlers.putEntry);
+// app.delete('/entry/:id', entry.deleteEntry, handlers.deleteEntry);
 
 var server = app.listen(PORT, function () {
   var host = server.address().address;

@@ -47,6 +47,7 @@ module.exports = function(User){
   }
 
   self.updateAccount = function(data){
+    // Make sure the current user is the correct user
     // return User.update(
     //   {
     //     username: data.username,
@@ -58,6 +59,7 @@ module.exports = function(User){
   }
 
   self.deleteAccount = function(id){
+    // Make sure the current user is the correct user
     return User.destroy({
       where: {id: id}
     });

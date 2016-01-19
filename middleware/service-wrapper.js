@@ -8,8 +8,8 @@ function serviceWrapper(service){
       var data = null;
       if(next) data = ((Object.keys(req.body).length) ? req.body : req.params.id);
       else data = req.state.data || req.params.id;
-      service[func](data).then(function (response){
-        req.response = response.body || response;
+      service[func](data, req.user).then(function (response){
+        req.response = response.body || response || null;
         (next) ? next() : res();
       }, function (err){
         req.err = err;

@@ -3,6 +3,15 @@ var promise = require('zousan');
 module.exports = function(Entry){
   var self = this;
 
+  self.getEntriesByOwnerId = function(userId, index, offset){
+    return Entry.findAndCountAll({
+      where: {owner_id: userId},
+      limit: 2,
+      offset: 0,
+      raw: true
+    });
+  }
+
   self.getAllEntries = function(){
     return Entry.findAll({raw: true});
   }
