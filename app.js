@@ -45,7 +45,7 @@ app.post('/user', user.createAccount, handlers.joinOrLogin, handlers.execute);
 // app.put('/user/:id');
 // app.delete('/user/:id')
 app.get('/entries', entry.getEntriesByOwnerId, handlers.getEntries, handlers.execute);
-// app.get('/entry/:id', entry.getEntryById, handlers.getEntry);
+app.get('/entry/:id', entry.getEntryById, handlers.getEntry, handlers.execute);
 // app.get('/entry/:id/edit', entry.getEntryById, handlers.getEditEntry);
 // app.get('/new', handlers.getNew);
 // app.post('/entry', entry.createEntry, handlers.postEntry);

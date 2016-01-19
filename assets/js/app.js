@@ -33,7 +33,7 @@ function entriesHandler(ctx){
 }
 
 function entryHandler(ctx){
-  renderView('entry-view', {page: page, entryService: entryService, entry: ctx.state.data || ctx.response});
+  renderView('entry-view', {page: page, entryService: entryService, entry: ctx.state.data || ctx.response.entry});
 }
 
 function newEntryHandler(){

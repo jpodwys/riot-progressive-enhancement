@@ -5,7 +5,7 @@ var riot = require('riot'),
   newEntry = require('../assets/tags/new-entry.tag'),
   editEntry = require('../assets/tags/edit-entry.tag');
 
-/* Default Handler */
+/* Final Handler */
 
 exports.execute = function(req, res){
   var hd = req.handlerData || {};
@@ -68,42 +68,48 @@ exports.getEntries = function(req, res, next){
   next();
 }
 
-exports.getEntry = function(req, res){
-  res.formOrAjax(
-    function(){ res.render('wrapper', {tag: riot.render(entryView, {entry: req.response})}); },
-    function(){ res.status(200).send(req.response); }
-  );
+exports.getEntry = function(req, res, next){
+  req.handlerData = {
+    riotTag: entryView,
+    responseMod: function(resp){return {entry: resp}}
+  }
+  next();
+
+  // res.formOrAjax(
+  //   function(){ res.render('wrapper', {tag: riot.render(entryView, {entry: req.response})}); },
+  //   function(){ res.status(200).send(req.response); }
+  // );
 }
 
-exports.getEditEntry = function(req, res){
+exports.getEditEntry = function(req, res, next){
   res.formOrAjax(
     function(){ res.render('wrapper', {tag: riot.render(editEntry, {entry: req.response})}); },
     function(){ res.status(200).send(req.response); }
   );
 }
 
-exports.getNew = function(req, res){
+exports.getNew = function(req, res, next){
   res.formOrAjax(
     function(){ res.render('wrapper', {tag: riot.render(newEntry, {entry: {date: new Date().getTime()}})}); },
     function(){ res.status(204).send(); }
   );
 }
 
-exports.postEntry = function(req, res){
+exports.postEntry = function(req, res, next){
   res.formOrAjax(
     function(){ res.redirect('/entry/' + req.response); },
     function(){ res.status(200).send({id: req.response}); }
   );
 }
 
-exports.putEntry = function(req, res){
+exports.putEntry = function(req, res, next){
   res.formOrAjax(
     function(){ res.redirect('/entry/' + req.body.id); },
     function(){ res.status(204).send(); }
   );
 }
 
-exports.deleteEntry = function(req, res){
+exports.deleteEntry = function(req, res, next){
   res.formOrAjax(
     function(){ res.redirect('/'); },
     function(){ res.status(204).send(); }
