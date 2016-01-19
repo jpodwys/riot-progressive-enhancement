@@ -3,7 +3,8 @@ var riot = require('riot'),
   entryList = require('../assets/tags/entry-list.tag'),
   entryView = require('../assets/tags/entry-view.tag'),
   newEntry = require('../assets/tags/new-entry.tag'),
-  editEntry = require('../assets/tags/edit-entry.tag');
+  editEntry = require('../assets/tags/edit-entry.tag'),
+  jwt = require('jsonwebtoken');
 
 /* Final Handler */
 
@@ -31,7 +32,7 @@ exports.execute = function(req, res){
         res.status(req.err.status).send(req.err.message);
       }
       else{
-        res.status(204).send();
+        res.sendStatus(204);
       }
     }
   );
@@ -54,7 +55,23 @@ exports.joinOrLogin = function(req, res, next){
     riotTag: loginPage,
     redirectUrl: '/entries'
   }
-  if(req.response) {}// Generate JWT and set as cookie
+  if(req.response){
+    var token = jwt.sign(req.response, process.env.JWT_KEY);
+    res.cookie('jwt', token, {
+      httpOnly: (process.env.NODE_ENV === 'production'),
+      secure: (process.env.NODE_ENV === 'production'),
+      expires: (new Date((new Date()).getTime() + (60 * 60 * 1000))) // One hour
+    });
+  }
+  next();
+}
+
+exports.logout = function(req, res, next){
+  req.response = false;
+  req.handlerData = {
+    redirectUrl: '/'
+  }
+  res.clearCookie('jwt');
   next();
 }
 

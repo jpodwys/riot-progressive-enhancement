@@ -22,6 +22,8 @@
       var state = {id: self.id.value, date: self.date.value, text: self.text.value, isPublic: self.isPublic.checked};
       opts.entryService.updateEntry(state).then(function (response){
         opts.page.replace('/entry/' + self.id.value, {data: state});
+      }, function (err){
+        alert(err);
       });
     }
   </script>

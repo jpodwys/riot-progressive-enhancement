@@ -11,7 +11,8 @@ module.exports = function(User){
         bcrypt.compare(data.password, user.password, function (err, res){
           if(err) return reject({status: 500, message: err});
           if(!res) return reject({status: 400, message: 'Invalid username/password combination'});
-          return resolve(user);
+          var output = {id: user.id, username: user.username};
+          return resolve(output);
         });
       }, function (err){
         return reject({status: 500, message: err});
@@ -34,7 +35,8 @@ module.exports = function(User){
             var userData = {username: data.username, salt: salt, password: hash};
             User.createUser(userData).then(function (user){
               if(!user) return reject({status: 500, message: 'Failed to created account'});
-              return resolve(user);
+              var output = {id: user.id, username: user.username};
+              return resolve(output);
             }, function (err){
               return reject({status: 500, message: err});
             });

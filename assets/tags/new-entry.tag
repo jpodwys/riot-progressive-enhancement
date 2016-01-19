@@ -21,6 +21,8 @@
       opts.entryService.createEntry(state).then(function (response){
         state.id = response.body.id;
         opts.page.replace('/entry/' + response.body.id, {data: state});
+      }, function (err){
+        alert(err);
       });
     }
   </script>

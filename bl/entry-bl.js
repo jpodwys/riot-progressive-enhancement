@@ -5,7 +5,7 @@ module.exports = function(Entry){
 
   self.getEntriesByOwnerId = function(data, user){
     return new promise(function (resolve, reject){
-      Entry.getEntriesByOwnerId(user.id, 10, 0).then(function (entries){
+      Entry.getEntriesByOwnerId(user.id, 20, 0).then(function (entries){  
         return resolve(entries);
       }, function (err){
         return reject({status: 500, message: err});

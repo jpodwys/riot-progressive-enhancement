@@ -24,7 +24,7 @@
       opts.entryService.deleteEntry(opts.entry.id).then(function (response){
         opts.page.replace('/entries');
       }, function (err){
-        console.log('err', err)
+        alert(err);
       });
     }
   </script>
