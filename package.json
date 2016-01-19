@@ -28,7 +28,8 @@
     "superagent-promise": "jpodwys/superagent-promise",
     "zousan": "2.2.1",
     "force-ssl-heroku": "1.0.2",
-    "sequelize": "3.17.3"
+    "sequelize": "3.17.3",
+    "bcrypt": "0.8.5"
   },
   "devDependencies": {
     "browserify": "12.0.1",

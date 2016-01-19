@@ -1,4 +1,6 @@
 var page = require('page'),
+  userService = require('./user-service'),
+  user = new (require('../../middleware/service-wrapper'))(userService),
   entryService = require('./entry-service'),
   entry = new (require('../../middleware/service-wrapper'))(entryService),
   riot = require('riot'),
@@ -23,7 +25,7 @@ function renderView(tagName, data){
 }
 
 function loginHandler(){
-  renderView('login-page');
+  renderView('login-page', {page: page, userService: userService});
 }
 
 function entriesHandler(ctx){

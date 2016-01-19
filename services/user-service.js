@@ -1,4 +1,5 @@
 var promise = require('zousan');
+var User = require('../models/user-model');
 
 module.exports = function(User){
   var self = this;
@@ -9,18 +10,15 @@ module.exports = function(User){
     });
   }
 
-  self.getUserByUsername = function(data){
-    return Entry.findOne({
-      where: {username: data.username}
+  self.getUserByUsername = function(username){
+    return User.findOne({
+      where: {username: username}
     });
   }
 
   self.createUser = function(data){
     return new promise(function (resolve, reject){
-      User.create({
-        username: data.username,
-        password: data.password
-      }).then(function (user){
+      User.create(data).then(function (user){
         resolve(user);
       }, function (err){
         reject(err);
