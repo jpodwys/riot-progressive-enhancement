@@ -1,4 +1,4 @@
-require('dotenv').load();
+//require('dotenv').load();
 var express = require('express'),
   compress = require('compression'),
   methodOverride = require('method-override'),
