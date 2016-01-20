@@ -20,7 +20,16 @@ page('new', restrict, newEntryHandler);
 page({dispatch: false});
 
 function restrict(ctx, next){
-  next();
+  if(!~document.cookie.indexOf('logged_in')){
+    ctx.alert = {
+      type: 'error',
+      message: 'Please login or create an account to proceed.'
+    }
+    page.redirect('/');
+  }
+  else{
+    next();
+  }
 }
 
 function errorHandler(ctx, next){
