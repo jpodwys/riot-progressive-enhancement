@@ -6,6 +6,7 @@ module.exports = function(Entry){
   self.getEntriesByOwnerId = function(userId, index, offset){
     return Entry.findAndCountAll({
       where: {ownerId: userId},
+      order: [['date', 'DESC']],
       limit: offset,
       offset: 0,
       raw: true
@@ -24,6 +25,8 @@ module.exports = function(Entry){
 
   self.createEntry = function(data, ownerId){
     return new promise(function (resolve, reject){
+      console.log('DATE INPUT', data.date, typeof data.date);
+      console.log('DATE OUTPUT', (new Date(data.date)).getTime());
       Entry.create({
         ownerId: ownerId,
         date: (new Date(data.date)).getTime(),
