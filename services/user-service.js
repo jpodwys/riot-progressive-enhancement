@@ -1,7 +1,7 @@
 var promise = require('zousan');
 var User = require('../models/user-model');
 
-module.exports = function(User){
+module.exports = function(User, sequelize){
   var self = this;
 
   self.getUserById = function(id){

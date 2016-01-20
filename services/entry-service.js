@@ -1,11 +1,21 @@
 var promise = require('zousan');
 
-module.exports = function(Entry){
+module.exports = function(Entry, sequelize){
   var self = this;
 
   self.getEntriesByOwnerId = function(userId, index, offset){
     return Entry.findAndCountAll({
       where: {ownerId: userId},
+      attributes: [
+        'id', 'ownerId', 'date', 'isPublic',
+        [sequelize.fn('LEFT', sequelize.col('text'), 140), 'text']
+        // [sequelize.fn('CONCAT',
+        //   sequelize.fn('LEFT', sequelize.col('text'), 140),
+        //   sequelize.fn('IF', 
+        //     sequelize.fn('LENGTH', sequelize.col('text')),
+        //   > 140, "...", "")),
+        // 'text']
+      ],
       order: [['date', 'DESC']],
       limit: offset,
       offset: 0,

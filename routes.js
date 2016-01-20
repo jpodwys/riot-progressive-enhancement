@@ -2,12 +2,12 @@ var Sequelize = require('sequelize'),
   sequelize = new Sequelize(process.env.JAWSDB_URL),
 
   userModel = require('./models/user-model')(sequelize, Sequelize),
-  userService = new (require('./services/user-service'))(userModel),
+  userService = new (require('./services/user-service'))(userModel, sequelize),
   userBl = new (require('./bl/user-bl'))(userService),
   user = new (require('./middleware/service-wrapper'))(userBl),
 
   entryModel = require('./models/entry-model')(sequelize, Sequelize),
-  entryService = new (require('./services/entry-service'))(entryModel),
+  entryService = new (require('./services/entry-service'))(entryModel, sequelize),
   entryBl = new (require('./bl/entry-bl'))(entryService),
   entry = new (require('./middleware/service-wrapper'))(entryBl),
 
