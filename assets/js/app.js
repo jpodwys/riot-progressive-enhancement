@@ -3,6 +3,7 @@ var page = require('page'),
   user = new (require('../../middleware/service-wrapper'))(userService),
   entryService = require('./entry-service'),
   entry = new (require('../../middleware/service-wrapper'))(entryService),
+  fastclick = require('fastclick'),
   riot = require('riot'),
   loginPageTag = require('../tags/login-page.tag'),
   entryListTag = require('../tags/entry-list.tag'),
@@ -10,6 +11,8 @@ var page = require('page'),
   newEntryTag = require('../tags/new-entry.tag'),
   editEntryTag = require('../tags/edit-entry.tag'),
   mainTag = document.querySelector('main');
+
+fastclick(document.body);
 
 page.base('/');
 page('/', loginHandler);

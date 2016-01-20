@@ -34,7 +34,8 @@
     "jsonwebtoken": "5.5.4",
     "cookie-parser": "1.4.1",
     "dotenv": "1.2.0",
-    "mysql": "2.10.2"
+    "mysql": "2.10.2",
+    "fastclick": "1.0.6"
   },
   "devDependencies": {
     "browserify": "12.0.1",
