@@ -1,5 +1,5 @@
-var empty = require('dotenv').load(),
-  express = require('express'),
+require('dotenv').load();
+var express = require('express'),
   compress = require('compression'),
   methodOverride = require('method-override'),
   bodyParser = require('body-parser'),
@@ -22,7 +22,6 @@ app.use(cookieParser());
 app.use(methodOverride('_method'));
 app.use(resMods.vary);
 app.use(resMods.formOrAjax);
-// app.use(function(req, res, next){req.user = {id: 1}; next();});
 app.use(express.static('assets'/*, {maxAge: '1h'}*/));
 app.use(express.static('views'));
 

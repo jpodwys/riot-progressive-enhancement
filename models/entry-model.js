@@ -2,7 +2,7 @@ module.exports = function(sequelize, Sequelize){
   return sequelize.define('Entry', 
     {
       id: {type: Sequelize.INTEGER, primaryKey: true, unique: true, autoIncrement: true},
-      owner_id: Sequelize.INTEGER,
+      ownerId: {type: Sequelize.INTEGER, field: 'owner_id'},
       date: Sequelize.INTEGER,
       text: Sequelize.STRING,
       isPublic: {type: Sequelize.INTEGER, field: 'is_public'}

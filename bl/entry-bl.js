@@ -21,7 +21,7 @@ module.exports = function(Entry){
     return new promise(function (resolve, reject){
       Entry.getEntryById(entryId).then(function (entry){
         if(!entry) return reject({status: 404, message: 'Entry not found.'});
-        if(entry.isPublic === 0 && (!user || (user.id !== entry.owner_id))){
+        if(entry.isPublic === 0 && (!user || (user.id !== entry.ownerId))){
           return reject({status: 404, message: 'Entry not found.'});
         }
         return resolve(entry);
@@ -45,7 +45,7 @@ module.exports = function(Entry){
     return new promise(function (resolve, reject){
       Entry.getEntryById(data.id).then(function (entry){
         if(!entry) return reject({status: 404, message: 'Entry not found.'});
-        if(user.id !== entry.owner_id) return reject({status: 404, message: 'Entry not found.'});
+        if(user.id !== entry.ownerId) return reject({status: 404, message: 'Entry not found.'});
         Entry.updateEntry(data).then(function (response){
           return resolve();
         }, function (err){
@@ -61,7 +61,7 @@ module.exports = function(Entry){
     return new promise(function (resolve, reject){
       Entry.getEntryById(entryId).then(function (entry){
         if(!entry) return reject({status: 404, message: 'Entry not found.'});
-        if(user.id !== entry.owner_id) return reject({status: 404, message: 'Entry not found.'});
+        if(user.id !== entry.ownerId) return reject({status: 404, message: 'Entry not found.'});
         Entry.deleteEntry(entryId).then(function (response){
           return resolve();
         }, function (err){

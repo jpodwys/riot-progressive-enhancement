@@ -5,7 +5,7 @@ module.exports = function(Entry){
 
   self.getEntriesByOwnerId = function(userId, index, offset){
     return Entry.findAndCountAll({
-      where: {owner_id: userId},
+      where: {ownerId: userId},
       limit: offset,
       offset: 0,
       raw: true
@@ -25,7 +25,7 @@ module.exports = function(Entry){
   self.createEntry = function(data, ownerId){
     return new promise(function (resolve, reject){
       Entry.create({
-        owner_id: ownerId,
+        ownerId: ownerId,
         date: (new Date(data.date)).getTime(),
         text: data.text,
         isPublic: (!!data.isPublic) ? 1 : 0
