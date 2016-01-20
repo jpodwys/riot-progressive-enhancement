@@ -12,7 +12,7 @@
 
   <script>
     var self = this;
-    if(opts.entry.date.toString().indexOf('-') < 0) formatDate();
+    if(opts.entry && opts.entry.date && opts.entry.date.toString().indexOf('-') < 0) formatDate();
     function formatDate(){
       opts.entry.date = new Date(opts.entry.date).toISOString().slice(0, 10);
       self.update();
@@ -22,7 +22,10 @@
     }
     self.del = function(e){
       opts.entryService.deleteEntry(opts.entry.id).then(function (response){
-        opts.page.replace('/');
+        opts.page.replace('/entries');
+      }, function (err){
+        console.log('entry-view:del:err', err);
+        alert(err);
       });
     }
   </script>

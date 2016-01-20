@@ -27,13 +27,19 @@
     "superagent-cache": "1.3.2",
     "superagent-promise": "jpodwys/superagent-promise",
     "zousan": "2.2.1",
-    "force-ssl-heroku": "1.0.2"
+    "force-ssl-heroku": "1.0.2",
+    "sequelize": "3.17.3",
+    "bcrypt": "0.8.5",
+    "express-jwt": "3.3.0",
+    "jsonwebtoken": "5.5.4",
+    "cookie-parser": "1.4.1"
   },
   "devDependencies": {
     "browserify": "12.0.1",
     "riotify": "0.1.2",
     "uglifyify": "3.0.1",
-    "nodemon": "1.8.1"
+    "nodemon": "1.8.1",
+    "dotenv": "1.2.0"
   },
   "author": "jpodwys",
   "license": "MIT",

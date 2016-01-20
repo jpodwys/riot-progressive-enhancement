@@ -4,7 +4,7 @@
 var xhr = require('superagent');
 
 exports.getAllEntries = function(){
-  return xhr.get('/')
+  return xhr.get('/entries')
     .accept('application/json')
     // ._end();
 }

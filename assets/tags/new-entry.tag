@@ -1,9 +1,13 @@
 <new-entry>
-  <form method="post" action="/entry" onsubmit="{create}" class="pure-form-stacked">
-    <input name="date" value="{opts.entry.date}"/>
-    <textarea name="text" class="entry-text"></textarea>
-    Is Public: <input type="checkbox" name="isPublic" checked="{opts.entry.isPublic}"/>
-    <input type="submit" class="pure-button pure-button-primary"/>
+  <form method="post" action="/entry" onsubmit="{create}" class="pure-form pure-form-stacked">
+    <fieldset>
+      <legend>Create a new Entry</legend>
+      <input name="date" value="{opts.entry.date}"/>
+      <textarea name="text" class="entry-text"></textarea>
+      Is Public: <input type="checkbox" name="isPublic" checked="{opts.entry.isPublic}"/>
+      <a href="/entries" class="pure-button">Cancel</a>
+      <input type="submit" class="pure-button pure-button-primary"/>
+    </fieldset>
   </form>
 
   <script>
@@ -17,6 +21,8 @@
       opts.entryService.createEntry(state).then(function (response){
         state.id = response.body.id;
         opts.page.replace('/entry/' + response.body.id, {data: state});
+      }, function (err){
+        alert(err);
       });
     }
   </script>
