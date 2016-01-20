@@ -30,7 +30,7 @@ app.use(jwtMW({
   secret: process.env.JWT_KEY,
   credentialsRequired: false,
   getToken: function(req){
-    if(req.cookies && req.cookies.jwt) return req.cookies.jwt;
+    if(req.cookies && req.cookies.auth_token) return req.cookies.auth_token;
     return null;
   }
 }));

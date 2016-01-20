@@ -57,8 +57,14 @@ exports.joinOrLogin = function(req, res, next){
   }
   if(req.response){
     var token = jwt.sign(req.response, process.env.JWT_KEY);
-    res.cookie('jwt', token, {
+    // This cookie proves a user is logged in and contains JWT claims
+    res.cookie('auth_token', token, {
       httpOnly: (process.env.NODE_ENV === 'production'),
+      secure: (process.env.NODE_ENV === 'production'),
+      expires: (new Date((new Date()).getTime() + (60 * 60 * 1000))) // One hour
+    });
+    // This cookie contains no data. It is solely for the client to determine things about the UI
+    res.cookie('logged_in', 'true', {
       secure: (process.env.NODE_ENV === 'production'),
       expires: (new Date((new Date()).getTime() + (60 * 60 * 1000))) // One hour
     });
@@ -71,7 +77,8 @@ exports.logout = function(req, res, next){
   req.handlerData = {
     redirectUrl: '/'
   }
-  res.clearCookie('jwt');
+  res.clearCookie('auth_token');
+  res.clearCookie('logged_in');
   next();
 }
 

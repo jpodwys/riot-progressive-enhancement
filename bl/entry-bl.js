@@ -21,7 +21,7 @@ module.exports = function(Entry){
     return new promise(function (resolve, reject){
       Entry.getEntryById(entryId).then(function (entry){
         if(!entry) return reject({status: 404, message: 'Entry not found.'});
-        if(user.id !== entry.owner_id && entry.is_public === 0){
+        if(entry.isPublic === 0 && (!user || (user.id !== entry.owner_id))){
           return reject({status: 404, message: 'Entry not found.'});
         }
         return resolve(entry);

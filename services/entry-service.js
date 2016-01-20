@@ -28,7 +28,7 @@ module.exports = function(Entry){
         owner_id: ownerId,
         date: (new Date(data.date)).getTime(),
         text: data.text,
-        is_public: !!data.isPublic
+        isPublic: (!!data.isPublic) ? 1 : 0
       }).then(function (entry){
         return resolve(entry);
       }, function (err){
@@ -42,7 +42,7 @@ module.exports = function(Entry){
       {
         date: (new Date(data.date)).getTime(),
         text: data.text,
-        is_public: !!data.isPublic
+        isPublic: (!!data.isPublic) ? 1 : 0
       },{
         where: {id: data.id}
       }

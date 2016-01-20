@@ -5,7 +5,7 @@ module.exports = function(sequelize, Sequelize){
       owner_id: Sequelize.INTEGER,
       date: Sequelize.INTEGER,
       text: Sequelize.STRING,
-      is_public: Sequelize.INTEGER
+      isPublic: {type: Sequelize.INTEGER, field: 'is_public'}
     },{
       timestamps: false,
       classMethods: {
