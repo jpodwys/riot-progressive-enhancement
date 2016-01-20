@@ -1,4 +1,4 @@
-//require('dotenv').load();
+require('dotenv').load();
 var express = require('express'),
   compress = require('compression'),
   methodOverride = require('method-override'),
@@ -22,7 +22,8 @@ app.use(cookieParser());
 app.use(methodOverride('_method'));
 app.use(resMods.vary);
 app.use(resMods.formOrAjax);
-app.use(express.static('assets'/*, {maxAge: '1h'}*/));
+var maxAge = (process.env.NODE_ENV === 'production') ? '1d' : '0h';
+app.use(express.static('assets', {maxAge: maxAge}));
 app.use(express.static('views'));
 
 app.use(jwtMW({
