@@ -33,7 +33,8 @@
     "express-jwt": "3.3.0",
     "jsonwebtoken": "5.5.4",
     "cookie-parser": "1.4.1",
-    "dotenv": "1.2.0"
+    "dotenv": "1.2.0",
+    "mysql": "2.10.2"
   },
   "devDependencies": {
     "browserify": "12.0.1",
