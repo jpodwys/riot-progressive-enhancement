@@ -8,6 +8,7 @@ module.exports = function(Entry, sequelize){
       where: {ownerId: userId},
       attributes: [
         'id', 'ownerId', 'date', 'isPublic',
+        [sequelize.fn('date_format', sequelize.col('date'), '%Y-%m-%d'), 'date'],
         [sequelize.fn('LEFT', sequelize.col('text'), 140), 'text']
         // [sequelize.fn('CONCAT',
         //   sequelize.fn('LEFT', sequelize.col('text'), 140),
@@ -33,7 +34,10 @@ module.exports = function(Entry, sequelize){
   self.getEntryById = function(id){
     return Entry.findOne({
       where: {id: id},
-      attributes: ['id', 'ownerId', 'date', 'isPublic']
+      attributes: [
+        'id', 'ownerId', 'isPublic',
+        [sequelize.fn('date_format', sequelize.col('date'), '%Y-%m-%d'), 'date'],
+      ]
     });
   }
 
