@@ -22,10 +22,10 @@ This repo serves as both a journal website and a tech demo.
 
 Lib | Purpose
 -------|---------
-* Node | server
-* Express | API/Routing/Middleware
-* MySQL | Database
-* Riot | Rendering/templating/data-binding
+Node | server
+Express | API/Routing/Middleware
+MySQL | Database
+Riot | Rendering/templating/data-binding
 
 #### Client
 
@@ -48,3 +48,12 @@ Granted, React and Angular 2 are both capable of server-side rendering and proba
 # Deploy
 
 At some point not too long from now, I hope to have all JS bundles generated as part of the deploy script. I also hope to write thorough steps for how to get this running on your own Heroku instance. Additionally, I would like to better organize and clearly outline the code.
+
+# To Do
+
+- [ ] AES encrypt entry text
+- [ ] Move tag-specific CSS out of `wrapper.ejs` into each tag file and [do this](https://github.com/riot/riot/issues/1250) for server-side rendering
+- [ ] Prevent the back button from allowing users to see data after logging out. It currently only works with the history state immediately before the logout page, perhaps only with JS routing and not form submission routing?
+- [ ] Generate `bundle.js` at deploy so I can remove it from github
+
+... more incoming.
