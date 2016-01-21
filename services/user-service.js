@@ -6,13 +6,15 @@ module.exports = function(User, sequelize){
 
   self.getUserById = function(id){
     return User.findOne({
-      where: {id: id}
+      where: {id: id},
+      attributes: ['id', 'username', 'password']
     });
   }
 
   self.getUserByUsername = function(username){
     return User.findOne({
-      where: {username: username}
+      where: {username: username},
+      attributes: ['id', 'username', 'password']
     });
   }
 
@@ -41,9 +43,5 @@ module.exports = function(User, sequelize){
     return User.destroy({
       where: {id: id}
     });
-  }
-
-  self.attemptLogin = function(data){
-    
   }
 }

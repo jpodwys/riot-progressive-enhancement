@@ -4,11 +4,11 @@
     <span if="{!opts.entry.isPublic}">Private</span>
     <span if="{opts.entry.isPublic}">Public</span>
   </h1>
-  <p class="entry-text">{opts.entry.text}</p>
-  <form method="post" action="/entry/{opts.entry.id}?_method=DELETE" onsubmit="{del}">
-    <input type="submit" value="Delete" class="pure-button"/>
+  <p><pre class="entry-text">{opts.entry.text}</pre></p>
+  <form method="post" action="/entry/{opts.entry.id}?_method=DELETE" onsubmit="{del}" class="form-submit-only">
+    <input type="submit" value="Delete" class="pure-button button-warning"/>
   </form>
-  <a href="/entry/{opts.entry.id}/edit" onclick="{edit}" class="pure-button">Edit</a>
+  <a href="/entry/{opts.entry.id}/edit" onclick="{edit}" class="pure-button button-margin-left">Edit</a>
 
   <script>
     var self = this;

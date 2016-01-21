@@ -1,5 +1,5 @@
 var Sequelize = require('sequelize'),
-  sequelize = new Sequelize(process.env.JAWSDB_URL),
+  sequelize = new Sequelize(process.env.JAWSDB_URL, {omitNull: true}),
 
   userModel = require('./models/user-model')(sequelize, Sequelize),
   userService = new (require('./services/user-service'))(userModel, sequelize),
