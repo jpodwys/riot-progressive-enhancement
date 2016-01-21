@@ -9,7 +9,8 @@
   <script>
     var self = this;
     self.formatDate = function(d){
-      return new Date(d).toISOString().slice(0, 10);
+      if(typeof d === 'object') return d.toISOString().slice(0, 10);
+      return d.slice(0, 10);
     }
   </script>
 </entry-list>

@@ -1,6 +1,6 @@
 <entry-view>
   <h1>
-    {opts.entry.date}
+    {formatDate(opts.entry.date)}
     <span if="{!opts.entry.isPublic}">Private</span>
     <span if="{opts.entry.isPublic}">Public</span>
   </h1>
@@ -12,10 +12,9 @@
 
   <script>
     var self = this;
-    if(opts.entry && opts.entry.date && opts.entry.date.toString().indexOf('-') < 0) formatDate();
-    function formatDate(){
-      opts.entry.date = new Date(opts.entry.date).toISOString().slice(0, 10);
-      self.update();
+    self.formatDate = function(d){
+      if(typeof d === 'object') return d.toISOString().slice(0, 10);
+      return d.slice(0, 10);
     }
     self.edit = function(e){
       opts.page('/entry/' + opts.entry.id + '/edit', {data: opts.entry});

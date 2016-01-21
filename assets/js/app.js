@@ -82,7 +82,7 @@ function loginHandler(ctx){
 
 function entriesHandler(ctx){
   renderView('entry-list', {
-    entries: ctx.response.entries
+    entries: (ctx.response) ? ctx.response.entries : []
   });
 }
 

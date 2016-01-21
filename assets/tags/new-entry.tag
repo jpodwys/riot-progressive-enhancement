@@ -12,8 +12,18 @@
 
   <script>
     var self = this;
+    function getDate(){
+      var d = new Date();
+      var plainDate = new Date(Date.UTC(d.getFullYear(),
+                                        d.getMonth(),
+                                        d.getDate(),
+                                        d.getHours(),
+                                        d.getMinutes(),
+                                        d.getSeconds()));
+      return plainDate.toISOString().slice(0, 10);
+    }
     opts.entry = {
-      date: new Date().toISOString().slice(0, 10)
+      date: getDate()
     }
     self.update();
     this.create = function(e){

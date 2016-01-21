@@ -16,7 +16,10 @@ module.exports = function(Entry, sequelize){
         //   > 140, "...", "")),
         // 'text']
       ],
-      order: [['date', 'DESC']],
+      order: [
+        ['date', 'DESC'],
+        ['created_at', 'DESC']
+      ],
       limit: offset,
       offset: 0,
       raw: true
@@ -29,17 +32,16 @@ module.exports = function(Entry, sequelize){
 
   self.getEntryById = function(id){
     return Entry.findOne({
-      where: {id: id}
+      where: {id: id},
+      attributes: ['id', 'ownerId', 'date', 'isPublic']
     });
   }
 
   self.createEntry = function(data, ownerId){
     return new promise(function (resolve, reject){
-      console.log('DATE INPUT', data.date, typeof data.date);
-      console.log('DATE OUTPUT', (new Date(data.date)).getTime());
       Entry.create({
         ownerId: ownerId,
-        date: (new Date(data.date)).getTime(),
+        date: data.date,
         text: data.text,
         isPublic: (!!data.isPublic) ? 1 : 0
       }).then(function (entry){
@@ -53,7 +55,7 @@ module.exports = function(Entry, sequelize){
   self.updateEntry = function(data){
     return Entry.update(
       {
-        date: (new Date(data.date)).getTime(),
+        date: data.date,
         text: data.text,
         isPublic: (!!data.isPublic) ? 1 : 0
       },{
