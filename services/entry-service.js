@@ -35,7 +35,7 @@ module.exports = function(Entry, sequelize){
     return Entry.findOne({
       where: {id: id},
       attributes: [
-        'id', 'ownerId', 'isPublic',
+        'id', 'ownerId', 'text', 'isPublic',
         [sequelize.fn('date_format', sequelize.col('date'), '%Y-%m-%d'), 'date'],
       ]
     });
