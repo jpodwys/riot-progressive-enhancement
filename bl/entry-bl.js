@@ -9,6 +9,7 @@ module.exports = function(Entry){
       Entry.getEntriesByOwnerId(user.id, 20, 0).then(function (entries){
         entries.rows = entries.rows.map(function (entry){
           entry.text = AES.decrypt(entry.text);
+          if(entry.text.length > 140) entry.text = entry.text.slice(0, 139) + '...';
           return entry;
         });
         return resolve(entries);
