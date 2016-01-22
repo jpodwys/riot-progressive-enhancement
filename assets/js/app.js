@@ -105,6 +105,6 @@ function editEntryHandler(ctx){
   renderView('edit-entry', {
     page: page,
     entryService: entryService,
-    entry: ctx.state.data || ctx.response.data
+    entry: ctx.state.data || ctx.response.entry
   });
 }
