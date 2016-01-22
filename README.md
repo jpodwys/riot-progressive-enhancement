@@ -58,5 +58,6 @@ At some point not too long from now, I hope to have all JS bundles generated as 
 - [ ] Prevent the back button from allowing users to see data after logging out. It currently only works with the history state immediately before the logout page, perhaps only with JS routing and not form submission routing?
 - [ ] Generate `bundle.js` at deploy so I can remove it from github
 - [ ] Paginate the entries list--right now it's limited to the most "recent" 20 items
+- [ ] Make usernames and passwords require a minimum number of characters
 
 ... more incoming.
