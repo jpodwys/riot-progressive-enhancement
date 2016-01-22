@@ -17,9 +17,9 @@ fastclick(document.body);
 page.base('/');
 page('/', loginHandler);
 page('entries', restrict, entry.getAllEntries, errorHandler, entriesHandler);
+page('entry/new', restrict, newEntryHandler);
 page('entry/:id', entry.getEntryById, errorHandler, entryHandler);
 page('entry/:id/edit', restrict, entry.getEntryById, errorHandler, editEntryHandler);
-page('new', restrict, newEntryHandler);
 page({dispatch: false});
 
 function restrict(ctx, next){
@@ -105,6 +105,6 @@ function editEntryHandler(ctx){
   renderView('edit-entry', {
     page: page,
     entryService: entryService,
-    entry: ctx.state.data || ctx.response
+    entry: ctx.state.data || ctx.response.data
   });
 }

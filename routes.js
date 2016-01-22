@@ -21,17 +21,10 @@ module.exports = function(app){
   // app.put('/user/:id');
   // app.delete('/user/:id')
   app.get('/entries', app.restrict, entry.getEntriesByOwnerId, handlers.getEntries, handlers.execute);
+  app.get('/entry/new', app.restrict, handlers.getNew, handlers.execute);
   app.get('/entry/:id', entry.getEntryById, handlers.getEntry, handlers.execute);
   app.get('/entry/:id/edit', app.restrict, entry.getEntryById, handlers.getEditEntry, handlers.execute);
-  app.get('/new', app.restrict, handlers.getNew, handlers.execute);
   app.post('/entry', app.restrict, entry.createEntry, handlers.postEntry, handlers.execute);
   app.put('/entry/:id', app.restrict, entry.updateEntry, handlers.putEntry, handlers.execute);
   app.delete('/entry/:id', app.restrict, entry.deleteEntry, handlers.deleteEntry, handlers.execute);
-
-  app.get('/token',
-    function (req, res, next){
-      console.log('req.user', req.user);
-      res.sendStatus(200);
-    }
-  );
 }

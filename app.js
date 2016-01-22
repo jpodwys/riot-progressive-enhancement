@@ -5,7 +5,6 @@ var express = require('express'),
   bodyParser = require('body-parser'),
   cookieParser = require('cookie-parser'),
   ejs = require('ejs'),
-  // stream = require('express-stream'),
   app = express(),
   forceSsl = require('force-ssl-heroku'),
   jwtMW = require('express-jwt'),
@@ -24,8 +23,7 @@ app.use(resMods.vary);
 app.use(resMods.formOrAjax);
 var maxAge = (process.env.NODE_ENV === 'production') ? '1d' : '0h';
 app.use(express.static('assets', {maxAge: maxAge}));
-app.use(express.static('views'));
-
+// app.use(express.static('views'));
 app.use(jwtMW({
   secret: process.env.JWT_KEY,
   credentialsRequired: false,
@@ -34,7 +32,6 @@ app.use(jwtMW({
     return null;
   }
 }));
-
 require('./middleware/app-middleware')(app);
 require('./routes')(app);
 
