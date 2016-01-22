@@ -51,7 +51,7 @@ At some point not too long from now, I hope to have all JS bundles generated as 
 
 # To Do
 
-- [ ] AES encrypt entry text
+- [x] AES encrypt entry text (from node due to the info available in the `Caution` note in the [MySQL docs](https://dev.mysql.com/doc/refman/5.5/en/encryption-functions.html)
 - [ ] Move tag-specific CSS out of `wrapper.ejs` into each tag file and [do this](https://github.com/riot/riot/issues/1250) for server-side rendering
 - [ ] Prevent the back button from allowing users to see data after logging out. It currently only works with the history state immediately before the logout page, perhaps only with JS routing and not form submission routing?
 - [ ] Generate `bundle.js` at deploy so I can remove it from github
