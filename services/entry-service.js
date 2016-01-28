@@ -8,20 +8,34 @@ module.exports = function(Entry, sequelize){
       where: {ownerId: userId},
       attributes: [
         'id', 'ownerId', 'date', 'text', 'isPublic',
-        [sequelize.fn('date_format', sequelize.col('date'), '%Y-%m-%d'), 'date'],
-        // [sequelize.fn('CONCAT',
-        //   sequelize.fn('LEFT', sequelize.col('text'), 140),
-        //   sequelize.fn('IF', 
-        //     sequelize.literal('LENGTH(text) > 140'),
-        //   "...", "")),
-        // 'text']
+        [sequelize.fn('date_format', sequelize.col('date'), '%Y-%m-%d'), 'date']
       ],
       order: [
         ['date', 'DESC'],
         ['created_at', 'DESC']
       ],
       limit: offset,
-      offset: 0,
+      offset: index,
+      raw: true
+    });
+  }
+
+  self.getEntriesByTextSearch = function(text, userId, index, offset){
+    return Entry.findAndCountAll({
+      where: {
+        ownerId: userId,
+        text: {$like: '%' + text + '%'}
+      },
+      attributes: [
+        'id', 'ownerId', 'date', 'text', 'isPublic',
+        [sequelize.fn('date_format', sequelize.col('date'), '%Y-%m-%d'), 'date']
+      ],
+      order: [
+        ['date', 'DESC'],
+        ['created_at', 'DESC']
+      ],
+      limit: offset,
+      offset: index,
       raw: true
     });
   }

@@ -56,7 +56,7 @@ exports.joinOrLogin = function(req, res, next){
     redirectUrl: '/entries'
   }
   if(req.response){
-    var token = jwt.sign(req.response, process.env.JWT_KEY);
+    var token = jwt.sign(req.response, process.env.JWT_KEY, {expiresIn: '1h'});
     // This cookie proves a user is logged in and contains JWT claims
     res.cookie('auth_token', token, {
       httpOnly: (process.env.NODE_ENV === 'production'),

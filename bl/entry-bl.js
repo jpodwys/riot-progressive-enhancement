@@ -1,12 +1,23 @@
 var promise = require('zousan'),
-  AES = require('../utils/aes');
+  AES = require('../utils/aes'),
+  INDEX = 0,
+  OFFSET = 20;
 
 module.exports = function(Entry){
   var self = this;
 
+  self.getEntries = function(data, user){
+    if(data.query && data.query.q){
+      return self.getEntriesByTextSearch(data, user);
+    }
+    else{
+      return self.getEntriesByOwnerId(data, user);
+    }
+  }
+
   self.getEntriesByOwnerId = function(data, user){
     return new promise(function (resolve, reject){
-      Entry.getEntriesByOwnerId(user.id, 20, 0).then(function (entries){
+      Entry.getEntriesByOwnerId(user.id, INDEX, OFFSET).then(function (entries){
         entries.rows = entries.rows.map(function (entry){
           entry.text = AES.decrypt(entry.text);
           if(entry.text.length > 140) entry.text = entry.text.slice(0, 139) + '...';
@@ -19,8 +30,20 @@ module.exports = function(Entry){
     });
   }
 
-  self.getEntriesByTextSearch = function(){
-
+  self.getEntriesByTextSearch = function(data, user){
+    return new promise(function (resolve, reject){
+      var text = AES.encrypt(data.query.q);
+      Entry.getEntriesByTextSearch(text, user.id, INDEX, OFFSET).then(function (entries){
+        entries.rows = entries.rows.map(function (entry){
+          entry.text = AES.decrypt(entry.text);
+          if(entry.text.length > 140) entry.text = entry.text.slice(0, 139) + '...';
+          return entry;
+        });
+        return resolve(entries);
+      }, function (err){
+        return reject({status: 500, message: err});
+      });
+    });
   }
 
   self.getEntryById = function(entryId, user){
