@@ -59,5 +59,12 @@ At some point not too long from now, I hope to have all JS bundles generated as 
 - [ ] Generate `bundle.js` at deploy so I can remove it from github
 - [ ] Paginate the entries list--right now it's limited to the most "recent" 20 items
 - [ ] Make usernames and passwords require a minimum number of characters
+- [ ] Make sequelize automatially handle table creation so that automatic deploys work
+- [ ] Consider encrypting JWT token
+- [ ] Hide menu bar when not logged in and edit/delete buttons when not the entry owner
+- [ ] Add a loading state when AJAX calls are happening
+- [ ] Look into using page.js' `state` object to better handle not loading data I already have
+- [ ] Prevent empty entry creation
+- [ ] Disable fasclick on inputs and textareas
 
 ... more incoming.

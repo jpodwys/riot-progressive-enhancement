@@ -8,7 +8,13 @@ module.exports = function(Entry, sequelize){
       where: {ownerId: userId},
       attributes: [
         'id', 'ownerId', 'date', 'text', 'isPublic',
-        [sequelize.fn('date_format', sequelize.col('date'), '%Y-%m-%d'), 'date']
+        [sequelize.fn('date_format', sequelize.col('date'), '%Y-%m-%d'), 'date'],
+        // [sequelize.fn('CONCAT',
+        //   sequelize.fn('LEFT', sequelize.col('text'), 140),
+        //   sequelize.fn('IF', 
+        //     sequelize.literal('LENGTH(text) > 140'),
+        //   "...", "")),
+        // 'text']
       ],
       order: [
         ['date', 'DESC'],
