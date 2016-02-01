@@ -4,6 +4,7 @@ module.exports = function(sequelize, Sequelize){
     ownerId: {type: Sequelize.INTEGER, field: 'owner_id'},
     date: Sequelize.DATE,
     text: Sequelize.STRING,
+    wordIndex: {type: Sequelize.STRING, field: 'word_index'},
     isPublic: {type: Sequelize.BOOLEAN, field: 'is_public'},
     createdAt: {type: Sequelize.DATE, field: 'created_at'},
     updatedAt: {type: Sequelize.DATE, field: 'updated_at'}

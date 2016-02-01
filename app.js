@@ -9,6 +9,7 @@ var express = require('express'),
   forceSsl = require('force-ssl-heroku'),
   jwtMW = require('express-jwt'),
   resMods = require('./middleware/response-mods'),
+  AES = require('./utils/aes'),
   PORT = process.env.PORT || 3000;
 
 app.set('views', './views');
@@ -21,14 +22,14 @@ app.use(cookieParser());
 app.use(methodOverride('_method'));
 app.use(resMods.vary);
 app.use(resMods.formOrAjax);
-var maxAge = (process.env.NODE_ENV === 'production') ? '1d' : '0h';
+var maxAge = (process.env.NODE_ENV === 'production') ? '7d' : '0h';
 app.use(express.static('assets', {maxAge: maxAge}));
-// app.use(express.static('views'));
 app.use(jwtMW({
   secret: process.env.JWT_KEY,
   credentialsRequired: false,
   getToken: function(req){
-    if(req.cookies && req.cookies.auth_token) return req.cookies.auth_token;
+    if(req.cookies && req.cookies.auth_token)
+      return AES.decrypt(req.cookies.auth_token);
     return null;
   }
 }));

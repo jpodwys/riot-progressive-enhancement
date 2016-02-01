@@ -3,6 +3,19 @@ var promise = require('zousan'),
   INDEX = 0,
   OFFSET = 20;
 
+function getEncryptedIndex(words){
+  words = words.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, ' ');
+  words = words.replace(/(\r\n|\n|\r)/gm, ' ');
+  words = words.replace(/\s{2,}/g, ' ');
+  words = words.toLowerCase();
+  words = words.split(' ');
+  words = words.map(function (word){
+    if(word.length) return AES.encrypt(word + process.env.AES_SALT);
+    return null;
+  });
+  return words.join('');
+}
+
 module.exports = function(Entry){
   var self = this;
 
@@ -32,7 +45,7 @@ module.exports = function(Entry){
 
   self.getEntriesByTextSearch = function(data, user){
     return new promise(function (resolve, reject){
-      var text = AES.encrypt(data.query.q);
+      var text = getEncryptedIndex(data.query.q);
       Entry.getEntriesByTextSearch(text, user.id, INDEX, OFFSET).then(function (entries){
         entries.rows = entries.rows.map(function (entry){
           entry.text = AES.decrypt(entry.text);
@@ -63,6 +76,7 @@ module.exports = function(Entry){
 
   self.createEntry = function(data, user){
     return new promise(function (resolve, reject){
+      data.wordIndex = getEncryptedIndex(data.text);
       data.text = AES.encrypt(data.text);
       Entry.createEntry(data, user.id).then(function (entry){
         return resolve(entry.id);
@@ -77,6 +91,7 @@ module.exports = function(Entry){
       Entry.getEntryById(data.id).then(function (entry){
         if(!entry) return reject({status: 404, message: 'Entry not found.'});
         if(user.id !== entry.ownerId) return reject({status: 404, message: 'Entry not found.'});
+        data.wordIndex = getEncryptedIndex(data.text);
         data.text = AES.encrypt(data.text);
         Entry.updateEntry(data).then(function (response){
           return resolve();

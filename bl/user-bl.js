@@ -32,7 +32,7 @@ module.exports = function(User){
         if(user) return reject({status: 400, message: 'Username ' + data.username + ' is taken. Please try another.'});
         bcrypt.genSalt(10, function (err, salt){
           bcrypt.hash(data.password, salt, function (err, hash){
-            var userData = {username: data.username, salt: salt, password: hash};
+            var userData = {username: data.username, password: hash};
             User.createUser(userData).then(function (user){
               if(!user) return reject({status: 500, message: 'Failed to created account'});
               var output = {id: user.id, username: user.username};

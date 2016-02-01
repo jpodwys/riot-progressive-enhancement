@@ -30,7 +30,7 @@ module.exports = function(Entry, sequelize){
     return Entry.findAndCountAll({
       where: {
         ownerId: userId,
-        text: {$like: '%' + text + '%'}
+        wordIndex: {$like: '%' + text + '%'}
       },
       attributes: [
         'id', 'ownerId', 'date', 'text', 'isPublic',
@@ -66,6 +66,7 @@ module.exports = function(Entry, sequelize){
         ownerId: ownerId,
         date: data.date,
         text: data.text,
+        wordIndex: data.wordIndex,
         isPublic: (!!data.isPublic) ? 1 : 0
       }).then(function (entry){
         return resolve(entry);
