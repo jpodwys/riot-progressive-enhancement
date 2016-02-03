@@ -1,5 +1,11 @@
 var Sequelize = require('sequelize'),
-  sequelize = new Sequelize(process.env.JAWSDB_URL, {omitNull: true, logging: (process.env.NODE_ENV === 'development') ? console.log : false}),
+  sequelize = new Sequelize(process.env.DB_URL, {
+    // dialectOptions: {
+    //   ca: process.env.SQL_SSL_CERT
+    // },
+    omitNull: true,
+    logging: (process.env.NODE_ENV === 'development') ? console.log : false
+  }),
 
   userModel = require('./models/user-model')(sequelize, Sequelize),
   userService = new (require('./services/user-service'))(userModel, sequelize),

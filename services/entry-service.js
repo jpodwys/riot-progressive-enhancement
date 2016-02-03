@@ -9,16 +9,17 @@ module.exports = function(Entry, sequelize){
       attributes: [
         'id', 'ownerId', 'date', 'text', 'isPublic',
         [sequelize.fn('date_format', sequelize.col('date'), '%Y-%m-%d'), 'date'],
-        // [sequelize.fn('CONCAT',
-        //   sequelize.fn('LEFT', sequelize.col('text'), 140),
-        //   sequelize.fn('IF', 
-        //     sequelize.literal('LENGTH(text) > 140'),
-        //   "...", "")),
-        // 'text']
+        [sequelize.fn('CONCAT',
+          sequelize.fn('LEFT', sequelize.col('text'), 140),
+          sequelize.fn('IF', 
+            sequelize.literal('LENGTH(text) > 140'),
+          "...", "")),
+        'text']
       ],
       order: [
         ['date', 'DESC'],
-        ['created_at', 'DESC']
+        // ['created_at', 'DESC']
+        ['updated_at', 'DESC']
       ],
       limit: offset,
       offset: index,
@@ -27,14 +28,28 @@ module.exports = function(Entry, sequelize){
   }
 
   self.getEntriesByTextSearch = function(text, userId, index, offset){
+    // SELECT *
+    // FROM
+    // (
+    //   SELECT id, owner_id AS ownerId, date_format(date, '%Y-%m-%d') AS date, LOWER(text) AS text
+    //   FROM entries
+    //   WHERE owner_id = 2
+    // ) AS subQuery
+    // WHERE text LIKE '%hi%'
     return Entry.findAndCountAll({
       where: {
         ownerId: userId,
-        wordIndex: {$like: '%' + text + '%'}
+        text: {$like: '%' + text + '%'}
       },
       attributes: [
-        'id', 'ownerId', 'date', 'text', 'isPublic',
-        [sequelize.fn('date_format', sequelize.col('date'), '%Y-%m-%d'), 'date']
+        'id', 'ownerId', 'isPublic',
+        [sequelize.fn('date_format', sequelize.col('date'), '%Y-%m-%d'), 'date'],
+        [sequelize.fn('CONCAT',
+          sequelize.fn('LEFT', sequelize.col('text'), 140),
+          sequelize.fn('IF', 
+            sequelize.literal('LENGTH(text) > 140'),
+          "...", "")),
+        'text']
       ],
       order: [
         ['date', 'DESC'],
@@ -66,7 +81,6 @@ module.exports = function(Entry, sequelize){
         ownerId: ownerId,
         date: data.date,
         text: data.text,
-        wordIndex: data.wordIndex,
         isPublic: (!!data.isPublic) ? 1 : 0
       }).then(function (entry){
         return resolve(entry);
