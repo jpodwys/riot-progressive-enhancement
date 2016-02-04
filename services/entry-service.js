@@ -29,7 +29,7 @@ module.exports = function(Entry, sequelize){
   self.getEntriesByTextSearch = function(text, userId, index, offset){
     return new promise(function (resolve, reject){
       var totalQuery   =  'SELECT COUNT(*) FROM entries WHERE owner_id = :ownerId;';
-      var entriesQuery =  'SELECT id, ownerId, date, text ' +
+      var entriesQuery =  'SELECT id, ownerId, date, IF(LENGTH(text) > 140, CONCAT(LEFT(text, 140), "..."), text) AS text ' +
                           'FROM ( ' +
                             'SELECT id, owner_id AS ownerId, date_format(date, "%Y-%m-%d") AS date, text, updated_at ' +
                             'FROM entries ' +
