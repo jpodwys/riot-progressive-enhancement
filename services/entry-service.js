@@ -18,7 +18,6 @@ module.exports = function(Entry, sequelize){
       ],
       order: [
         ['date', 'DESC'],
-        // ['created_at', 'DESC']
         ['updated_at', 'DESC']
       ],
       limit: offset,
@@ -28,36 +27,47 @@ module.exports = function(Entry, sequelize){
   }
 
   self.getEntriesByTextSearch = function(text, userId, index, offset){
-    // SELECT *
-    // FROM
-    // (
-    //   SELECT id, owner_id AS ownerId, date_format(date, '%Y-%m-%d') AS date, LOWER(text) AS text
-    //   FROM entries
-    //   WHERE owner_id = 2
-    // ) AS subQuery
-    // WHERE text LIKE '%hi%'
-    return Entry.findAndCountAll({
-      where: {
-        ownerId: userId,
-        text: {$like: '%' + text + '%'}
-      },
-      attributes: [
-        'id', 'ownerId', 'isPublic',
-        [sequelize.fn('date_format', sequelize.col('date'), '%Y-%m-%d'), 'date'],
-        [sequelize.fn('CONCAT',
-          sequelize.fn('LEFT', sequelize.col('text'), 140),
-          sequelize.fn('IF', 
-            sequelize.literal('LENGTH(text) > 140'),
-          "...", "")),
-        'text']
-      ],
-      order: [
-        ['date', 'DESC'],
-        ['created_at', 'DESC']
-      ],
-      limit: offset,
-      offset: index,
-      raw: true
+    return new promise(function (resolve, reject){
+      var totalQuery   =  'SELECT COUNT(*) FROM entries WHERE owner_id = :ownerId;';
+      var entriesQuery =  'SELECT id, ownerId, date, text ' +
+                          'FROM ( ' +
+                            'SELECT id, owner_id AS ownerId, date_format(date, "%Y-%m-%d") AS date, text, updated_at ' +
+                            'FROM entries ' +
+                            'WHERE owner_id = :ownerId ' +
+                          ') AS subQuery ' +
+                          'WHERE LOWER(text) LIKE :text ' +
+                          'ORDER BY date DESC, updated_at DESC ' +
+                          'LIMIT :offset OFFSET :index;';
+
+      var doTotalQuery = function(){
+        return sequelize.query(totalQuery, {
+          replacements: {
+            ownerId: userId
+          },
+          type: sequelize.QueryTypes.SELECT
+        });
+      }
+
+      var doEntriesQuery = function(){
+        return sequelize.query(entriesQuery, {
+          replacements: {
+            ownerId: userId,
+            text: '%' + text + '%',
+            offset: offset,
+            index: index
+          },
+          type: sequelize.QueryTypes.SELECT
+        });
+      }
+
+      promise.all([doTotalQuery(), doEntriesQuery()]).then(function (response){
+        console.log('count', response[0]);
+        console.log('rows', response[1]);
+        return resolve({count: response[0], rows: response[1]});
+      }, function (err){
+        console.log('Err', err);
+        return reject(err);
+      });
     });
   }
 

@@ -32,7 +32,7 @@ module.exports = function(Entry){
 
   self.getEntriesByTextSearch = function(data, user){
     return new promise(function (resolve, reject){
-      var text = data.query.q;
+      var text = data.query.q.toLowerCase();
       Entry.getEntriesByTextSearch(text, user.id, INDEX, OFFSET).then(function (entries){
         // entries.rows = entries.rows.map(function (entry){
         //   entry.text = AES.decrypt(entry.text);
