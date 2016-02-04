@@ -82,7 +82,13 @@ function loginHandler(ctx){
 
 function entriesHandler(ctx){
   renderView('entry-list', {
-    entries: (ctx.response) ? ctx.response.entries : []
+    page: page,
+    entryService: entryService,
+    entries: (function(){
+      if(ctx.state.data) return ctx.state.data.entries;
+      if(ctx.response) return ctx.response.entries;
+      return [];
+    })()
   });
 }
 

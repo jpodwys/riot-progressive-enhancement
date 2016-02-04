@@ -1,5 +1,5 @@
 <entry-list>
-  <form method="get" action="/entries/" onsubmit="{search}" class="pure-form block">
+  <form method="get" action="/entries" onsubmit="{search}" class="pure-form block">
     <input name="q" placeholder="Search" class="pure-u-1 pure-u-sm-1-2 pure-u-sm-1-3 block center"/>
   </form>
   <div each={opts.entries} class="entry-preview">
@@ -8,4 +8,18 @@
     <span if="{isPublic}">Public</span>
     <p class="entry-text">{text}</p>
   </div>
+
+  <script>
+    var self = this;
+    self.search = function(e){
+      e.preventDefault();
+      if(self.q.value.length){
+        opts.entryService.getAllEntries('q=' + self.q.value).then(function (response){
+          opts.page('/entries?q=' + self.q.value, {data: response.body});
+        }, function (err){
+          console.log(err);
+        });
+      }
+    }
+  </script>
 </entry-list>
