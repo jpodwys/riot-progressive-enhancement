@@ -61,9 +61,7 @@ module.exports = function(Entry, sequelize){
       }
 
       promise.all([doTotalQuery(), doEntriesQuery()]).then(function (response){
-        console.log('count', response[0]);
-        console.log('rows', response[1]);
-        return resolve({count: response[0], rows: response[1]});
+        return resolve({count: response[0][0]['COUNT(*)'], rows: response[1]});
       }, function (err){
         console.log('Err', err);
         return reject(err);
