@@ -1,4 +1,5 @@
 var page = require('page'),
+  qs = require('./qs'),
   userService = require('./user-service'),
   user = new (require('../../middleware/service-wrapper'))(userService),
   entryService = require('./entry-service'),
@@ -20,7 +21,9 @@ page('entries', restrict, entry.getAllEntries, errorHandler, entriesHandler);
 page('entry/new', restrict, newEntryHandler);
 page('entry/:id', entry.getEntryById, errorHandler, entryHandler);
 page('entry/:id/edit', restrict, entry.getEntryById, errorHandler, editEntryHandler);
-page({dispatch: false});
+// if(window.location.pathname == '/') page({dispatch: true});
+// else page({dispatch: false});
+page({dispatch: true});
 
 function restrict(ctx, next){
   if(!~document.cookie.indexOf('logged_in')){
@@ -84,7 +87,8 @@ function entriesHandler(ctx){
   renderView('entry-list', {
     page: page,
     entryService: entryService,
-    entries: (ctx.response) ? ctx.response.entries : []
+    entries: (ctx.response) ? ctx.response.entries : [],
+    query: qs.parse(location.search.slice(1))
   });
 }
 
