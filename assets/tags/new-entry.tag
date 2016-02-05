@@ -2,8 +2,8 @@
   <form method="post" action="/entry" onsubmit="{create}" class="pure-form pure-form-stacked">
     <fieldset>
       <legend>Create a new Entry</legend>
-      <input name="date" value="{opts.entry.date}"/>
-      <textarea name="text" class="entry-text"></textarea>
+      <input name="date" value="{opts.entry.date}" class="needsclick"/>
+      <textarea name="text" class="entry-text needsclick"></textarea>
       Is Public: <input type="checkbox" name="isPublic" checked="{opts.entry.isPublic}"/>
       <a href="/entries" class="pure-button">Cancel</a>
       <input type="submit" class="pure-button pure-button-primary"/>

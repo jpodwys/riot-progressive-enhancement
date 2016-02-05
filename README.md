@@ -51,13 +51,40 @@ At some point not too long from now, I hope to have all JS bundles generated as 
 
 # To Do
 
-- [x] AES encrypt entry text (from node due to the info available in the `Caution` note in the [MySQL docs](https://dev.mysql.com/doc/refman/5.5/en/encryption-functions.html))
-- [ ] Modify what MySQL logs so that I can move AES encryption back to MySQL rather than doing it on the server
-- [ ] Add plain-text search for entries (can only do this once AES encryption is moved back to MySQL which is blocked by the item above this one)
-- [ ] Move tag-specific CSS out of `wrapper.ejs` into each tag file and [do this](https://github.com/riot/riot/issues/1250) for server-side rendering
-- [ ] Prevent the back button from allowing users to see data after logging out. It currently only works with the history state immediately before the logout page, perhaps only with JS routing and not form submission routing?
-- [ ] Generate `bundle.js` at deploy so I can remove it from github
-- [ ] Paginate the entries list--right now it's limited to the most "recent" 20 items
+#### Security:
+
+- [ ] Add SSL to database connection
+- [x] Ensure that database encrypts data at rest as well as dumps, backups, and logs
+- [x] Encrypt JWT
 - [ ] Make usernames and passwords require a minimum number of characters
+
+#### Enhancements:
+
+- [x] Add plain-text search for entries
+- [ ] Paginate the entries list--right now it's limited to the most "recent" 20 items
+- [ ] Add background save to the New Entry page so hitting back doesn't accidentally get rid of data.
+- [ ] Add a loading state when AJAX calls are happening
+- [ ] Look into using page.js' `state` object to better handle not loading data I already have
+- [ ] Consider adding an HTML post-processor that replaces all custom tags with `<div>`s or something to attempt to increase browser support (currently, this app supports back through IE7, I believe)
+- [ ] Add confirm delete page/modal
+- [ ] Make `New Entry`, `Edit`, `Delete`, `Save`, and `Cancel` buttons all float in the bottom-right/left of the screen. Lossy buttons should always be on the left.
+- [ ] Use http/2 and get `bundle.js` onto a CDN if possible
+
+#### Code Organization:
+
+- [ ] Remove `middleware/service-wrapper.js` to flatten and simplify code
+- [ ] Move tag-specific CSS out of `wrapper.ejs` into each tag file and [do this](https://github.com/riot/riot/issues/1250) for server-side rendering
+
+#### Bug Fixes:
+
+- [ ] Prevent the back button from allowing users to see data after logging out. It currently only works with the history state immediately before the logout page, perhaps only with JS routing and not form submission routing?
+- [ ] Hide menu bar when not logged in and edit/delete buttons when not the entry owner
+- [ ] Prevent empty entry creation
+- [ ] Disable fastclick on inputs and textareas or consider removing it completely
+
+#### Make Deployable:
+
+- [ ] Use sequelize's `sync` feature so that it can generate the database schema on first run
+- [ ] Generate `bundle.js` at deploy so I can remove it from github
 
 ... more incoming.

@@ -2,9 +2,9 @@
   <form method="post" action="/entry/{opts.entry.id}?_method=PUT" onsubmit="{edit}" class="pure-form pure-form-stacked">
     <fieldset>
       <legend>Edit Your Entry</legend>
-      <input type="hidden" name="id" value="{opts.entry.id}"/>
+      <input type="hidden" name="id" value="{opts.entry.id}" class="needsclick"/>
       <input name="date" value="{opts.entry.date}"/>
-      <textarea name="text" class="entry-text">{opts.entry.text}</textarea>
+      <textarea name="text" class="entry-text needsclick">{opts.entry.text}</textarea>
       Is Public: <input type="checkbox" name="isPublic" checked="{opts.entry.isPublic}"/>
       <a href="/entry/{opts.entry.id}" class="pure-button">Cancel</a>
       <input type="submit" class="pure-button pure-button-primary"/>

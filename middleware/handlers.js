@@ -4,7 +4,8 @@ var riot = require('riot'),
   entryView = require('../assets/tags/entry-view.tag'),
   newEntry = require('../assets/tags/new-entry.tag'),
   editEntry = require('../assets/tags/edit-entry.tag'),
-  jwt = require('jsonwebtoken');
+  jwt = require('jsonwebtoken'),
+  AES = require('../utils/aes');
 
 /* Final Handler */
 
@@ -56,9 +57,9 @@ exports.joinOrLogin = function(req, res, next){
     redirectUrl: '/entries'
   }
   if(req.response){
-    var token = jwt.sign(req.response, process.env.JWT_KEY);
+    var token = jwt.sign(req.response, process.env.JWT_KEY, {expiresIn: '7d'});
     // This cookie proves a user is logged in and contains JWT claims
-    res.cookie('auth_token', token, {
+    res.cookie('auth_token', AES.encrypt(token), {
       httpOnly: (process.env.NODE_ENV === 'production'),
       secure: (process.env.NODE_ENV === 'production'),
       expires: (new Date((new Date()).getTime() + (60 * 60 * 1000))) // One hour
@@ -87,7 +88,7 @@ exports.logout = function(req, res, next){
 exports.getEntries = function(req, res, next){
   req.handlerData = {
     riotTag: entryList,
-    responseMod: function(resp){return {entries: resp.rows, entryCount: resp.count}}
+    responseMod: function(resp){return {entries: resp.rows, entryCount: resp.count, query: req.query}}
   }
   next();
 }

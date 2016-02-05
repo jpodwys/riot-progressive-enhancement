@@ -1,5 +1,11 @@
 var Sequelize = require('sequelize'),
-  sequelize = new Sequelize(process.env.JAWSDB_URL, {omitNull: true}),
+  sequelize = new Sequelize(process.env.DB_URL, {
+    // dialectOptions: {
+    //   ca: process.env.SQL_SSL_CERT
+    // },
+    omitNull: true,
+    logging: (process.env.NODE_ENV === 'development') ? console.log : false
+  }),
 
   userModel = require('./models/user-model')(sequelize, Sequelize),
   userService = new (require('./services/user-service'))(userModel, sequelize),
@@ -13,6 +19,12 @@ var Sequelize = require('sequelize'),
 
   handlers = require('./middleware/handlers');
 
+function addQueryAndParams(req, res, next){
+  if(req.body && req.query) req.body.query = req.query;
+  if(req.body && req.params) req.body.params = req.params;
+  next();
+}
+
 module.exports = function(app){
   app.get('/', handlers.getIndex, handlers.execute);
   app.post('/user/authenticate', user.attemptLogin, handlers.joinOrLogin, handlers.execute);
@@ -20,7 +32,7 @@ module.exports = function(app){
   app.post('/user', user.createAccount, handlers.joinOrLogin, handlers.execute);
   // app.put('/user/:id');
   // app.delete('/user/:id')
-  app.get('/entries', app.restrict, entry.getEntriesByOwnerId, handlers.getEntries, handlers.execute);
+  app.get('/entries', app.restrict, addQueryAndParams, entry.getEntries, handlers.getEntries, handlers.execute);
   app.get('/entry/new', app.restrict, handlers.getNew, handlers.execute);
   app.get('/entry/:id', entry.getEntryById, handlers.getEntry, handlers.execute);
   app.get('/entry/:id/edit', app.restrict, entry.getEntryById, handlers.getEditEntry, handlers.execute);

@@ -5,7 +5,7 @@ module.exports = function(sequelize, Sequelize){
     date: Sequelize.DATE,
     text: Sequelize.STRING,
     isPublic: {type: Sequelize.BOOLEAN, field: 'is_public'},
-    createdAt: {type: Sequelize.DATE, field: 'created_at'},
+    // createdAt: {type: Sequelize.DATE, field: 'created_at'},
     updatedAt: {type: Sequelize.DATE, field: 'updated_at'}
-  });
+  }, {timestamps: false});
 }
