@@ -55,23 +55,24 @@ At some point not too long from now, I hope to have all JS bundles generated as 
 
 - [ ] Add SSL to database connection
 - [x] Ensure that database encrypts data at rest as well as dumps, backups, and logs
-- [x] Encrypt JWT token
+- [x] Encrypt JWT
 - [ ] Make usernames and passwords require a minimum number of characters
 
 #### Enhancements:
 
 - [x] Add plain-text search for entries
 - [ ] Paginate the entries list--right now it's limited to the most "recent" 20 items
-- [ ] Look into using page.js' `state` object to better handle not loading data I already have
+- [ ] Add background save to the New Entry page so hitting back doesn't accidentally get rid of data.
 - [ ] Add a loading state when AJAX calls are happening
-- [ ] Consider adding an HTML post-processor that replaces all custom tags with `<div>`s or something to attempt to increase browser support (currently, this app supports back through IE7)
+- [ ] Look into using page.js' `state` object to better handle not loading data I already have
+- [ ] Consider adding an HTML post-processor that replaces all custom tags with `<div>`s or something to attempt to increase browser support (currently, this app supports back through IE7, I believe)
 - [ ] Add confirm delete page/modal
 - [ ] Make `New Entry`, `Edit`, `Delete`, `Save`, and `Cancel` buttons all float in the bottom-right/left of the screen. Lossy buttons should always be on the left.
-- [ ] Add background save to the New Entry page so hitting back doesn't accidentally get rid of data.
 - [ ] Use http/2 and get `bundle.js` onto a CDN if possible
 
 #### Code Organization:
 
+- [ ] Remove `middleware/service-wrapper.js` to flatten and simplify code
 - [ ] Move tag-specific CSS out of `wrapper.ejs` into each tag file and [do this](https://github.com/riot/riot/issues/1250) for server-side rendering
 
 #### Bug Fixes:

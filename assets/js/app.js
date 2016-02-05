@@ -21,8 +21,6 @@ page('entries', restrict, entry.getAllEntries, errorHandler, entriesHandler);
 page('entry/new', restrict, newEntryHandler);
 page('entry/:id', entry.getEntryById, errorHandler, entryHandler);
 page('entry/:id/edit', restrict, entry.getEntryById, errorHandler, editEntryHandler);
-// if(window.location.pathname == '/') page({dispatch: true});
-// else page({dispatch: false});
 page({dispatch: true});
 
 function restrict(ctx, next){

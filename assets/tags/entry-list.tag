@@ -14,13 +14,6 @@
     self.search = function(e){
       e.preventDefault();
       opts.page('/entries?q=' + self.q.value);
-      // if(self.q.value.length){
-      //   opts.entryService.getAllEntries('q=' + self.q.value).then(function (response){
-      //     opts.page('/entries?q=' + self.q.value, {data: response.body});
-      //   }, function (err){
-      //     console.log(err);
-      //   });
-      // }
     }
   </script>
 </entry-list>
