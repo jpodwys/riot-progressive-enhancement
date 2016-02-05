@@ -14,8 +14,18 @@ var page = require('page'),
   mainTag = document.querySelector('main');
 
 fastclick(document.body);
+window.journalIntervals = [];
+
+function clearIntervals(ctx, next){
+  for(var i = 0; i < window.journalIntervals.length; ++i){
+    clearInterval(window.journalIntervals[i]);
+  }
+  window.journalIntervals = [];
+  next();
+}
 
 page.base('/');
+page('*', clearIntervals);
 page('/', loginHandler);
 page('entries', restrict, entry.getAllEntries, errorHandler, entriesHandler);
 page('entry/new', restrict, newEntryHandler);

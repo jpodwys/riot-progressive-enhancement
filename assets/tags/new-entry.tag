@@ -1,5 +1,5 @@
 <new-entry>
-  <form method="post" action="/entry" onsubmit="{create}" class="pure-form pure-form-stacked">
+  <form method="post" action="/entry" onsubmit="{upsert}" class="pure-form pure-form-stacked">
     <fieldset>
       <legend>Create a new Entry</legend>
       <input name="date" value="{opts.entry.date}" class="needsclick"/>
@@ -26,11 +26,54 @@
       date: getDate()
     }
     self.update();
-    this.create = function(e){
+
+    var interval = setInterval(function(){
+      if(self.date.value != opts.entry.date
+        || self.text.value != opts.entry.text){
+        if(self.text.value && self.text.value.length){
+          self.upsert({isBackgroundUpsert: true});
+        }
+      }
+    }, 5000);
+
+    window.journalIntervals = [interval];
+
+    self.upsert = function(e){
+      console.log('Entry Id', opts.entry.id);
+      if(opts.entry.id) self.updateEntry(e.isBackgroundUpsert);
+      else self.createEntry(e.isBackgroundUpsert);
+    }
+
+    self.createEntry = function(isBackgroundUpsert){
       var state = {date: self.date.value, text: self.text.value, isPublic: self.isPublic.checked};
       opts.entryService.createEntry(state).then(function (response){
-        state.id = response.body.id;
-        opts.page.replace('/entry/' + response.body.id, {data: state});
+        if(isBackgroundUpsert){
+          opts.entry.id = response.body.id;
+          opts.entry.date = self.date.value;
+          opts.entry.text = self.text.value;
+          opts.entry.isPublic = self.isPublic.checked;
+          self.update();
+        } else {
+          state.id = response.body.id;
+          opts.page.replace('/entry/' + response.body.id, {data: state});
+        }
+      }, function (err){
+        alert(err);
+      });
+    }
+
+    self.updateEntry = function(isBackgroundUpsert){
+      console.log('UPDATING')
+      var state = {id: opts.entry.id, date: self.date.value, text: self.text.value, isPublic: self.isPublic.checked};
+      opts.entryService.updateEntry(state).then(function (response){
+        if(isBackgroundUpsert){
+          opts.entry.date = self.date.value;
+          opts.entry.text = self.text.value;
+          opts.entry.isPublic = self.isPublic.checked;
+          self.update();
+        } else {
+          opts.page.replace('/entry/' + response.body.id, {data: state});
+        }
       }, function (err){
         alert(err);
       });

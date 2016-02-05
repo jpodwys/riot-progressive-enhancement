@@ -61,8 +61,8 @@ At some point not too long from now, I hope to have all JS bundles generated as 
 #### Enhancements:
 
 - [x] Add plain-text search for entries
-- [ ] Paginate the entries list--right now it's limited to the most "recent" 20 items
-- [ ] Add background save to the New Entry page so hitting back doesn't accidentally get rid of data.
+- [ ] Paginate the entries list (when querying too)--right now it's limited to the most "recent" 20 items
+- [x] Add background save to the New Entry page so hitting back doesn't accidentally get rid of data.
 - [ ] Add a loading state when AJAX calls are happening
 - [ ] Look into using page.js' `state` object to better handle not loading data I already have
 - [ ] Consider adding an HTML post-processor that replaces all custom tags with `<div>`s or something to attempt to increase browser support (currently, this app supports back through IE7, I believe)
