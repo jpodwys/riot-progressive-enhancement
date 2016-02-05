@@ -3,7 +3,7 @@ var xhr = require('superagent');
 exports.getAllEntries = function(q){
   return xhr.get('/entries')
     .accept('application/json')
-    .query(q)
+    .query(q.querystring)
 }
 
 exports.getEntryById = function(id){
