@@ -64,6 +64,8 @@ At some point not too long from now, I hope to have all JS bundles generated as 
 - [x] Add plain-text search for entries
 - [ ] Paginate the entries list (when querying too)--right now it's limited to the most "recent" 20 items
 - [x] Add background save to the New Entry page so hitting back doesn't accidentally get rid of data
+- [ ] If you click `Cancel` on the New Entry page, delete the background saved entry
+- [ ] If you click `Cancel` on the New Entry page and an entry has been background saved, show a confirm modal
 - [ ] Delete background saved entry on `Cancel` when on the New Entry page
 - [ ] Add a loading state when AJAX calls are happening
 - [ ] Look into using page.js' `state` object to better handle not loading data I already have
