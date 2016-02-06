@@ -39,7 +39,6 @@
     window.journalIntervals = [interval];
 
     self.upsert = function(e){
-      console.log('Entry Id', opts.entry.id);
       if(opts.entry.id) self.updateEntry(e.isBackgroundUpsert);
       else self.createEntry(e.isBackgroundUpsert);
     }
@@ -63,7 +62,6 @@
     }
 
     self.updateEntry = function(isBackgroundUpsert){
-      console.log('UPDATING')
       var state = {id: opts.entry.id, date: self.date.value, text: self.text.value, isPublic: self.isPublic.checked};
       opts.entryService.updateEntry(state).then(function (response){
         if(isBackgroundUpsert){
@@ -72,7 +70,7 @@
           opts.entry.isPublic = self.isPublic.checked;
           self.update();
         } else {
-          opts.page.replace('/entry/' + response.body.id, {data: state});
+          opts.page.replace('/entry/' + opts.entry.id, {data: state});
         }
       }, function (err){
         alert(err);
