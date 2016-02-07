@@ -45,6 +45,14 @@ Couple this with the fact that this stack can deliver a fully usable web page be
 
 Granted, React and Angular 2 are both capable of server-side rendering and probably have a lot more developer/community support, but they're a lot bigger and have a much higher learning curve than the components I've listed here. And, hey, new things are fun.
 
+# Scope of progressive enhancement in this project
+
+Progressive Enhancement (PE) is a great big beast to tackle. In this repo, I'm going after a rather limited, though frequently discussed, portion of PE--JavaScript availability. Now, before you assume I'm a crazy who thinks it's 1990, hear me out. By saying "JavaScript availability," I'm not asking whether the user has disabled JavaScript or if the user's browser is capable of running JavaScript (although this code base handles both of these situations like a champ). Rather, I'm referring to scenarios where either `A)` the user's internet connection is not fast enough to download your 100kb angular 1.x browserify bundle in time to make the initial page load worth the wait, and `B)` scenarios in which the user's browser does not run >= ECMAScript 5.
+
+In scenario `A)`, this repo will deliver a usable page on every page load as fast as possible because no page will require JS to work. As of this writing, the landing page is about 8kb without JS. In scenario `B)`, because I don't want to make my users download thousands of lines in polyfills, nor do I want to support modern features in old browsers, I'll just let form submissions do what they've always done. A perfect example of a modern practice in an old browser is hash-based routing. This is the default behavior for angular 1.x's router. It's the ugly `/#` in the URL if you don't enable HTML5 Mode. Not only is it ugly, but because browsers don't send anything after the `#` to the server, it also prevents isomorphic rendering.
+
+What all this boild down to is a server-rendered web page that, if possible, enhances into a single-page app. The bennefits are that everyone can use it, and where internet connections and browser supports allows, performance will get even better and, as a side bennefit, server load will decrease.
+
 # Deploy
 
 At some point not too long from now, I hope to have all JS bundles generated as part of the deploy script. I also hope to write thorough steps for how to get this running on your own Heroku instance. Additionally, I would like to better organize and clearly outline the code.
