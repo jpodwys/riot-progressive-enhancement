@@ -14,14 +14,19 @@ var page = require('page'),
   mainTag = document.querySelector('main');
 
 fastclick(document.body);
-window.journalIntervals = [];
 
-function clearIntervals(ctx, next){
-  for(var i = 0; i < window.journalIntervals.length; ++i){
-    clearInterval(window.journalIntervals[i]);
-  }
+var clearIntervals = function(ctx, next){ next(); }
+
+if(typeof window !== 'undefined'){
   window.journalIntervals = [];
-  next();
+
+  clearIntervals = function(ctx, next){
+    for(var i = 0; i < window.journalIntervals.length; ++i){
+      clearInterval(window.journalIntervals[i]);
+    }
+    window.journalIntervals = [];
+    next();
+  }
 }
 
 page.base('/');

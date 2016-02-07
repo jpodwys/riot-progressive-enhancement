@@ -5,8 +5,8 @@
       <input name="date" value="{opts.entry.date}" class="needsclick"/>
       <textarea name="text" class="entry-text needsclick"></textarea>
       Is Public: <input type="checkbox" name="isPublic" checked="{opts.entry.isPublic}"/>
-      <a href="/entries" class="pure-button">Cancel</a>
-      <input type="submit" class="pure-button pure-button-primary"/>
+      <a href="/entries" class="pure-button button-round">Cancel</a>
+      <input type="submit" class="pure-button pure-button-primary button-round"/>
     </fieldset>
   </form>
 
@@ -27,16 +27,18 @@
     }
     self.update();
 
-    var interval = setInterval(function(){
-      if(self.date.value != opts.entry.date
-        || self.text.value != opts.entry.text){
-        if(self.text.value && self.text.value.length){
-          self.upsert({isBackgroundUpsert: true});
+    if(typeof window !== 'undefined'){
+      var interval = setInterval(function(){
+        if(self.date.value != opts.entry.date
+          || self.text.value != opts.entry.text){
+          if(self.text.value && self.text.value.length){
+            self.upsert({isBackgroundUpsert: true});
+          }
         }
-      }
-    }, 5000);
+      }, 5000);
 
-    window.journalIntervals = [interval];
+      window.journalIntervals = [interval];
+    }
 
     self.upsert = function(e){
       if(opts.entry.id) self.updateEntry(e.isBackgroundUpsert);
