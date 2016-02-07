@@ -51,7 +51,15 @@ Progressive Enhancement (PE) is a great big beast to tackle. In this repo, I'm g
 
 In scenario `A)`, this repo will deliver a usable page on every page load as fast as possible because no page will require JS to work. As of this writing, the landing page is about 8kb without JS. In scenario `B)`, because I don't want to make my users download thousands of lines in polyfills, nor do I want to support modern features in old browsers, I'll just let form submissions do what they've always done. A perfect example of a modern practice in an old browser is hash-based routing. This is the default behavior for angular 1.x's router. It's the ugly `/#` in the URL if you don't enable HTML5 Mode. Not only is it ugly, but because browsers don't send anything after the `#` to the server, it also prevents isomorphic rendering.
 
-What all this boild down to is a server-rendered web page that, if possible, enhances into a single-page app. The bennefits are that everyone can use it, and where internet connections and browser supports allows, performance will get even better and, as a side bennefit, server load will decrease.
+All this boils down to a server-rendered web page that, if possible, enhances into a single-page app.
+
+# Bennefits of this Progressive Enhancement Approach
+
+* Nearly everyone can use it
+* Insanely fast initial page loads
+* Becomes a single-page app where internet connections and browser support allow
+* Decreased server load when single-page app conversion is successful
+* Better SEO (Yes, yes, Google does run JS, but it won't wait several seconds for your JS to download and run and Google is not the only search engine on the planet)
 
 # Deploy
 
