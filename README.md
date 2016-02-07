@@ -58,6 +58,7 @@ At some point not too long from now, I hope to have all JS bundles generated as 
 - [x] Encrypt JWT
 - [ ] Make usernames and passwords require a minimum number of characters
 - [ ] Add password resets--this means I need an email address on account creation. Should that just be the "username"?
+- [ ] Consider making login requests take longer to make brute force attacks less useful
 - [ ] Consider adding two-factor authentication on accounts with 5 failed login attempts in a row
 
 #### Enhancements:
