@@ -101,6 +101,7 @@ function entriesHandler(ctx){
     page: page,
     entryService: entryService,
     entries: (ctx.response) ? ctx.response.entries : [],
+    entryCount: (ctx.response) ? ctx.response.entryCount : 0,
     query: qs.parse(location.search.slice(1))
   });
 }

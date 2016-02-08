@@ -9,6 +9,18 @@
     <p class="entry-text">{text}</p>
   </div>
 
+  <pagination if="{opts.entryCount > 2}">
+    <ul>
+      <li><a href="">«</a></li>
+      <li><a href="">‹</a></li>
+
+      <li each=""><a href=""></a></li>
+
+      <li><a href="">›</a></li>
+      <li><a href="">»</a></li>
+    </ul>
+  </pagination>
+
   <script>
     var self = this;
     self.search = function(e){
