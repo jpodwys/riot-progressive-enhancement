@@ -10,11 +10,11 @@
   </div>
 
   <pagination if="{opts.entryCount > 2}">
-    <ul>
+    <ul class="pagination">
       <li><a href="">«</a></li>
       <li><a href="">‹</a></li>
 
-      <li each=""><a href=""></a></li>
+      <li each=""><a href="">1</a></li>
 
       <li><a href="">›</a></li>
       <li><a href="">»</a></li>
