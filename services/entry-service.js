@@ -28,8 +28,9 @@ module.exports = function(Entry, sequelize){
 
   self.getEntriesByTextSearch = function(text, userId, index, offset){
     return new promise(function (resolve, reject){
-      var totalQuery   =  'SELECT COUNT(*) FROM entries WHERE owner_id = :ownerId;';
-      var entriesQuery =  'SELECT id, ownerId, date, IF(LENGTH(text) > 140, CONCAT(LEFT(text, 140), "..."), text) AS text ' +
+      // var totalQuery   =  'SELECT COUNT(*) FROM entries WHERE owner_id = :ownerId;';
+      var entriesQuery =  'SELECT COUNT(*) AS total, id, ownerId, date, ' +
+                            'IF(LENGTH(text) > 140, CONCAT(LEFT(text, 140), "..."), text) AS text ' +
                           'FROM ( ' +
                             'SELECT id, owner_id AS ownerId, date_format(date, "%Y-%m-%d") AS date, text, updated_at ' +
                             'FROM entries ' +
@@ -39,14 +40,14 @@ module.exports = function(Entry, sequelize){
                           'ORDER BY date DESC, updated_at DESC ' +
                           'LIMIT :offset OFFSET :index;';
 
-      var doTotalQuery = function(){
-        return sequelize.query(totalQuery, {
-          replacements: {
-            ownerId: userId
-          },
-          type: sequelize.QueryTypes.SELECT
-        });
-      }
+      // var doTotalQuery = function(){
+      //   return sequelize.query(totalQuery, {
+      //     replacements: {
+      //       ownerId: userId
+      //     },
+      //     type: sequelize.QueryTypes.SELECT
+      //   });
+      // }
 
       var doEntriesQuery = function(){
         return sequelize.query(entriesQuery, {
@@ -60,8 +61,16 @@ module.exports = function(Entry, sequelize){
         });
       }
 
-      promise.all([doTotalQuery(), doEntriesQuery()]).then(function (response){
-        return resolve({count: response[0][0]['COUNT(*)'], rows: response[1]});
+      // promise.all([doTotalQuery(), doEntriesQuery()]).then(function (response){
+      //   return resolve({count: response[0][0]['COUNT(*)'], rows: response[1]});
+      // }, function (err){
+      //   console.log('Err', err);
+      //   return reject(err);
+      // });
+
+      doEntriesQuery().then(function (response){
+        response[0] = response[0] || {total: 0};
+        return resolve({count: response[0].total, rows: response});
       }, function (err){
         console.log('Err', err);
         return reject(err);

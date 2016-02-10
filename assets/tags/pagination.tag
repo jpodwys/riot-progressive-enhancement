@@ -1,4 +1,4 @@
-<pagination if="{opts.data.total > 2}">
+<pagination if="{totalPages > 1}">
   <ul class="pagination">
     <li><a href="{firstPage}">«</a></li>
     <li><a href="{prevPage}">‹</a></li>
@@ -13,7 +13,9 @@
     var self = this;
 
     function prepPagination(){
+      console.log(opts.data.total, opts.data.offset);
       var totalPages = Math.ceil(opts.data.total / opts.data.offset);
+      console.log(totalPages);
       var pages = [];
 
       for(var i = 1; i <= totalPages; ++i){
@@ -41,6 +43,7 @@
       self.prevPage += (opts.data.current > 2) ? 'p=' + (opts.data.current - 1) : '';
       self.nextPage = opts.data.url + opts.data.queryString + 'p=' + (opts.data.current + 1);
       self.lastPage = opts.data.url + opts.data.queryString + 'p=' + totalPages;
+      self.totalPages = totalPages;
     }
 
     prepPagination();
