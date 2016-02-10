@@ -17,7 +17,7 @@
     self.paginationData = {
       url: '/entries',
       total: opts.entryCount,
-      offset: 1,
+      offset: opts.offset,
       current: opts.query.p || 1,
       queryString: (opts.query.q) ? '?q=' + opts.query.q  + '&' : '?'
     }

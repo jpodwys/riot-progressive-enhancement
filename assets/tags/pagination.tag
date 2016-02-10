@@ -13,9 +13,8 @@
     var self = this;
 
     function prepPagination(){
-      console.log(opts.data.total, opts.data.offset);
+      console.log('OFFSET', opts.data.offset);
       var totalPages = Math.ceil(opts.data.total / opts.data.offset);
-      console.log(totalPages);
       var pages = [];
 
       for(var i = 1; i <= totalPages; ++i){

@@ -89,7 +89,7 @@ exports.logout = function(req, res, next){
 exports.getEntries = function(req, res, next){
   req.handlerData = {
     riotTag: entryList,
-    responseMod: function(resp){return {entries: resp.rows, entryCount: resp.count, query: req.query}}
+    responseMod: function(resp){return {entries: resp.rows, entryCount: resp.count, offset: resp.offset, query: req.query}}
   }
   next();
 }
