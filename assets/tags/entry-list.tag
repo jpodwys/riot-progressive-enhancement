@@ -9,20 +9,21 @@
     <p class="entry-text">{text}</p>
   </div>
 
-  <pagination if="{opts.entryCount > 2}">
-    <ul class="pagination">
-      <li><a href="">«</a></li>
-      <li><a href="">‹</a></li>
-
-      <li each=""><a href="">1</a></li>
-
-      <li><a href="">›</a></li>
-      <li><a href="">»</a></li>
-    </ul>
-  </pagination>
+  <pagination data="{paginationData}"></pagination>
 
   <script>
     var self = this;
+
+    self.paginationData = {
+      url: '/entries',
+      total: opts.entryCount,
+      offset: 1,
+      current: opts.query.p || 1,
+      queryString: (opts.query.q) ? '?q=' + opts.query.q  + '&' : '?'
+    }
+
+    self.update();
+
     self.search = function(e){
       e.preventDefault();
       opts.page('/entries?q=' + self.q.value);
