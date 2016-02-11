@@ -12,7 +12,8 @@ var page = require('page'),
   entryViewTag = require('../tags/entry-view.tag'),
   newEntryTag = require('../tags/new-entry.tag'),
   editEntryTag = require('../tags/edit-entry.tag'),
-  mainTag = document.querySelector('main');
+  mainTag = document.querySelector('main'),
+  wrapperTag = document.getElementById('main-wrapper');
 
 fastclick(document.body);
 
@@ -31,9 +32,9 @@ clearIntervals = function(ctx, next){
 page.base('/');
 page('*', clearIntervals);
 page('/', loginHandler);
-page('entries', restrict, entry.getAllEntries, errorHandler, entriesHandler);
+page('entries', loading, restrict, entry.getAllEntries, errorHandler, doneLoading, entriesHandler);
 page('entry/new', restrict, newEntryHandler);
-page('entry/:id', entry.getEntryById, errorHandler, entryHandler);
+page('entry/:id', loading, entry.getEntryById, errorHandler, doneLoading, entryHandler);
 page('entry/:id/edit', restrict, entry.getEntryById, errorHandler, editEntryHandler);
 page({dispatch: true});
 
@@ -48,6 +49,16 @@ function restrict(ctx, next){
   else{
     next();
   }
+}
+
+function loading(ctx, next){
+  wrapperTag.classList.add('loading');
+  next();
+}
+
+function doneLoading(ctx, next){
+  wrapperTag.classList.remove('loading');
+  next();
 }
 
 function errorHandler(ctx, next){

@@ -41,15 +41,30 @@
         text-align: center;
       }
       main {
+        opacity: 1;
         margin-top: 50px;
       }
       #main-wrapper {
         margin: auto;
         max-width: 850px;
       }
+      #main-wrapper.loading main {
+        opacity: 1;
+      }
+      #main-wrapper .spinner {
+        opacity: 0;
+        height: 25px;
+        width: 25px;
+        top: 8px;
+        left: 10px;
+        position: absolute;
+      }
       #view-wrapper {
         box-sizing: border-box;
         padding: 0 25px;
+      }
+      #main-wrapper.loading .spinner {
+        opacity: 1;
       }
       .entry-text, .entry-link {
         font-size: 22px;
@@ -87,6 +102,9 @@
       .pagination li:last-child a {
         border-top-right-radius: 5px;
         border-bottom-right-radius: 5px;
+      }
+      .pull-left {
+        float: left;
       }
       .pure-menu-horizontal {
         position: fixed;
@@ -163,24 +181,125 @@
       form.form-submit-only {
         display: inline-block;
       }
+      .thecube {
+        width: 25px;
+        height: 25px;
+        /*margin: 0 auto;*/
+        /*margin-top: 50px;*/
+        position: relative;
+        -webkit-transform: rotateZ(45deg);
+        transform: rotateZ(45deg);
+      }
+      .thecube .cube {
+        position: relative;
+        -webkit-transform: rotateZ(45deg);
+        transform: rotateZ(45deg);
+      }
+      .thecube .cube {
+        float: left;
+        width: 50%;
+        height: 50%;
+        position: relative;
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+      }
+      .thecube .cube:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #2BA0C7;
+        -webkit-animation: foldthecube 1s infinite linear both;
+        animation: foldthecube 1s infinite linear both;
+        -webkit-transform-origin: 100% 100%;
+        transform-origin: 100% 100%;
+      }
+      .thecube .c2 {
+        -webkit-transform: scale(1.1) rotateZ(90deg);
+        transform: scale(1.1) rotateZ(90deg);
+      }
+      .thecube .c3 {
+        -webkit-transform: scale(1.1) rotateZ(180deg);
+        transform: scale(1.1) rotateZ(180deg);
+      }
+      .thecube .c4 {
+        -webkit-transform: scale(1.1) rotateZ(270deg);
+        transform: scale(1.1) rotateZ(270deg);
+      }
+      .thecube .c2:before {
+        -webkit-animation-delay: 0.1s;
+        animation-delay: 0.1s;
+      }
+      .thecube .c3:before {
+        -webkit-animation-delay: 0.2s;
+        animation-delay: 0.2s;
+      }
+      .thecube .c4:before {
+        -webkit-animation-delay: 0.3s;
+        animation-delay: 0.3s;
+      }
+      @-webkit-keyframes foldthecube {
+        0%, 10% {
+          -webkit-transform: perspective(140px) rotateX(-180deg);
+          transform: perspective(140px) rotateX(-180deg);
+          opacity: 0;
+        }
+        25%,
+              75% {
+          -webkit-transform: perspective(140px) rotateX(0deg);
+          transform: perspective(140px) rotateX(0deg);
+          opacity: 1;
+        }
+        90%,
+              100% {
+          -webkit-transform: perspective(140px) rotateY(180deg);
+          transform: perspective(140px) rotateY(180deg);
+          opacity: 0;
+        }
+      }
+      @keyframes foldthecube {
+        0%, 10% {
+          -webkit-transform: perspective(140px) rotateX(-180deg);
+          transform: perspective(140px) rotateX(-180deg);
+          opacity: 0;
+        }
+        25%,
+              75% {
+          -webkit-transform: perspective(140px) rotateX(0deg);
+          transform: perspective(140px) rotateX(0deg);
+          opacity: 1;
+        }
+        90%,
+              100% {
+          -webkit-transform: perspective(140px) rotateY(180deg);
+          transform: perspective(140px) rotateY(180deg);
+          opacity: 0;
+        }
+      }
     </style>
   </head>
   <body>
 
     <div id="main-wrapper">
-
       <div id="view-wrapper">
-
         <div class="pure-menu pure-menu-horizontal">
+          <div class="spinner thecube">
+            <div class="cube c1"></div>
+            <div class="cube c2"></div>
+            <div class="cube c4"></div>
+            <div class="cube c3"></div>
+          </div>
           <ul class="pure-menu-list">
-              <li class="pure-menu-item"><a href="/entries" class="pure-menu-link">Entries</a></li>
-              <li class="pure-menu-item"><a href="/entry/new" class="pure-menu-link">New Entry</a></li>
-              <li class="pure-menu-item">
-                <form method="get" action="/user/logout">
-                  <input type="submit" value="Logout" class="pure-menu-link"/>
-                </form>
-                <!-- <a href="/" class="pure-menu-link">Logout</a> -->
-              </li>
+            <li class="pure-menu-item"><a href="/entries" class="pure-menu-link">Entries</a></li>
+            <li class="pure-menu-item"><a href="/entry/new" class="pure-menu-link">New Entry</a></li>
+            <li class="pure-menu-item">
+              <form method="get" action="/user/logout">
+                <input type="submit" value="Logout" class="pure-menu-link"/>
+              </form>
+              <!-- <a href="/" class="pure-menu-link">Logout</a> -->
+            </li>
           </ul>
         </div>
 

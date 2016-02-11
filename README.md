@@ -86,7 +86,7 @@ At some point not too long from now, I hope to have all JS bundles generated as 
 - [ ] If you click `Cancel` on the New Entry page, delete the background saved entry
 - [ ] If you click `Cancel` on the New Entry page and an entry has been background saved, show a confirm modal
 - [ ] Delete background saved entry on `Cancel` when on the New Entry page
-- [ ] Add a loading state when AJAX calls are happening
+- [x] Add a loading state when AJAX calls are happening
 - [ ] Look into using page.js' `state` object to better handle not loading data I already have
 - [ ] Consider adding an HTML post-processor that replaces all custom tags with `<div>`s or something to attempt to increase browser support (currently, this app supports back through IE7, I believe)
 - [ ] Add confirm delete page/modal
