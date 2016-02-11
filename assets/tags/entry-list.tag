@@ -9,8 +9,21 @@
     <p class="entry-text">{text}</p>
   </div>
 
+  <pagination data="{paginationData}"></pagination>
+
   <script>
     var self = this;
+
+    self.paginationData = {
+      url: '/entries',
+      total: opts.entryCount,
+      offset: opts.offset,
+      current: opts.query.p || 1,
+      queryString: (opts.query.q) ? '?q=' + opts.query.q  + '&' : '?'
+    }
+
+    self.update();
+
     self.search = function(e){
       e.preventDefault();
       opts.page('/entries?q=' + self.q.value);

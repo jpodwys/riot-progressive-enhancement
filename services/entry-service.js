@@ -3,7 +3,7 @@ var promise = require('zousan');
 module.exports = function(Entry, sequelize){
   var self = this;
 
-  self.getEntriesByOwnerId = function(userId, index, offset){
+  self.getEntriesByOwnerId = function(userId, limit, offset){
     return Entry.findAndCountAll({
       where: {ownerId: userId},
       attributes: [
@@ -20,16 +20,23 @@ module.exports = function(Entry, sequelize){
         ['date', 'DESC'],
         ['updated_at', 'DESC']
       ],
-      limit: offset,
-      offset: index,
+      limit: limit,
+      offset: offset,
       raw: true
     });
   }
 
   self.getEntriesByTextSearch = function(text, userId, index, offset){
     return new promise(function (resolve, reject){
-      var totalQuery   =  'SELECT COUNT(*) FROM entries WHERE owner_id = :ownerId;';
-      var entriesQuery =  'SELECT id, ownerId, date, IF(LENGTH(text) > 140, CONCAT(LEFT(text, 140), "..."), text) AS text ' +
+      var totalQuery =    'SELECT COUNT(*) ' +
+                          'FROM ( ' +
+                            'SELECT id, owner_id AS ownerId, date_format(date, "%Y-%m-%d") AS date, text, updated_at ' +
+                            'FROM entries ' +
+                            'WHERE owner_id = :ownerId ' +
+                          ') AS subQuery ' +
+                          'WHERE LOWER(text) LIKE :text;';
+      var entriesQuery =  'SELECT id, ownerId, date, ' +
+                            'IF(LENGTH(text) > 140, CONCAT(LEFT(text, 140), "..."), text) AS text ' +
                           'FROM ( ' +
                             'SELECT id, owner_id AS ownerId, date_format(date, "%Y-%m-%d") AS date, text, updated_at ' +
                             'FROM entries ' +
@@ -37,12 +44,13 @@ module.exports = function(Entry, sequelize){
                           ') AS subQuery ' +
                           'WHERE LOWER(text) LIKE :text ' +
                           'ORDER BY date DESC, updated_at DESC ' +
-                          'LIMIT :offset OFFSET :index;';
+                          'LIMIT :index, :offset;';
 
       var doTotalQuery = function(){
         return sequelize.query(totalQuery, {
           replacements: {
-            ownerId: userId
+            ownerId: userId,
+            text: '%' + text + '%',
           },
           type: sequelize.QueryTypes.SELECT
         });
@@ -53,8 +61,8 @@ module.exports = function(Entry, sequelize){
           replacements: {
             ownerId: userId,
             text: '%' + text + '%',
-            offset: offset,
-            index: index
+            index: index,
+            offset: offset
           },
           type: sequelize.QueryTypes.SELECT
         });
@@ -66,6 +74,14 @@ module.exports = function(Entry, sequelize){
         console.log('Err', err);
         return reject(err);
       });
+
+      // doEntriesQuery().then(function (response){
+      //   response[0] = response[0] || {total: 0};
+      //   return resolve({count: response[0].total, rows: response});
+      // }, function (err){
+      //   console.log('Err', err);
+      //   return reject(err);
+      // });
     });
   }
 

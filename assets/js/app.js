@@ -8,6 +8,7 @@ var page = require('page'),
   riot = require('riot'),
   loginPageTag = require('../tags/login-page.tag'),
   entryListTag = require('../tags/entry-list.tag'),
+  paginationTag = require('../tags/pagination.tag'),
   entryViewTag = require('../tags/entry-view.tag'),
   newEntryTag = require('../tags/new-entry.tag'),
   editEntryTag = require('../tags/edit-entry.tag'),
@@ -101,6 +102,8 @@ function entriesHandler(ctx){
     page: page,
     entryService: entryService,
     entries: (ctx.response) ? ctx.response.entries : [],
+    entryCount: (ctx.response) ? ctx.response.entryCount : 0,
+    offset: (ctx.response) ? ctx.response.offset : 20,
     query: qs.parse(location.search.slice(1))
   });
 }

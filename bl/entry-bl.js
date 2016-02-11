@@ -1,6 +1,5 @@
 var promise = require('zousan'),
-  INDEX = 0,
-  OFFSET = 20;
+  LIMIT = 20;
 
 module.exports = function(Entry){
   var self = this;
@@ -16,7 +15,10 @@ module.exports = function(Entry){
 
   self.getEntriesByOwnerId = function(data, user){
     return new promise(function (resolve, reject){
-      Entry.getEntriesByOwnerId(user.id, INDEX, OFFSET).then(function (entries){
+      var offset = (data.query.p) ? parseInt(data.query.p, 10) - 1 : 0;
+      offset *= LIMIT;
+      Entry.getEntriesByOwnerId(user.id, LIMIT, offset).then(function (entries){
+        entries.offset = LIMIT;
         return resolve(entries);
       }, function (err){
         return reject({status: 500, message: err});
@@ -26,8 +28,11 @@ module.exports = function(Entry){
 
   self.getEntriesByTextSearch = function(data, user){
     return new promise(function (resolve, reject){
+      var index = (data.query.p) ? parseInt(data.query.p, 10) - 1 : 0;
+      index *= LIMIT;
       var text = data.query.q.toLowerCase();
-      Entry.getEntriesByTextSearch(text, user.id, INDEX, OFFSET).then(function (entries){
+      Entry.getEntriesByTextSearch(text, user.id, index, LIMIT).then(function (entries){
+        entries.offset = LIMIT;
         return resolve(entries);
       }, function (err){
         return reject({status: 500, message: err});

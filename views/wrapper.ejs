@@ -36,6 +36,10 @@
       body a:hover {
         color: #005580;
       }
+      pagination {
+        display: block;
+        text-align: center;
+      }
       main {
         margin-top: 50px;
       }
@@ -52,6 +56,37 @@
       }
       .entry-text {
         margin-top: 0px;
+      }
+      ul.pagination {
+        display: inline-block;
+        padding: 0;
+        margin: 0;
+      }
+      ul.pagination li {
+        display: inline;
+      }
+      ul.pagination li a {
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+        border: 1px solid #ddd;
+      }
+      ul.pagination li a.active {
+        background-color: #ECEBEB;
+        cursor: default;
+        color: #A9A7A7;
+      }
+      ul.pagination li a:hover:not(.active) {
+        background-color: #ECEBEB;
+      }
+      .pagination li:first-child a {
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+      }
+      .pagination li:last-child a {
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
       }
       .pure-menu-horizontal {
         position: fixed;

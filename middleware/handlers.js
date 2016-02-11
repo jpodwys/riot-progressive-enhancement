@@ -1,6 +1,7 @@
 var riot = require('riot'),
   loginPage = require('../assets/tags/login-page.tag'),
   entryList = require('../assets/tags/entry-list.tag'),
+  pagination = require('../assets/tags/pagination.tag'),
   entryView = require('../assets/tags/entry-view.tag'),
   newEntry = require('../assets/tags/new-entry.tag'),
   editEntry = require('../assets/tags/edit-entry.tag'),
@@ -88,7 +89,7 @@ exports.logout = function(req, res, next){
 exports.getEntries = function(req, res, next){
   req.handlerData = {
     riotTag: entryList,
-    responseMod: function(resp){return {entries: resp.rows, entryCount: resp.count, query: req.query}}
+    responseMod: function(resp){return {entries: resp.rows, entryCount: resp.count, offset: resp.offset, query: req.query}}
   }
   next();
 }
