@@ -82,6 +82,7 @@ At some point not too long from now, I hope to have all JS bundles generated as 
 - [x] Add plain-text search for entries
 - [x] Paginate the entries list (when querying too)--right now it's limited to the most "recent" 20 items
 - [x] Add background save to the New Entry page so hitting back doesn't accidentally get rid of data
+- [ ] Add error handling--error's are already sent from the back end but need to be shown on the front end
 - [ ] If you click `Cancel` on the New Entry page, delete the background saved entry
 - [ ] If you click `Cancel` on the New Entry page and an entry has been background saved, show a confirm modal
 - [ ] Delete background saved entry on `Cancel` when on the New Entry page
