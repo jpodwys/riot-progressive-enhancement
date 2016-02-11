@@ -80,7 +80,7 @@ At some point not too long from now, I hope to have all JS bundles generated as 
 #### Enhancements:
 
 - [x] Add plain-text search for entries
-- [ ] Paginate the entries list (when querying too)--right now it's limited to the most "recent" 20 items
+- [x] Paginate the entries list (when querying too)--right now it's limited to the most "recent" 20 items
 - [x] Add background save to the New Entry page so hitting back doesn't accidentally get rid of data
 - [ ] If you click `Cancel` on the New Entry page, delete the background saved entry
 - [ ] If you click `Cancel` on the New Entry page and an entry has been background saved, show a confirm modal
