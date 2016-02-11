@@ -100,8 +100,9 @@ At some point not too long from now, I hope to have all JS bundles generated as 
 
 #### Bug Fixes:
 
+- [x] Hide edit/delete buttons when not the entry owner
 - [ ] Prevent the back button from allowing users to see data after logging out. It currently only works with the history state immediately before the logout page, perhaps only with JS routing and not form submission routing?
-- [ ] Hide menu bar when not logged in and edit/delete buttons when not the entry owner
+- [ ] Hide menu bar when not logged in
 - [ ] Prevent empty entry creation
 - [ ] Disable fastclick on inputs and textareas or consider removing it completely
 
