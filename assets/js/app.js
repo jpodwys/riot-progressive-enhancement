@@ -18,16 +18,14 @@ fastclick(document.body);
 
 var clearIntervals = function(ctx, next){ next(); }
 
-if(typeof window !== 'undefined'){
-  window.journalIntervals = [];
+window.journalIntervals = [];
 
-  clearIntervals = function(ctx, next){
-    for(var i = 0; i < window.journalIntervals.length; ++i){
-      clearInterval(window.journalIntervals[i]);
-    }
-    window.journalIntervals = [];
-    next();
+clearIntervals = function(ctx, next){
+  for(var i = 0; i < window.journalIntervals.length; ++i){
+    clearInterval(window.journalIntervals[i]);
   }
+  window.journalIntervals = [];
+  next();
 }
 
 page.base('/');

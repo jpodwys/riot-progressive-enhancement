@@ -63,12 +63,12 @@ exports.joinOrLogin = function(req, res, next){
     res.cookie('auth_token', AES.encrypt(token), {
       httpOnly: (process.env.NODE_ENV === 'production'),
       secure: (process.env.NODE_ENV === 'production'),
-      expires: (new Date((new Date()).getTime() + (60 * 60 * 1000))) // One hour
+      expires: (new Date((new Date()).getTime() + (60 * 60 * 1000 * 24 * 7))) // One week
     });
     // This cookie contains no data. It is solely for the client to determine things about the UI
     res.cookie('logged_in', 'true', {
       secure: (process.env.NODE_ENV === 'production'),
-      expires: (new Date((new Date()).getTime() + (60 * 60 * 1000))) // One hour
+      expires: (new Date((new Date()).getTime() + (60 * 60 * 1000 * 24 * 7))) // One week
     });
   }
   next();

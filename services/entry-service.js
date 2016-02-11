@@ -7,7 +7,7 @@ module.exports = function(Entry, sequelize){
     return Entry.findAndCountAll({
       where: {ownerId: userId},
       attributes: [
-        'id', 'ownerId', 'date', 'text', 'isPublic',
+        'id', 'date', 'text', 'isPublic',
         [sequelize.fn('date_format', sequelize.col('date'), '%Y-%m-%d'), 'date'],
         [sequelize.fn('CONCAT',
           sequelize.fn('LEFT', sequelize.col('text'), 140),
@@ -30,12 +30,12 @@ module.exports = function(Entry, sequelize){
     return new promise(function (resolve, reject){
       var totalQuery =    'SELECT COUNT(*) ' +
                           'FROM ( ' +
-                            'SELECT id, owner_id AS ownerId, date_format(date, "%Y-%m-%d") AS date, text, updated_at ' +
+                            'SELECT id, date_format(date, "%Y-%m-%d") AS date, text, updated_at ' +
                             'FROM entries ' +
                             'WHERE owner_id = :ownerId ' +
                           ') AS subQuery ' +
                           'WHERE LOWER(text) LIKE :text;';
-      var entriesQuery =  'SELECT id, ownerId, date, ' +
+      var entriesQuery =  'SELECT id, date, ' +
                             'IF(LENGTH(text) > 140, CONCAT(LEFT(text, 140), "..."), text) AS text ' +
                           'FROM ( ' +
                             'SELECT id, owner_id AS ownerId, date_format(date, "%Y-%m-%d") AS date, text, updated_at ' +
@@ -95,7 +95,8 @@ module.exports = function(Entry, sequelize){
       attributes: [
         'id', 'ownerId', 'text', 'isPublic',
         [sequelize.fn('date_format', sequelize.col('date'), '%Y-%m-%d'), 'date'],
-      ]
+      ],
+      raw: true
     });
   }
 

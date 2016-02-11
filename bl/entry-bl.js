@@ -47,6 +47,8 @@ module.exports = function(Entry){
         if(!entry.isPublic && (!user || (user.id !== entry.ownerId))){
           return reject({status: 404, message: 'Entry not found.'});
         }
+        entry.isOwner = (user && user.id == entry.ownerId);
+        delete entry.ownerId;
         return resolve(entry);
       }, function (err){
         return reject({status: 500, message: err});
