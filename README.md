@@ -69,7 +69,8 @@ At some point not too long from now, I hope to have all JS bundles generated as 
 
 #### Security:
 
-- [ ] Add SSL to database connection
+- [x] Add SSL to database connection
+- [x] Change DB password since it has been transferred without SSL while developing
 - [x] Ensure that database encrypts data at rest as well as dumps, backups, and logs
 - [x] Encrypt JWT
 - [ ] Make usernames and passwords require a minimum number of characters
