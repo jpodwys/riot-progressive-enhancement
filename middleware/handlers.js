@@ -59,6 +59,7 @@ exports.joinOrLogin = function(req, res, next){
   }
   if(req.response){
     var token = jwt.sign(req.response, process.env.JWT_KEY, {expiresIn: '7d'});
+    if(req.response.id) delete req.response.id;
     // This cookie proves a user is logged in and contains JWT claims
     res.cookie('auth_token', AES.encrypt(token), {
       httpOnly: (process.env.NODE_ENV === 'production'),
