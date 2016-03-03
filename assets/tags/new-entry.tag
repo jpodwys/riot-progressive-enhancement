@@ -46,7 +46,7 @@
     }
 
     self.createEntry = function(isBackgroundUpsert){
-      var state = {date: self.date.value, text: self.text.value, isPublic: self.isPublic.checked};
+      var state = {date: self.date.value, text: self.text.value, isPublic: self.isPublic.checked, isOwner: true};
       opts.entryService.createEntry(state).then(function (response){
         if(isBackgroundUpsert){
           opts.entry.id = response.body.id;
@@ -64,7 +64,7 @@
     }
 
     self.updateEntry = function(isBackgroundUpsert){
-      var state = {id: opts.entry.id, date: self.date.value, text: self.text.value, isPublic: self.isPublic.checked};
+      var state = {id: opts.entry.id, date: self.date.value, text: self.text.value, isPublic: self.isPublic.checked, isOwner: true};
       opts.entryService.updateEntry(state).then(function (response){
         if(isBackgroundUpsert){
           opts.entry.date = self.date.value;
