@@ -13,7 +13,8 @@ var page = require('page'),
   newEntryTag = require('../tags/new-entry.tag'),
   editEntryTag = require('../tags/edit-entry.tag'),
   mainTag = document.querySelector('main'),
-  wrapperTag = document.getElementById('main-wrapper');
+  wrapperTag = document.getElementById('main-wrapper'),
+  timer;
 
 fastclick(document.body);
 
@@ -52,11 +53,15 @@ function restrict(ctx, next){
 }
 
 function loading(ctx, next){
-  wrapperTag.classList.add('loading');
+  clearTimeout(timer);
+  timer = setTimeout(function(){
+    wrapperTag.classList.add('loading');
+  }, 250);
   next();
 }
 
 function doneLoading(ctx, next){
+  clearTimeout(timer);
   wrapperTag.classList.remove('loading');
   next();
 }
