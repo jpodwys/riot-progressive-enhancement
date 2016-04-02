@@ -3,7 +3,7 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-nr-min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css"/>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css"/> -->
     <style>
       [class^="pure-u-"] {
         margin: auto;
@@ -65,6 +65,10 @@
       }
       #main-wrapper.loading .spinner {
         opacity: 1;
+      }
+      .login-page-wrapper {
+        max-width: 400px;
+        margin: auto;
       }
       .entry-text, .entry-link {
         font-size: 22px;
@@ -281,7 +285,6 @@
     </style>
   </head>
   <body>
-
     <div id="main-wrapper">
       <div id="view-wrapper">
         <div class="pure-menu pure-menu-horizontal">
@@ -301,16 +304,11 @@
             </li>
           </ul>
         </div>
-
         <main><%- tag %></main>
-
         <br/><br/>
         <p>Check out the code <a href="https://github.com/jpodwys/riot-progressive-enhancement">here!</a></p>
-
       </div>
-
     </div>
-
     <script>
       if('querySelector' in document
           && 'localStorage' in window

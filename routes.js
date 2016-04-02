@@ -1,5 +1,4 @@
-var tls = require('tls'),
-  Sequelize = require('sequelize'),
+var Sequelize = require('sequelize'),
   sequelize = new Sequelize(process.env.DB_URL, {
     dialectOptions: {
       debug: true,
