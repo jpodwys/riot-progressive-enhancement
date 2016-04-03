@@ -14,6 +14,7 @@ var page = require('page'),
   editEntryTag = require('../tags/edit-entry.tag'),
   mainTag = document.querySelector('main'),
   wrapperTag = document.getElementById('main-wrapper'),
+  navLinks = document.getElementById('nav-links'),
   timer;
 
 fastclick(document.body);
@@ -101,6 +102,9 @@ function errorHandler(ctx, next){
 function renderView(tagName, data){
   mainTag.innerHTML = '<' + tagName + '></' + tagName + '>';
   riot.mount(tagName, data);
+  var loggedIn = (~document.cookie.indexOf('logged_in'));
+  if(loggedIn) navLinks.hidden = false;
+  else navLinks.hidden = true;
 }
 
 function loginHandler(ctx){

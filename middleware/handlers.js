@@ -17,13 +17,13 @@ exports.execute = function(req, res){
     function(){
       if(req.response || req.response === false){ // False here means form did execute data but nothing was returned
         if(hd.redirectUrl) res.redirect(hd.redirectUrl);
-        else res.render('wrapper', {tag: riot.render(hd.riotTag, hd.responseMod(req.response))});
+        else res.render('wrapper', {loggedIn: !!req.user, tag: riot.render(hd.riotTag, hd.responseMod(req.response))});
       }
       else if(req.err){
-        res.render('wrapper', {tag: riot.render(hd.riotTag, {err: req.err})});
+        res.render('wrapper', {loggedIn: !!req.user, tag: riot.render(hd.riotTag, {err: req.err})});
       }
       else{
-        res.render('wrapper', {tag: riot.render(hd.riotTag)});
+        res.render('wrapper', {loggedIn: !!req.user, tag: riot.render(hd.riotTag)});
       }
     },
     function(){
