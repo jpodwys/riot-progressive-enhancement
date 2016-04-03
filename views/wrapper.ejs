@@ -294,7 +294,7 @@
             <div class="cube c4"></div>
             <div class="cube c3"></div>
           </div>
-          <ul class="pure-menu-list">
+          <ul id="nav-links" class="pure-menu-list" <% if(!loggedIn){%> hidden <%} %> >
             <li class="pure-menu-item"><a href="/entries" class="pure-menu-link">Entries</a></li>
             <li class="pure-menu-item"><a href="/entry/new" class="pure-menu-link">New Entry</a></li>
             <li class="pure-menu-item">
