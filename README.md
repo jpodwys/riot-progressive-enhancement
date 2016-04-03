@@ -39,7 +39,7 @@ Superagent | AJAX | 3.9KB
 
 # Why this stack?
 
-My total client stack size at the moment, before writing any of my own code, is 22.6KB. That's pretty great, when you consider that Polymer, React, Angular, Backbone, Ember, and most of the other JS frameworks out there (when bundled with their hard dependencies) are between ~2x - ~8x larger.
+My total client stack size at the moment, before writing any of my own code, is 20.8KB. That's pretty great, when you consider that Polymer, React, Angular, Backbone, Ember, and most of the other JS frameworks out there (when bundled with their hard dependencies) are between ~2x - ~8x larger.
 
 Couple this with the fact that this stack can deliver a fully usable web page before any JS assets are even requested by the browser, and we've got a pretty compelling argument for using it.
 
