@@ -44,9 +44,13 @@
         opacity: 1;
         margin-top: 50px;
       }
+      #nav-links[hidden] + main {
+        margin-top: 0;
+      }
       .center-text {
         text-align: center;
       }
+
       #main-wrapper {
         margin: auto;
         max-width: 850px;
@@ -290,14 +294,14 @@
   <body>
     <div id="main-wrapper">
       <div id="view-wrapper">
-        <div class="pure-menu pure-menu-horizontal">
+        <div id="nav-links" class="pure-menu pure-menu-horizontal" <% if(!loggedIn){%> hidden <%} %>>
           <div class="spinner thecube">
             <div class="cube c1"></div>
             <div class="cube c2"></div>
             <div class="cube c4"></div>
             <div class="cube c3"></div>
           </div>
-          <ul id="nav-links" class="pure-menu-list" <% if(!loggedIn){%> hidden <%} %> >
+          <ul class="pure-menu-list">
             <li class="pure-menu-item"><a href="/entries" class="pure-menu-link">Entries</a></li>
             <li class="pure-menu-item"><a href="/entry/new" class="pure-menu-link">New Entry</a></li>
             <li class="pure-menu-item">
