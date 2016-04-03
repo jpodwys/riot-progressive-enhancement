@@ -1,5 +1,7 @@
 <login-page>
   <div class="login-page-wrapper">
+    <h1 class="center-text">Journalize</h1>
+    <h4 class="center-text">Private and public journal entries</h4>
     <!-- <div class="pure-g">
       <div class="pure-u-1 pure-u-sm-1-2 pure-u-sm-1-3"> -->
         <form method="post" action="/user" onsubmit="{join}" class="pure-form pure-form-stacked full-width">
