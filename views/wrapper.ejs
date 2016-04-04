@@ -2,7 +2,8 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-nr-min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-nr-min.css" media="async" onload="if(media!='all') media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-nr-min.css"></noscript>
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css"/> -->
     <style>
       [class^="pure-u-"] {
@@ -316,13 +317,13 @@
         <p>Check out the code <a href="https://github.com/jpodwys/riot-progressive-enhancement">here!</a></p>
       </div>
     </div>
-    <script>
+    <script async>
       if('querySelector' in document
           && 'localStorage' in window
           && 'addEventListener' in window
           && 'history' in window && history.pushState){
         var scripts = [
-          {src: '/js/bundle.js', type: 'text/javascript', priority: 'defer'}
+          {src: '/js/bundle.js', type: 'text/javascript', priority: 'async'}
         ];
         for(var i = 0; i < scripts.length; ++i){
           var script = scripts[i];
