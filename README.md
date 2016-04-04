@@ -33,13 +33,14 @@ Lib | Prupose | Size (min + gzip)
 -----|-----------------|--------
 Page | Routing/Middleware | 4.2KB
 Riot | Rendering/templating/data-binding | 8.6KB
-Pure | CSS | 4.1KB (add 1.8KB for grids-responsive.css if needed)
+Pure | CSS | 3.8KB with a custom CDN rollup
 Superagent | AJAX | 3.9KB
- | | 20.8KB
+ | | 20.5KB separately
+ | | ~18.8KB packaged together (with CSS separatey)
 
 # Why this stack?
 
-My total client stack size at the moment, before writing any of my own code, is 20.8KB. That's pretty great, when you consider that Polymer, React, Angular, Backbone, Ember, and most of the other JS frameworks out there (when bundled with their hard dependencies) are between ~2x - ~8x larger.
+My total client stack size at the moment (browserified/uglified/GZIPped with CSS separate and with none of my own logic) is ~18.8KB. That's pretty great, when you consider that Polymer, React, Angular, Backbone, Ember, and most of the other JS frameworks out there (when bundled with their hard dependencies) are between ~2x - ~8x larger.
 
 Couple this with the fact that this stack can deliver a fully usable web page before any JS assets are even requested by the browser, and we've got a pretty compelling argument for using it.
 
