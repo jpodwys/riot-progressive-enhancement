@@ -11,19 +11,24 @@ var riot = require('riot'),
 /* Final Handler */
 
 exports.execute = function(req, res){
+  console.log(req.body);
+  var jsPath = (req.body && req.body.query && req.body.query.bloat) ? 'bloated-bundle' : 'bundle';
+  if(req.body && req.body.query && req.body.query.csr){
+    return res.render('wrapper', {tag: '', jsPath: jsPath, loggedIn: !!req.user});   
+  }
   var hd = req.handlerData || {};
   hd.responseMod = hd.responseMod || function(resp){return resp;};
   res.formOrAjax(
     function(){
       if(req.response || req.response === false){ // False here means form did execute data but nothing was returned
         if(hd.redirectUrl) res.redirect(hd.redirectUrl);
-        else res.render('wrapper', {loggedIn: !!req.user, tag: riot.render(hd.riotTag, hd.responseMod(req.response))});
+        else res.render('wrapper', {jsPath: jsPath, loggedIn: !!req.user, tag: riot.render(hd.riotTag, hd.responseMod(req.response))});
       }
       else if(req.err){
-        res.render('wrapper', {loggedIn: !!req.user, tag: riot.render(hd.riotTag, {err: req.err})});
+        res.render('wrapper', {jsPath: jsPath, loggedIn: !!req.user, tag: riot.render(hd.riotTag, {err: req.err})});
       }
       else{
-        res.render('wrapper', {loggedIn: !!req.user, tag: riot.render(hd.riotTag)});
+        res.render('wrapper', {jsPath: jsPath, loggedIn: !!req.user, tag: riot.render(hd.riotTag)});
       }
     },
     function(){
@@ -38,12 +43,6 @@ exports.execute = function(req, res){
       }
     }
   );
-}
-
-/* Client-side render demo handler */
-
-exports.csrHandler = function(req, res, next){
-  res.render('wrapper', {tag: '', loggedIn: !!req.user});
 }
 
 /* Index Handler */

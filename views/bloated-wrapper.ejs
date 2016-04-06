@@ -39,7 +39,7 @@
           && 'addEventListener' in window
           && 'history' in window && history.pushState){
         var scripts = [
-          {src: '/js/<%- jsPath %>.js', type: 'text/javascript', priority: 'async'}
+          {src: '/js/bloated-bundle.js', type: 'text/javascript', priority: 'async'}
         ];
         for(var i = 0; i < scripts.length; ++i){
           var script = scripts[i];

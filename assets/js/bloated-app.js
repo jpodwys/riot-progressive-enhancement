@@ -15,6 +15,9 @@ var page = require('page'),
   mainTag = document.querySelector('main'),
   wrapperTag = document.getElementById('main-wrapper'),
   navLinks = document.getElementById('nav-links'),
+  angular = require('angular'),
+  ngRoute = require('angular-route'),
+  $ = require('jquery'),
   timer;
 
 fastclick(document.body);
