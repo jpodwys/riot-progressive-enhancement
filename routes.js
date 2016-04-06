@@ -37,6 +37,7 @@ function addQueryAndParams(req, res, next){
 
 module.exports = function(app){
   app.get('/', handlers.getIndex, handlers.execute);
+  app.get('/csr', handlers.csrHandler);
   app.post('/user/authenticate', user.attemptLogin, handlers.joinOrLogin, handlers.execute);
   app.get('/user/logout', app.restrict, handlers.logout, handlers.execute);
   app.post('/user', user.createAccount, handlers.joinOrLogin, handlers.execute);

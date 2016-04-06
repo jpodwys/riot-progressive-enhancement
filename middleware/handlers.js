@@ -40,6 +40,12 @@ exports.execute = function(req, res){
   );
 }
 
+/* Client-side render demo handler */
+
+exports.csrHandler = function(req, res, next){
+  res.render('wrapper', {tag: '', loggedIn: !!req.user});
+}
+
 /* Index Handler */
 
 exports.getIndex = function(req, res, next){

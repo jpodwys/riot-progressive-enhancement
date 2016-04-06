@@ -15,6 +15,9 @@ var page = require('page'),
   mainTag = document.querySelector('main'),
   wrapperTag = document.getElementById('main-wrapper'),
   navLinks = document.getElementById('nav-links'),
+  angular = require('angular'),
+  ngRoute = require('angular-route'),
+  $ = require('jquery'),
   timer;
 
 fastclick(document.body);
@@ -34,6 +37,7 @@ clearIntervals = function(ctx, next){
 page.base('/');
 page('*', clearIntervals);
 page('/', loginHandler);
+page('csr', loginHandler);
 page('entries', loading, restrict, entry.getAllEntries, errorHandler, doneLoading, entriesHandler);
 page('entry/new', restrict, newEntryHandler);
 page('entry/:id', loading, entry.getEntryById, errorHandler, doneLoading, entryHandler);
