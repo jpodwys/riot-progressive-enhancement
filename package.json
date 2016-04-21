@@ -35,9 +35,7 @@
     "riot": "2.3.13",
     "sequelize": "3.19.3",
     "superagent": "1.6.1",
-    "zousan": "2.2.1"
-  },
-  "devDependencies": {
+    "zousan": "2.2.1",
     "browserify": "12.0.1",
     "riotify": "0.1.2",
     "uglifyify": "3.0.1",
