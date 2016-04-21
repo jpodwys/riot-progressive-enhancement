@@ -11,7 +11,6 @@ var riot = require('riot'),
 /* Final Handler */
 
 exports.execute = function(req, res){
-  console.log(req.body);
   var jsPath = (req.body && req.body.query && req.body.query.bloat) ? 'bloated-bundle' : 'bundle';
   if(req.body && req.body.query && req.body.query.csr){
     return res.render('wrapper', {tag: '', jsPath: jsPath, loggedIn: !!req.user});   

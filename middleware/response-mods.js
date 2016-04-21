@@ -10,3 +10,9 @@ exports.formOrAjax = function(req, res, next){
   }
   next();
 }
+
+exports.addQueryAndParams = function(req, res, next){
+  if(req.body && req.query) req.body.query = req.query;
+  if(req.body && req.params) req.body.params = req.params;
+  next();
+}
