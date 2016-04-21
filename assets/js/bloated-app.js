@@ -18,6 +18,7 @@ var page = require('page'),
   angular = require('angular'),
   ngRoute = require('angular-route'),
   $ = require('jquery'),
+  _ = require('lodash'),
   timer;
 
 fastclick(document.body);
