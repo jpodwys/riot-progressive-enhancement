@@ -8,11 +8,14 @@
     "url": "git+https://github.com/jpodwys/riot-progressive-enhancement.git"
   },
   "scripts": {
-    "start": "node app.js",
-    "local": "npm run start-server && npm run watch-js && npm run watch-bloated-js",
-    "start-server": "nodemon app.js",
+    "start": "npm run build-js & npm run build-bloated-js && node app.js",
+    "build-js": "browserify -t riotify -g uglifyify assets/js/app.js -o assets/js/bundle.js",
+    "build-bloated-js": "browserify -t riotify -g uglifyify assets/js/bloated-app.js -o assets/js/bloated-bundle.js",
+
+    "local": "npm run watch-js & npm run watch-bloated-js && nodemon app.js",
     "watch-js": "watchify -t riotify -g uglifyify assets/js/app.js -o assets/js/bundle.js",
     "watch-bloated-js": "watchify -t riotify -g uglifyify assets/js/bloated-app.js -o assets/js/bloated-bundle.js",
+
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -36,12 +39,13 @@
     "riot": "2.3.13",
     "sequelize": "3.19.3",
     "superagent": "1.6.1",
-    "zousan": "2.2.1"
-  },
-  "devDependencies": {
+    "zousan": "2.2.1",
+    
     "browserify": "12.0.1",
     "riotify": "0.1.2",
     "uglifyify": "3.0.1",
+  },
+  "devDependencies": {
     "nodemon": "1.8.1"
   },
   "author": "jpodwys",

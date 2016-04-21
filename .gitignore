@@ -1,4 +1,4 @@
 node_modules
 .env
 .log
-# assets/js/*bundle.js
+assets/js/*bundle.js
