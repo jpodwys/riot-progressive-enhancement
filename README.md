@@ -112,7 +112,6 @@ At some point not too long from now, I hope to have all JS bundles generated as 
 #### Make Deployable:
 
 - [ ] Use sequelize's `sync` feature so that it can generate the database schema on first run
-- [x] Generate `bundle.js` at deploy so I can remove it from github
-- [ ] I'm currently generating `bundle.js` the poor man's way (by using nodemon and watchify as hard dependencies rather than as dev dependencies and then using grunt to generate the bundles) I need to fix this as a long-term solution
+- [ ] Generate `bundle.js` at deploy so I can remove it from github
 
 ... more incoming.
