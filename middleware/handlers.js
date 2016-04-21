@@ -21,7 +21,7 @@ exports.execute = function(req, res){
       function(){}
     );
   }
-  // if(csr) return;
+  if(csr) return;
   var hd = req.handlerData || {};
   hd.responseMod = hd.responseMod || function(resp){return resp;};
   res.formOrAjax(
