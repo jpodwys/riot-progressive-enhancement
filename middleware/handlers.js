@@ -13,6 +13,7 @@ var riot = require('riot'),
 exports.execute = function(req, res){
   var jsPath = (req.body && req.body.query && req.body.query.bloat) ? 'bloated-bundle' : 'bundle';
   var csr = (req.body && req.body.query && req.body.query.csr);
+  var form = (req.headers.accept.indexOf('json') === -1);
   if(csr){
     res.formOrAjax(
       function(){
@@ -21,7 +22,7 @@ exports.execute = function(req, res){
       function(){}
     );
   }
-  if(csr) return;
+  if(csr && form) return;
   var hd = req.handlerData || {};
   hd.responseMod = hd.responseMod || function(resp){return resp;};
   res.formOrAjax(
