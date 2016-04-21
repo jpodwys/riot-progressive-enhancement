@@ -12,14 +12,16 @@ var riot = require('riot'),
 
 exports.execute = function(req, res){
   var jsPath = (req.body && req.body.query && req.body.query.bloat) ? 'bloated-bundle' : 'bundle';
-  if(req.body && req.body.query && req.body.query.csr){
+  var csr = (req.body && req.body.query && req.body.query.csr);
+  if(csr){
     res.formOrAjax(
-      function(req, res){
-        res.render('wrapper', {tag: '', jsPath: jsPath, loggedIn: !!req.user});
+      function(){
+        return res.render('wrapper', {tag: '', jsPath: jsPath, loggedIn: !!req.user});
       },
       function(){}
     );
   }
+  // if(csr) return;
   var hd = req.handlerData || {};
   hd.responseMod = hd.responseMod || function(resp){return resp;};
   res.formOrAjax(
