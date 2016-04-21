@@ -8,7 +8,8 @@
     "url": "git+https://github.com/jpodwys/riot-progressive-enhancement.git"
   },
   "scripts": {
-    "start": "npm run start-server && npm run watch-js && npm run watch-bloated-js",
+    "start": "node app.js",
+    "local": "npm run start-server && npm run watch-js && npm run watch-bloated-js",
     "start-server": "nodemon app.js",
     "watch-js": "watchify -t riotify -g uglifyify assets/js/app.js -o assets/js/bundle.js",
     "watch-bloated-js": "watchify -t riotify -g uglifyify assets/js/bloated-app.js -o assets/js/bloated-bundle.js",
@@ -35,7 +36,9 @@
     "riot": "2.3.13",
     "sequelize": "3.19.3",
     "superagent": "1.6.1",
-    "zousan": "2.2.1",
+    "zousan": "2.2.1"
+  },
+  "devDependencies": {
     "browserify": "12.0.1",
     "riotify": "0.1.2",
     "uglifyify": "3.0.1",
