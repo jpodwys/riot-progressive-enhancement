@@ -8,7 +8,10 @@
     "url": "git+https://github.com/jpodwys/riot-progressive-enhancement.git"
   },
   "scripts": {
-    "start": "node app.js",
+    "start": "npm run start-server & npm run watch-js & npm run watch-bloated-js",
+    "start-server": "nodemon app.js",
+    "watch-js": "watchify -t riotify -g uglifyify assets/js/app.js -o assets/js/bundle.js",
+    "watch-bloated-js": "watchify -t riotify -g uglifyify assets/js/bloated-app.js -o assets/js/bloated-bundle.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
