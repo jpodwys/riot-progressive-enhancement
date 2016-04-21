@@ -113,5 +113,6 @@ At some point not too long from now, I hope to have all JS bundles generated as 
 
 - [ ] Use sequelize's `sync` feature so that it can generate the database schema on first run
 - [ ] Generate `bundle.js` at deploy so I can remove it from github
+- [x] Combine `nodemon app.js` and the huge `watchify` commands I use into a single `npm run local` command
 
 ... more incoming.
