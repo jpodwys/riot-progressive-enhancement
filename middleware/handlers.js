@@ -14,8 +14,8 @@ exports.execute = function(req, res){
   var jsPath = (req.body && req.body.query && req.body.query.bloat) ? 'bloated-bundle' : 'bundle';
   if(req.body && req.body.query && req.body.query.csr){
     res.formOrAjax(
-      function(){
-        return res.render('wrapper', {tag: '', jsPath: jsPath, loggedIn: !!req.user});
+      function(req, res){
+        res.render('wrapper', {tag: '', jsPath: jsPath, loggedIn: !!req.user});
       },
       function(){}
     );
