@@ -1,6 +1,3 @@
-// nodemon app.js
-// watchify -t riotify -g uglifyify assets/js/app.js -o assets/js/bundle.js
-
 require('dotenv').load();
 var express = require('express'),
   compress = require('compression'),
