@@ -60,21 +60,21 @@ exports.execute = function(req, res){
 /* Index Handler */
 
 exports.getIndex = function(req, res, next){
-  // req.handlerData = {
-  //   riotTag: loginPage,
-  //   redirectUrl: '/entries'
-  // }
-  // next();
+  req.handlerData = {
+    riotTag: loginPage,
+    redirectUrl: '/entries'
+  }
+  next();
 
-  var options = {
-    root: __dirname + '/../views/',
-    dotfiles: 'deny',
-    headers: {
-      'Cache-Control': 'public, max-age=604800000'
-    }
-  };
+  // var options = {
+  //   root: __dirname + '/../views/',
+  //   dotfiles: 'deny',
+  //   headers: {
+  //     'Cache-Control': 'public, max-age=604800000'
+  //   }
+  // };
 
-  res.sendFile('login.html', options);
+  // res.sendFile('login.html', options);
 }
 
 /* User Handlers */
