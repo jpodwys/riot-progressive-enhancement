@@ -69,7 +69,9 @@ exports.getIndex = function(req, res, next){
   var options = {
     root: __dirname + '/../views/',
     dotfiles: 'deny',
-    headers: {}
+    headers: {
+      'Cache-Control': 'public, max-age=604800000'
+    }
   };
 
   res.sendFile('login.html', options);
