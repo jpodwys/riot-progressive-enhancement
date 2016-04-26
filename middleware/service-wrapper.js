@@ -1,3 +1,8 @@
+// This module wraps services used with express.js and page.js
+// so that they don't need to know anything about being middleware.
+// It extracts the necessary data from req and res (or req and ctx)
+// and provides it to the service object to simplify the service.
+
 function serviceWrapper(service){
   var self = this;
   var availableFunctions = Object.keys(service);

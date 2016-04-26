@@ -29,19 +29,17 @@ module.exports = function(User, sequelize){
   }
 
   self.updateUser = function(data){
-    // return User.update(
-    //   {
-    //     username: data.username,
-    //     password: data.password
-    //   },{
-    //     where: {id: data.id}
-    //   }
-    // );
+    // return User.update({
+    //   username: data.username,
+    //   password: data.password
+    // }, {
+    //   where: {id: data.id}
+    // });
   }
 
   self.deleteUser = function(id){
-    return User.destroy({
-      where: {id: id}
-    });
+    // return User.destroy({
+    //   where: {id: id}
+    // });
   }
 }

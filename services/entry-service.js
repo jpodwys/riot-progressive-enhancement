@@ -74,14 +74,6 @@ module.exports = function(Entry, sequelize){
         console.log('Err', err);
         return reject(err);
       });
-
-      // doEntriesQuery().then(function (response){
-      //   response[0] = response[0] || {total: 0};
-      //   return resolve({count: response[0].total, rows: response});
-      // }, function (err){
-      //   console.log('Err', err);
-      //   return reject(err);
-      // });
     });
   }
 
@@ -116,15 +108,13 @@ module.exports = function(Entry, sequelize){
   }
 
   self.updateEntry = function(data){
-    return Entry.update(
-      {
-        date: data.date,
-        text: data.text,
-        isPublic: (!!data.isPublic) ? 1 : 0
-      },{
-        where: {id: data.id}
-      }
-    );
+    return Entry.update({
+      date: data.date,
+      text: data.text,
+      isPublic: (!!data.isPublic) ? 1 : 0
+    }, {
+      where: {id: data.id}
+    });
   }
 
   self.deleteEntry = function(entryId){
