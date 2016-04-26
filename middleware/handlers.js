@@ -60,11 +60,19 @@ exports.execute = function(req, res){
 /* Index Handler */
 
 exports.getIndex = function(req, res, next){
-  req.handlerData = {
-    riotTag: loginPage,
-    redirectUrl: '/entries'
-  }
-  next();
+  // req.handlerData = {
+  //   riotTag: loginPage,
+  //   redirectUrl: '/entries'
+  // }
+  // next();
+
+  var options = {
+    root: __dirname + '/../views/',
+    dotfiles: 'deny',
+    headers: {}
+  };
+
+  res.sendFile('login.html', options);
 }
 
 /* User Handlers */
