@@ -11,7 +11,11 @@ var riot = require('riot'),
 /* Final Handler */
 
 exports.execute = function(req, res){
-  res.set('cache-control', 'private, max-age=0, no-cache');
+  res.set({
+    'Cache-Control': 'private, max-age=0, no-cache, no-store, must-revalidate',
+    'Pragma': 'no-cache',
+    'Expires': '0'
+  });
   var jsPath = (req.body && req.body.query && req.body.query.bloat) ? 'bloated-bundle' : 'bundle';
   var csr = (req.body && req.body.query && req.body.query.csr);
   var form = (req.headers.accept.indexOf('json') === -1);
