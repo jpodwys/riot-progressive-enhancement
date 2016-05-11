@@ -65,16 +65,6 @@ exports.getIndex = function(req, res, next){
     redirectUrl: '/entries'
   }
   next();
-
-  // var options = {
-  //   root: __dirname + '/../views/',
-  //   dotfiles: 'deny',
-  //   headers: {
-  //     'Cache-Control': 'public, max-age=604800000'
-  //   }
-  // };
-
-  // res.sendFile('login.html', options);
 }
 
 /* User Handlers */
