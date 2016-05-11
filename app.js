@@ -14,7 +14,7 @@ var express = require('express'),
 
 app.set('views', './views');
 app.set('view engine', 'ejs');
-app.use(compress({threshold: '3kb'}));
+app.use(compress({threshold: '5kb'}));
 app.use(forceSsl);
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
