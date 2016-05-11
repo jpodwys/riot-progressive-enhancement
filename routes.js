@@ -6,6 +6,9 @@ var Sequelize = require('sequelize'),
   handlers = require('./middleware/handlers');
 
 module.exports = function(app){
+  app.get('/baseline', function (req, res){
+    res.send(200);
+  });
   app.get('/', resMods.addQueryAndParams, handlers.getIndex, handlers.execute);
   app.post('/user/authenticate', user.attemptLogin, handlers.joinOrLogin, handlers.execute);
   app.get('/user/logout', app.restrict, handlers.logout, handlers.execute);

@@ -31,15 +31,6 @@ clearIntervals = function(ctx, next){
   next();
 }
 
-page.base('/');
-page('*', clearIntervals);
-page('/', loginHandler);
-page('entries', loading, restrict, entry.getAllEntries, errorHandler, doneLoading, entriesHandler);
-page('entry/new', restrict, newEntryHandler);
-page('entry/:id', loading, entry.getEntryById, errorHandler, doneLoading, entryHandler);
-page('entry/:id/edit', restrict, entry.getEntryById, errorHandler, editEntryHandler);
-page({dispatch: true});
-
 function restrict(ctx, next){
   if(!~document.cookie.indexOf('logged_in')){
     ctx.alert = {
@@ -148,3 +139,12 @@ function editEntryHandler(ctx){
     entry: ctx.state.data || ctx.response.entry
   });
 }
+
+page.base('/');
+page('*', clearIntervals);
+page('/', loginHandler);
+page('entries', loading, restrict, entry.getAllEntries, errorHandler, doneLoading, entriesHandler);
+page('entry/new', restrict, newEntryHandler);
+page('entry/:id', loading, entry.getEntryById, errorHandler, doneLoading, entryHandler);
+page('entry/:id/edit', restrict, entry.getEntryById, errorHandler, editEntryHandler);
+page({dispatch: true});
