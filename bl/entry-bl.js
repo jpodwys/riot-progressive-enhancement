@@ -1,5 +1,5 @@
 var promise = require('zousan'),
-  LIMIT = 20;
+  LIMIT = 10;
 
 module.exports = function(Entry){
   var self = this;
