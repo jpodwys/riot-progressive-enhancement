@@ -79,12 +79,20 @@
       //   a.setAttribute('data-no-prefetch', '');
       // }
       if(url && ~url.indexOf('entry')){
-        var index = url.substring(url.indexOf('entry/') + 6)
-        entryService.getEntryById(index).then(function (resp){
-          
-        }, function (err){
-
-        });
+        var index = url.substring(url.indexOf('/entry/') + 6);
+        entryService.getEntryById(index).end(function(){});
+      }
+      else if(url && ~url.indexOf('entires')){
+        var search = window.location.search.substring(1);
+        var query = {};
+        if(search.length){
+          var kvArray = search.split('&');
+          for(var i = 0; i < kvArray.length; i++){
+            var kvString = kvArray[i].split('=');
+            obj[kvString[0]] = kvString[1];
+          }
+        }
+        entryService.getAllEntries(query).end(function(){});
       }
     }
 

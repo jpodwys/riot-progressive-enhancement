@@ -18,7 +18,7 @@ var page = require('page'),
   navLinks = document.getElementById('nav-links'),
   timer;
 
-prefetch.init({containers: ['main']});
+prefetch.init({containers: ['main', '#nav-links'], enableTouch: true});
 fastclick(document.body);
 
 var clearIntervals = function(ctx, next){ next(); }
