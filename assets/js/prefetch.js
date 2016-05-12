@@ -79,10 +79,10 @@
       //   a.setAttribute('data-no-prefetch', '');
       // }
       if(url && ~url.indexOf('entry')){
-        var index = url.substring(url.indexOf('/entry/') + 6);
+        var index = url.substring(url.indexOf('/entry/') + 7);
         entryService.getEntryById(index).end(function(){});
       }
-      else if(url && ~url.indexOf('entires')){
+      else if(url && ~url.indexOf('/entries')){
         var search = window.location.search.substring(1);
         var query = {};
         if(search.length){
