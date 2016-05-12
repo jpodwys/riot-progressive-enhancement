@@ -90,7 +90,7 @@
             var kvArray = search.split('&');
             for(var i = 0; i < kvArray.length; i++){
               var kvString = kvArray[i].split('=');
-              obj[kvString[0]] = kvString[1];
+              query[kvString[0]] = kvString[1];
             }
           }
         }
