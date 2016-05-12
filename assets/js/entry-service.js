@@ -4,6 +4,7 @@ exports.getAllEntries = function(q){
   return xhr.get('/entries')
     .accept('application/json')
     .query(q.querystring)
+    .forceUpdate();
 }
 
 exports.getEntryById = function(id){
