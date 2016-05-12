@@ -12,7 +12,8 @@ var riot = require('riot'),
 
 exports.execute = function(req, res){
   res.set({
-    'Cache-Control': 'private, max-age=0, no-cache, no-store, must-revalidate',
+    // 'Cache-Control': 'private, max-age=0, no-cache, no-store, must-revalidate',
+    'Cache-Control': 'private, max-age=10',
     'Pragma': 'no-cache',
     'Expires': '0'
   });

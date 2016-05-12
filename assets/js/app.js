@@ -4,6 +4,7 @@ var page = require('page'),
   user = new (require('../../middleware/service-wrapper'))(userService),
   entryService = require('./entry-service'),
   entry = new (require('../../middleware/service-wrapper'))(entryService),
+  prefetch = require('./prefetch'),
   fastclick = require('fastclick'),
   riot = require('riot'),
   loginPageTag = require('../tags/login-page.tag'),
@@ -17,6 +18,7 @@ var page = require('page'),
   navLinks = document.getElementById('nav-links'),
   timer;
 
+prefetch.init({containers: ['main']});
 fastclick(document.body);
 
 var clearIntervals = function(ctx, next){ next(); }
