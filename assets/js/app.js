@@ -1,6 +1,5 @@
 var page = require('page'),
   qs = require('./qs'),
-  xhr = require('superagent-cache')(),
   userService = require('./user-service'),
   user = new (require('../../middleware/service-wrapper'))(userService),
   entryService = require('./entry-service'),

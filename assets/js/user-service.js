@@ -1,3 +1,5 @@
+var xhr = require('./xhr');
+
 exports.attemptJoin = function(user){
   return xhr.post('/user')
     .accept('application/json')

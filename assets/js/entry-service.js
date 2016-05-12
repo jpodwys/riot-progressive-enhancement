@@ -1,3 +1,5 @@
+var xhr = require('./xhr');
+
 exports.getAllEntries = function(q){
   return xhr.get('/entries')
     .accept('application/json')
