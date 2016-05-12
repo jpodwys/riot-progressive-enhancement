@@ -1,3 +1,1 @@
-var xhr = require('superagent-cache')();
-
-exports = xhr;
+module.exports = require('superagent-cache')();
