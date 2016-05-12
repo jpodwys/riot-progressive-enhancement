@@ -69,7 +69,6 @@
         entryService.getEntryById(index).end(function(){});
       }
       else if(url && ~url.indexOf('/entries')){
-        console.log('/entries', url);
         var query = {};
         if(~url.indexOf('?')){
           var search = url.substring(url.indexOf('?') + 1);
@@ -81,8 +80,8 @@
             }
           }
         }
-        console.log('query', query);
-        entryService.getAllEntries(query).end(function(){});
+        var q = {querystring: query};
+        entryService.getAllEntries(q).end(function(){});
       }
     }
 
