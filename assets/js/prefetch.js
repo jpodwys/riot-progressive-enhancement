@@ -81,7 +81,7 @@
             }
           }
         }
-        console/log('query', query);
+        console.log('query', query);
         entryService.getAllEntries(query).end(function(){});
       }
     }
