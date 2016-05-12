@@ -61,28 +61,15 @@
       return true;
     }
 
-    function createLinkTag(url){
-      var link = document.createElement('link');
-      link.setAttribute('rel', 'prefetch');
-      link.setAttribute('href', url);
-      return link;
-    }
-
     function injectPrefetchLink(a){
       if(!a) return;
       var url = (typeof a === 'object') ? a.href : a;
-      // var link = (url) ? createLinkTag(url) : null;
-      // if(link){
-      //   document.getElementsByTagName('head')[0].appendChild(link);
-      // }
-      // if(typeof a === 'object'){
-      //   a.setAttribute('data-no-prefetch', '');
-      // }
       if(url && ~url.indexOf('entry')){
         var index = url.substring(url.indexOf('/entry/') + 7);
         entryService.getEntryById(index).end(function(){});
       }
       else if(url && ~url.indexOf('/entries')){
+        console.log('/entries', url);
         var query = {};
         if(~url.indexOf('?')){
           var search = url.substring(url.indexOf('?') + 1);
@@ -94,6 +81,7 @@
             }
           }
         }
+        console/log('query', query);
         entryService.getAllEntries(query).end(function(){});
       }
     }
