@@ -1,4 +1,4 @@
-var xhr = require('superagent');
+var xhr = require('superagent-cache')(null, {storage: 'session'});
 
 exports.attemptJoin = function(user){
   return xhr.post('/user')

@@ -12,10 +12,10 @@ var riot = require('riot'),
 
 exports.execute = function(req, res){
   res.set({
-    // 'Cache-Control': 'private, max-age=0, no-cache, no-store, must-revalidate',
-    // 'Pragma': 'no-cache',
-    // 'Expires': '0'
-    'Cache-Control': 'private, max-age=5, must-revalidate'
+    'Cache-Control': 'private, max-age=0, no-cache, no-store, must-revalidate',
+    'Pragma': 'no-cache',
+    'Expires': '0'
+    // 'Cache-Control': 'private, max-age=5, must-revalidate'
   });
   var jsPath = (req.body && req.body.query && req.body.query.bloat) ? 'bloated-bundle' : 'bundle';
   var csr = (req.body && req.body.query && req.body.query.csr);

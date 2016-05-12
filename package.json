@@ -40,7 +40,7 @@
     "riot": "2.3.13",
     "riotify": "0.1.2",
     "sequelize": "3.19.3",
-    "superagent": "1.6.1",
+    "superagent-cache": "1.4.1",
     "uglifyify": "3.0.1",
     "zousan": "2.2.1"
   },

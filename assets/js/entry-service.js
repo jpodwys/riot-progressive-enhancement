@@ -1,4 +1,4 @@
-var xhr = require('superagent');
+var xhr = require('superagent-cache')(null, {storage: 'session'});
 
 exports.getAllEntries = function(q){
   return xhr.get('/entries')
