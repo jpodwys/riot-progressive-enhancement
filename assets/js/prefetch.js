@@ -66,7 +66,7 @@
       var url = (typeof a === 'object') ? a.href : a;
       if(url && ~url.indexOf('entry')){
         var index = url.substring(url.indexOf('/entry/') + 7);
-        entryService.getEntryById(index).then(function(){}, function(){});
+        entryService.getEntryById(index).end(function(r){});
       }
       else if(url && ~url.indexOf('/entries')){
         var query = {};
@@ -81,7 +81,7 @@
           }
         }
         var q = {querystring: query};
-        entryService.getAllEntries(q).then(function(){}, function(){});
+        entryService.getAllEntries(q).end(function(r){});
       }
     }
 
