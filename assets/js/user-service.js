@@ -1,5 +1,3 @@
-var xhr = require('superagent-cache')();
-
 exports.attemptJoin = function(user){
   return xhr.post('/user')
     .accept('application/json')
