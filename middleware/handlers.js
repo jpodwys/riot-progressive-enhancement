@@ -15,7 +15,8 @@ exports.execute = function(req, res){
     // 'Cache-Control': 'private, max-age=0, no-cache, no-store, must-revalidate',
     // 'Pragma': 'no-cache',
     // 'Expires': '0'
-    'Cache-Control': 'max-age=10'
+    'Cache-Control': 'private, max-age=10',
+    'Expires': '10'
   });
   var jsPath = (req.body && req.body.query && req.body.query.bloat) ? 'bloated-bundle' : 'bundle';
   var csr = (req.body && req.body.query && req.body.query.csr);
