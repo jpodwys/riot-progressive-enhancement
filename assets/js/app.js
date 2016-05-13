@@ -18,8 +18,15 @@ var page = require('page'),
   navLinks = document.getElementById('nav-links'),
   timer;
 
-prefetch.init({containers: ['main', '#nav-links'], exclusions: ['/edit', '/new']});
-fastclick(document.body);
+// If touch is available, use fastclick, otherwise use prefetch
+// if(('ontouchstart' in window) ||
+//   (navigator.maxTouchPoints > 0) ||
+//   (navigator.msMaxTouchPoints > 0)){
+//   fastclick(document.body);    
+// } else {
+  prefetch.init({containers: ['main', '#nav-links'], exclusions: ['/edit', '/new'], enableTouch: true});
+// }
+
 
 var clearIntervals = function(ctx, next){ next(); }
 
