@@ -19,13 +19,13 @@ var page = require('page'),
   timer;
 
 // If touch is available, use fastclick, otherwise use prefetch
-// if(('ontouchstart' in window) ||
-//   (navigator.maxTouchPoints > 0) ||
-//   (navigator.msMaxTouchPoints > 0)){
-//   fastclick(document.body);    
-// } else {
-  prefetch.init({containers: ['main', '#nav-links'], exclusions: ['/edit', '/new'], enableTouch: true});
-// }
+if(('ontouchstart' in window) ||
+  (navigator.maxTouchPoints > 0) ||
+  (navigator.msMaxTouchPoints > 0)){
+  fastclick(document.body);    
+} else {
+  prefetch.init({containers: ['main', '#nav-links'], exclusions: ['/edit', '/new']});
+}
 
 
 var clearIntervals = function(ctx, next){ next(); }
