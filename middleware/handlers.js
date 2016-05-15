@@ -17,7 +17,9 @@ exports.execute = function(req, res){
     'Expires': '0'
     // 'Cache-Control': 'private, max-age=5, must-revalidate'
   });
-  var jsPath = (req.body && req.body.query && req.body.query.bloat) ? 'bloated-bundle' : 'bundle';
+  var jsPath = 'bundle';
+  if(req.body && req.body.query && req.body.query.bloat) jsPath = 'bloated-bundle';
+  if(req.body && req.body.query && req.body.query.debug) jsPath = 'debug-bundle';
   var csr = (req.body && req.body.query && req.body.query.csr);
   var form = (req.headers.accept.indexOf('json') === -1);
   if(csr){
