@@ -1,1 +1,1 @@
-module.exports = require('superagent-cache')(null, null, {pruneParams: ['content-type']});
+module.exports = require('superagent-cache')(null, null, {pruneOptions: ['content-type']});
