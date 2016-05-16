@@ -36,7 +36,4 @@ app.use(jwtMW({
 require('./middleware/app-middleware')(app);
 require('./routes')(app);
 
-var server = app.listen(PORT, function () {
-  var host = server.address().address;
-  var port = server.address().port;
-});
+var server = app.listen(PORT);

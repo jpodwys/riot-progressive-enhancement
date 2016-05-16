@@ -3,12 +3,11 @@ var Sequelize = require('sequelize'),
   user = require('./middleware/userMW')(db, Sequelize),
   entry = require('./middleware/entryMW')(db, Sequelize),
   resMods = require('./middleware/response-mods'),
-  handlers = require('./middleware/handlers');
+  handlers = require('./middleware/handlers'),
+  criticalCSS = require('./middleware/criticalCSS');
 
 module.exports = function(app){
-  app.get('/baseline', function (req, res){
-    res.send(200);
-  });
+  app.get('/baseline', function (req, res){ res.send(200); });
   app.get('/', resMods.addQueryAndParams, handlers.getIndex, handlers.execute);
   app.post('/user/authenticate', user.attemptLogin, handlers.joinOrLogin, handlers.execute);
   app.get('/user/logout', app.restrict, handlers.logout, handlers.execute);
@@ -22,4 +21,12 @@ module.exports = function(app){
   app.post('/entry', app.restrict, entry.createEntry, handlers.postEntry, handlers.execute);
   app.put('/entry/:id', app.restrict, entry.updateEntry, handlers.putEntry, handlers.execute);
   app.delete('/entry/:id', app.restrict, entry.deleteEntry, handlers.deleteEntry, handlers.execute);
+
+  /* These routes are for automated critical path CSS generation for auth'd pages */
+  app.get('/index-critical-css', criticalCSS('login-page'));
+  app.get('/entries-critical-css', criticalCSS('entry-list'));
+  app.get('/entry-critical-css', criticalCSS('entry-view'));
+  app.get('/edit-critical-css', criticalCSS('edit-entry'));
 }
+
+

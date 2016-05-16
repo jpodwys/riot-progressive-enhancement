@@ -2,10 +2,23 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/g/pure@0.6.0(base-min.css+buttons-min.css+forms-nr-min.css+menus-min.css)"/>
+    <% if(false){ %> <!-- IF THERE IS NO COOKIE SAYING THE STYLESHEET HAS ALREADY BEEN DOWNLOADED -->
+      <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/g/pure@0.6.0(base-min.css+buttons-min.css+forms-nr-min.css+menus-min.css)"/> -->
+    <% } else if(true){ %>
+      <link rel="stylesheet" href="/css/unminified-styles.css"/>
+    <% } %>
     <style>
-/* Unminified custom styles are in assets/css/unminified-styles.css */
-#main-wrapper.loading main,main{opacity:1}body,pre{font-family:'Trebuchet MS',Helvetica,sans-serif}.center-text,entry-view h1,pagination{text-align:center}[class^=pure-u-]{margin:auto}.full-width{width:100%;position:relative}.full-width input{width:100%}.block{display:block!important}.center{margin:auto!important}body{line-height:1.5}body a{transition:color .2s;color:#08c;text-decoration:none}body a:active{outline:0}body a:hover{color:#005580}pagination{display:block}main{margin-top:50px}#nav-links[hidden]+main{margin-top:0}#main-wrapper{margin:auto;max-width:850px}#main-wrapper .spinner{opacity:0;height:25px;width:25px;top:8px;left:10px;position:absolute}#view-wrapper{box-sizing:border-box;padding:0 25px}#main-wrapper.loading .spinner{opacity:1}.login-page-wrapper{max-width:400px;margin:auto}.entry-link,.entry-text{font-size:22px}.entry-text{margin-top:0}ul.pagination{display:inline-block;padding:0;margin:0}ul.pagination li{display:inline}ul.pagination li a{color:#000;float:left;padding:8px 16px;text-decoration:none;border:1px solid #ddd}ul.pagination li a.active{background-color:#ECEBEB;cursor:default;color:#A9A7A7}ul.pagination li a:hover:not(.active){background-color:#ECEBEB}.pagination li:first-child a{border-top-left-radius:5px;border-bottom-left-radius:5px}.pagination li:last-child a{border-top-right-radius:5px;border-bottom-right-radius:5px}.pull-left{float:left}.pure-menu-horizontal{position:fixed;top:0;right:0;left:0;margin:auto;max-width:1000px;background-color:#fff;border-bottom:1px solid #e5e5e5;z-index:1000}.pure-menu-list{float:right}.pure-button{border-radius:4px}.button-error,.button-secondary,.button-success,.button-warning{color:#fff;border-radius:4px;text-shadow:0 1px 1px rgba(0,0,0,.2)}.button-success{background:#1cb841}.button-error{background:#ca3c3c}.button-warning{background:#df7514}.button-secondary{background:#42b8dd}.button-margin-left{margin-left:25px}entry-list .entry-preview{margin:25px 0}entry-list .entry-preview .entry-text{margin-left:10px}entry-view h1 span{font-size:18px;vertical-align:middle}pre{white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word}textarea.entry-text{width:100%;height:350px;-webkit-overflow-scrolling:touch}input[name=date]{font-size:22px;margin-left:auto!important;margin-right:auto!important;text-align:center}form.form-submit-only{display:inline-block}.thecube{width:25px;height:25px;position:relative;-webkit-transform:rotateZ(45deg);transform:rotateZ(45deg)}.thecube .cube{-webkit-transform:rotateZ(45deg);transform:rotateZ(45deg);float:left;width:50%;height:50%;position:relative;-webkit-transform:scale(1.1);transform:scale(1.1)}.thecube .cube:before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background-color:#2BA0C7;-webkit-transform-origin:100% 100%;transform-origin:100% 100%}#main-wrapper.loading .thecube .cube:before{-webkit-animation:foldthecube 1s infinite linear both;animation:foldthecube 1s infinite linear both}.thecube .c2{-webkit-tr#main-wrapper.loading ansform:scale(1.1) rotateZ(90deg);transform:scale(1.1) rotateZ(90deg)}.thecube .c3{-webkit-transform:scale(1.1) rotateZ(180deg);transform:scale(1.1) rotateZ(180deg)}.thecube .c4{-webkit-transform:scale(1.1) rotateZ(270deg);transform:scale(1.1) rotateZ(270deg)}#main-wrapper.loading .thecube .c2:before{-webkit-animation-delay:.1s;animation-delay:.1s}#main-wrapper.loading .thecube .c3:before{-webkit-animation-delay:.2s;animation-delay:.2s}#main-wrapper.loading .thecube .c4:before{-webkit-animation-delay:.3s;animation-delay:.3s}@-webkit-keyframes foldthecube{0%,10%{-webkit-transform:perspective(140px) rotateX(-180deg);transform:perspective(140px) rotateX(-180deg);opacity:0}25%,75%{-webkit-transform:perspective(140px) rotateX(0);transform:perspective(140px) rotateX(0);opacity:1}100%,90%{-webkit-transform:perspective(140px) rotateY(180deg);transform:perspective(140px) rotateY(180deg);opacity:0}}@keyframes foldthecube{0%,10%{-webkit-transform:perspective(140px) rotateX(-180deg);transform:perspective(140px) rotateX(-180deg);opacity:0}25%,75%{-webkit-transform:perspective(140px) rotateX(0);transform:perspective(140px) rotateX(0);opacity:1}100%,90%{-webkit-transform:perspective(140px) rotateY(180deg);transform:perspective(140px) rotateY(180deg);opacity:0}}
+      <% if(true){ %>
+        <% if(view == 'login-page'){ %>
+          <%- include('partials/index-critical') -%>
+        <% } else if(view == 'entry-list') { %>
+          <%- include('partials/entries-critical') -%>
+        <% } else if(view == 'entry-view') { %>
+          <%- include('partials/entry-critical') -%>
+        <% } else if(view == 'edit-entry' || view == 'new-entry') { %>
+          <%- include('partials/edit-critical') -%>
+        <% } %>
+      <% } %>
     </style>
   </head>
   <body>
@@ -33,23 +46,25 @@
         <p>Check out the code <a href="https://github.com/jpodwys/riot-progressive-enhancement">here!</a></p>
       </div>
     </div>
-    <script async>
-      if('querySelector' in document
-          && 'localStorage' in window
-          && 'addEventListener' in window
-          && 'history' in window && history.pushState){
-        var scripts = [
-          {src: '/js/<%- jsPath %>.js', type: 'text/javascript', priority: 'async'}
-        ];
-        for(var i = 0; i < scripts.length; ++i){
-          var script = scripts[i];
-          var tag = document.createElement('script');
-          if(script.priority) tag.setAttribute(script.priority, '');
-          tag.setAttribute('src', script.src);
-          tag.setAttribute('type', script.type);
-          document.getElementsByTagName('head')[0].appendChild(tag);
+    <% if(jsPath){ %>
+      <script async>
+        if('querySelector' in document
+            && 'localStorage' in window
+            && 'addEventListener' in window
+            && 'history' in window && history.pushState){
+          var scripts = [
+            {src: '/js/<%- jsPath %>.js', type: 'text/javascript', priority: 'async'}
+          ];
+          for(var i = 0; i < scripts.length; ++i){
+            var script = scripts[i];
+            var tag = document.createElement('script');
+            if(script.priority) tag.setAttribute(script.priority, '');
+            tag.setAttribute('src', script.src);
+            tag.setAttribute('type', script.type);
+            document.getElementsByTagName('head')[0].appendChild(tag);
+          }
         }
-      }
-    </script>
+      </script>
+    <% } %>
   </body>
 </html>
