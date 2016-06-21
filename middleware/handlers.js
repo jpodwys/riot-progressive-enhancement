@@ -25,7 +25,7 @@ exports.execute = function(req, res){
   if(csr){
     res.formOrAjax(
       function(){
-        return res.render('wrapper', {view: hd.path, tag: '', jsPath: jsPath, loggedIn: !!req.user});
+        return res.render('wrapper', {tag: '', jsPath: jsPath, loggedIn: !!req.user});
       },
       function(){}
     );
@@ -37,13 +37,13 @@ exports.execute = function(req, res){
     function(){
       if(req.response || req.response === false){ // False here means form did execute data but nothing was returned
         if(hd.redirectUrl) res.redirect(hd.redirectUrl);
-        else res.render('wrapper', {view: hd.path, jsPath: jsPath, loggedIn: !!req.user, tag: riot.render(hd.riotTag, hd.responseMod(req.response))});
+        else res.render('wrapper', {jsPath: jsPath, loggedIn: !!req.user, tag: riot.render(hd.riotTag, hd.responseMod(req.response))});
       }
       else if(req.err){
-        res.render('wrapper', {view: hd.path, jsPath: jsPath, loggedIn: !!req.user, tag: riot.render(hd.riotTag, {err: req.err})});
+        res.render('wrapper', {jsPath: jsPath, loggedIn: !!req.user, tag: riot.render(hd.riotTag, {err: req.err})});
       }
       else{
-        res.render('wrapper', {view: hd.path, jsPath: jsPath, loggedIn: !!req.user, tag: riot.render(hd.riotTag)});
+        res.render('wrapper', {jsPath: jsPath, loggedIn: !!req.user, tag: riot.render(hd.riotTag)});
       }
     },
     function(){
@@ -64,7 +64,6 @@ exports.execute = function(req, res){
 
 exports.getIndex = function(req, res, next){
   req.handlerData = {
-    view: 'login-page',
     riotTag: loginPage,
     redirectUrl: '/entries'
   }
@@ -75,7 +74,6 @@ exports.getIndex = function(req, res, next){
 
 exports.joinOrLogin = function(req, res, next){
   req.handlerData = {
-    view: 'login-page',
     riotTag: loginPage,
     redirectUrl: '/entries'
   }
@@ -100,7 +98,6 @@ exports.joinOrLogin = function(req, res, next){
 exports.logout = function(req, res, next){
   req.response = false;
   req.handlerData = {
-    view: 'login-page',
     redirectUrl: '/'
   }
   res.clearCookie('auth_token');
@@ -112,7 +109,6 @@ exports.logout = function(req, res, next){
 
 exports.getEntries = function(req, res, next){
   req.handlerData = {
-    view: 'entry-list',
     riotTag: entryList,
     responseMod: function(resp){return {entries: resp.rows, entryCount: resp.count, offset: resp.offset, query: req.query}}
   }
@@ -121,7 +117,6 @@ exports.getEntries = function(req, res, next){
 
 exports.getEntry = function(req, res, next){
   req.handlerData = {
-    view: 'entry-view',
     riotTag: entryView,
     responseMod: function(resp){return {entry: resp}}
   }
@@ -130,7 +125,6 @@ exports.getEntry = function(req, res, next){
 
 exports.getEditEntry = function(req, res, next){
   req.handlerData = {
-    view: 'edit-entry',
     riotTag: editEntry,
     responseMod: function(resp){return {entry: resp}}
   }
@@ -139,7 +133,6 @@ exports.getEditEntry = function(req, res, next){
 
 exports.getNew = function(req, res, next){
   req.handlerData = {
-    view: 'new-entry',
     riotTag: newEntry,
     responseMod: function(resp){return {entry: {date: new Date().getTime()}}}
   }

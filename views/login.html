@@ -11,7 +11,7 @@
   <body>
     <div id="main-wrapper">
       <div id="view-wrapper">
-        <div id="nav-links" class="pure-menu pure-menu-horizontal" <% if(!loggedIn){%> hidden <%} %>>
+        <div id="nav-links" class="pure-menu pure-menu-horizontal" hidden>
           <div class="spinner thecube">
             <div class="cube c1"></div>
             <div class="cube c2"></div>
@@ -28,7 +28,28 @@
             </li>
           </ul>
         </div>
-        <main><%- tag %></main>
+        <main>
+          <div class="login-page-wrapper">
+            <h1 class="center-text">Journalize</h1>
+            <h4 class="center-text">Private and public journal entries</h4>
+            <form method="post" action="/user" onsubmit="{join}" class="pure-form pure-form-stacked full-width">
+              <fieldset>
+                <legend>Create an Account</legend>
+                <input id="join-username" name="username" placeholder="username" autocapitalize="off" class="needsclick"/>
+                <input id="join-password" name="password" type="password" placeholder="password" class="needsclick"/>
+                <input type="submit" class="pure-button pure-button-primary"/>
+              </fieldset>
+            </form>
+            <form method="post" action="/user/authenticate" onsubmit="{login}" class="pure-form pure-form-stacked full-width">
+              <fieldset>
+                <legend>or Login</legend>
+                <input id="login-username" name="username" placeholder="username" autocapitalize="off" class="needsclick"/>
+                <input id="login-password" name="password" type="password" placeholder="password" class="needsclick"/>
+                <input type="submit" class="pure-button pure-button-primary"/>
+              </fieldset>
+            </form>
+          </div>
+        </main>
         <br/><br/>
         <p>Check out the code <a href="https://github.com/jpodwys/riot-progressive-enhancement">here!</a></p>
       </div>
@@ -39,7 +60,7 @@
           && 'addEventListener' in window
           && 'history' in window && history.pushState){
         var scripts = [
-          {src: '/js/<%- jsPath %>.js', type: 'text/javascript', priority: 'async'}
+          {src: '/js/bundle.js', type: 'text/javascript', priority: 'async'}
         ];
         for(var i = 0; i < scripts.length; ++i){
           var script = scripts[i];

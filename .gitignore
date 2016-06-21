@@ -2,4 +2,3 @@ node_modules
 .env
 .log
 assets/js/*bundle.js
-views/partials
