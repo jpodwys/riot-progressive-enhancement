@@ -140,37 +140,37 @@ function doneLoading(ctx, next){
   next();
 }
 
-// function errorHandler(ctx, next){
-//   if(ctx.err){
-//     switch(ctx.err.status){
-//       case 400:
-//         ctx.alert = {
-//           type: 'error',
-//           message: 'Invalid username/password combination.'
-//         }
-//         next();
-//         break;
-//       case 404:
-//         ctx.alert = {
-//           type: 'error',
-//           message: 'The entry cannot be found.'
-//         }
-//         next();
-//         break;
-//       case 500:
-//         ctx.alert = {
-//           type: 'error',
-//           message: 'Something went wrong. Please try again.'
-//         }
-//         next();
-//         break;
-//       default: next();
-//     }
-//   }
-//   else{
-//     next();
-//   }
-// }
+function errorHandler(ctx, next){
+  // if(ctx.err){
+  //   switch(ctx.err.status){
+  //     case 400:
+  //       ctx.alert = {
+  //         type: 'error',
+  //         message: 'Invalid username/password combination.'
+  //       }
+  //       next();
+  //       break;
+  //     case 404:
+  //       ctx.alert = {
+  //         type: 'error',
+  //         message: 'The entry cannot be found.'
+  //       }
+  //       next();
+  //       break;
+  //     case 500:
+  //       ctx.alert = {
+  //         type: 'error',
+  //         message: 'Something went wrong. Please try again.'
+  //       }
+  //       next();
+  //       break;
+  //     default: next();
+  //   }
+  // }
+  // else{
+    next();
+  // }
+}
 
 function renderView(tagName, data){
   mainTag.innerHTML = '<' + tagName + '></' + tagName + '>';
@@ -266,18 +266,18 @@ function setupRoutes(){
   //   }
   // });
   // page('/', loginHandler);
-  page('entries', loading, restrict, entry.getEntriesByOwnerId, /*errorHandler,*/ doneLoading, entriesHandler);
+  page('entries', loading, restrict, entry.getEntriesByOwnerId, errorHandler, doneLoading, entriesHandler);
   page('entry/new', restrict, newEntryHandler);
-  page('entry/:id', loading, entry.getEntryById, /*errorHandler,*/ doneLoading, entryHandler, fetchEntryIds);
-  page('entry/:id/edit', restrict, entry.getEntryById, /*errorHandler,*/ editEntryHandler);
+  page('entry/:id', loading, entry.getEntryById, errorHandler, doneLoading, entryHandler, fetchEntryIds);
+  page('entry/:id/edit', restrict, entry.getEntryById, errorHandler, editEntryHandler);
 
-  // page('*', function (ctx, next){
-  //   // debugger
-  //   // ctx.state.scrollPosition = ctx.state.scrollPosition || 0;
-  //   // setTimeout(function(){
-  //   //   window.scrollTo(0, ctx.state.scrollPosition);
-  //   // }, 0);
-  // });
+  page('*', function (ctx, next){
+    // debugger
+    // ctx.state.scrollPosition = ctx.state.scrollPosition || 0;
+    // setTimeout(function(){
+    //   window.scrollTo(0, ctx.state.scrollPosition);
+    // }, 0);
+  });
 
   page({dispatch: true});
 
