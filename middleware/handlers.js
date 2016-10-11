@@ -15,35 +15,54 @@ exports.execute = function(req, res){
     'Cache-Control': 'private, max-age=0, no-cache, no-store, must-revalidate',
     'Pragma': 'no-cache',
     'Expires': '0'
-    // 'Cache-Control': 'private, max-age=5, must-revalidate'
   });
   var jsPath = 'bundle';
   if(req.body && req.body.query && req.body.query.bloat) jsPath = 'bloated-bundle';
   if(req.body && req.body.query && req.body.query.debug) jsPath = 'debug-bundle';
   var csr = (req.body && req.body.query && req.body.query.csr);
   var form = (req.headers.accept.indexOf('json') === -1);
+  var hd = req.handlerData || {};
+  hd.responseMod = hd.responseMod || function(resp){return resp;};
+
+  var ejsObj = {
+    view: hd.view,
+    jsPath: jsPath,
+    loggedIn: !!req.user,
+    stylesLoaded: (req.cookies && req.cookies.styles_loaded)
+  }
+
   if(csr){
     res.formOrAjax(
       function(){
-        return res.render('wrapper', {tag: '', jsPath: jsPath, loggedIn: !!req.user});
+        ejsObj.tag = '';
+        return res.render('wrapper', ejsObj);
       },
-      function(){}
+      function(){
+        return res.send(400);
+      }
     );
   }
   if(csr && form) return;
-  var hd = req.handlerData || {};
-  hd.responseMod = hd.responseMod || function(resp){return resp;};
   res.formOrAjax(
     function(){
+      if(hd.view === 'login-page' && ejsObj.loggedIn){
+        res.redirect(hd.redirectUrl);
+      }
       if(req.response || req.response === false){ // False here means form did execute data but nothing was returned
         if(hd.redirectUrl) res.redirect(hd.redirectUrl);
-        else res.render('wrapper', {jsPath: jsPath, loggedIn: !!req.user, tag: riot.render(hd.riotTag, hd.responseMod(req.response))});
+        else{
+          ejsObj.tag = riot.render(hd.riotTag, hd.responseMod(req.response));
+          res.render('wrapper', ejsObj);
+        }
       }
       else if(req.err){
-        res.render('wrapper', {jsPath: jsPath, loggedIn: !!req.user, tag: riot.render(hd.riotTag, {err: req.err})});
+        ejsObj.tag = riot.render(hd.riotTag, {err: req.err});
+        res.status(req.err.status);
+        res.render('wrapper', ejsObj);
       }
       else{
-        res.render('wrapper', {jsPath: jsPath, loggedIn: !!req.user, tag: riot.render(hd.riotTag)});
+        ejsObj.tag = riot.render(hd.riotTag);
+        res.render('wrapper', ejsObj);
       }
     },
     function(){
@@ -51,7 +70,7 @@ exports.execute = function(req, res){
         res.status(200).send(hd.responseMod(req.response));
       }
       else if(req.err){
-        res.status(req.err.status).send(req.err.message);
+        res.status(req.err.status).send(req.err);
       }
       else{
         res.sendStatus(204);
@@ -64,6 +83,7 @@ exports.execute = function(req, res){
 
 exports.getIndex = function(req, res, next){
   req.handlerData = {
+    view: 'login-page',
     riotTag: loginPage,
     redirectUrl: '/entries'
   }
@@ -74,22 +94,23 @@ exports.getIndex = function(req, res, next){
 
 exports.joinOrLogin = function(req, res, next){
   req.handlerData = {
+    view: 'login-page',
     riotTag: loginPage,
     redirectUrl: '/entries'
   }
   if(req.response){
-    var token = jwt.sign(req.response, process.env.JWT_KEY, {expiresIn: '7d'});
+    var token = jwt.sign(req.response, process.env.JWT_KEY, {expiresIn: '30d'});
     if(req.response.id) delete req.response.id;
     // This cookie proves a user is logged in and contains JWT claims
     res.cookie('auth_token', AES.encrypt(token), {
       httpOnly: (process.env.NODE_ENV === 'production'),
       secure: (process.env.NODE_ENV === 'production'),
-      expires: (new Date((new Date()).getTime() + (60 * 60 * 1000 * 24 * 7))) // One week
+      expires: (new Date((new Date()).getTime() + (60 * 60 * 1000 * 24 * 30))) // One week
     });
     // This cookie contains no data. It is solely for the client to determine things about the UI
     res.cookie('logged_in', 'true', {
       secure: (process.env.NODE_ENV === 'production'),
-      expires: (new Date((new Date()).getTime() + (60 * 60 * 1000 * 24 * 7))) // One week
+      expires: (new Date((new Date()).getTime() + (60 * 60 * 1000 * 24 * 30))) // One week
     });
   }
   next();
@@ -98,6 +119,7 @@ exports.joinOrLogin = function(req, res, next){
 exports.logout = function(req, res, next){
   req.response = false;
   req.handlerData = {
+    view: 'login-page',
     redirectUrl: '/'
   }
   res.clearCookie('auth_token');
@@ -109,14 +131,16 @@ exports.logout = function(req, res, next){
 
 exports.getEntries = function(req, res, next){
   req.handlerData = {
+    view: 'entry-list',
     riotTag: entryList,
-    responseMod: function(resp){return {entries: resp.rows, entryCount: resp.count, offset: resp.offset, query: req.query}}
+    responseMod: function(resp){return {entries: resp.rows, ids: resp.ids, entryCount:resp.ids.length, offset: resp.offset, query: req.query}}
   }
   next();
 }
 
 exports.getEntry = function(req, res, next){
   req.handlerData = {
+    view: 'entry-view',
     riotTag: entryView,
     responseMod: function(resp){return {entry: resp}}
   }
@@ -125,6 +149,7 @@ exports.getEntry = function(req, res, next){
 
 exports.getEditEntry = function(req, res, next){
   req.handlerData = {
+    view: 'edit-entry',
     riotTag: editEntry,
     responseMod: function(resp){return {entry: resp}}
   }
@@ -133,6 +158,7 @@ exports.getEditEntry = function(req, res, next){
 
 exports.getNew = function(req, res, next){
   req.handlerData = {
+    view: 'new-entry',
     riotTag: newEntry,
     responseMod: function(resp){return {entry: {date: new Date().getTime()}}}
   }

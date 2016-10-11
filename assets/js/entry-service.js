@@ -1,10 +1,9 @@
 var xhr = require('./xhr');
 
-exports.getAllEntries = function(q){
+exports.getEntriesByOwnerId = function(q){
   return xhr.get('/entries')
     .accept('application/json')
-    .query(q.querystring)
-    .expiration(1);
+    .query(q.querystring);
 }
 
 exports.getEntryById = function(id){
@@ -28,4 +27,9 @@ exports.deleteEntry = function(id){
   return xhr.post('/entry/' + id)
     .accept('application/json')
     .query({'_method': 'DELETE'}); // Fixes xmlhttprequest's failure here
+}
+
+exports.getAllEntryIdsByOwnerId = function(){
+  return xhr.get('/getAllEntryIdsByOwnerId')
+    .accept('application/json');
 }

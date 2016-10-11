@@ -1,7 +1,9 @@
+var isDevMode = (process.env.NODE_ENV === 'development');
+
 module.exports = function(Sequelize){
   var db = new Sequelize(process.env.DB_URL, {
     dialectOptions: {
-      debug: true,
+      // debug: isDevMode,
       ssl: {
         // Run this command for each SSL ENV
         // heroku config:set SQL_SSL_CA="$(cat ca.pem)" -a riot-demo
@@ -14,7 +16,8 @@ module.exports = function(Sequelize){
       }
     },
     omitNull: true,
-    logging: (process.env.NODE_ENV === 'development') ? console.log : false
+    // logging: isDevMode ? console.log : false,
+    benchmark: isDevMode
   });
   return db;
 }

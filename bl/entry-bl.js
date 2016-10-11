@@ -40,6 +40,16 @@ module.exports = function(Entry){
     });
   }
 
+  self.getAllEntryIdsByOwnerId = function(data, user){
+    return new promise(function (resolve, reject){
+      Entry.getAllEntryIdsByOwnerId(user.id).then(function (ids){
+        return resolve(ids);
+      }, function (err){
+        return reject({status: 500, message: err});
+      });
+    });
+  }
+
   self.getEntryById = function(entryId, user){
     return new promise(function (resolve, reject){
       Entry.getEntryById(entryId).then(function (entry){
@@ -92,6 +102,16 @@ module.exports = function(Entry){
         }, function (err){
           return reject(err);
         });
+      }, function (err){
+        return reject({status: 500, message: err});
+      });
+    });
+  }
+
+  self.getEntryCount = function(){
+    return new promise(function (resolve, reject){
+      Entry.getEntryCount().then(function (total){
+        return resolve(total);
       }, function (err){
         return reject({status: 500, message: err});
       });

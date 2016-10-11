@@ -66,4 +66,14 @@ module.exports = function(User){
     //   where: {id: id}
     // });
   }
+
+  self.getUserCount = function(){
+    return new promise(function (resolve, reject){
+      User.getUserCount().then(function (total){
+        return resolve(total);
+      }, function (err){
+        return reject({status: 500, message: err});
+      });
+    });
+  }
 }

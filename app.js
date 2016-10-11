@@ -12,6 +12,12 @@ var express = require('express'),
   AES = require('./utils/aes'),
   PORT = process.env.PORT || 3000;
 
+// Keep the dyno awake
+var http = require('http');
+setInterval(function() {
+  http.get('http://riot-demo.herokuapp.com');
+}, 900000); // Every 15 minutes
+
 app.set('views', './views');
 app.set('view engine', 'ejs');
 app.use(compress({threshold: '1.4kb'}));
@@ -22,7 +28,7 @@ app.use(cookieParser());
 app.use(methodOverride('_method'));
 app.use(resMods.vary);
 app.use(resMods.formOrAjax);
-var maxAge = (process.env.NODE_ENV === 'production') ? '7d' : '0h';
+var maxAge = (process.env.NODE_ENV === 'production') ? '30d' : '0h';
 app.use(express.static('assets', {maxAge: maxAge}));
 app.use(jwtMW({
   secret: process.env.JWT_KEY,
@@ -36,7 +42,4 @@ app.use(jwtMW({
 require('./middleware/app-middleware')(app);
 require('./routes')(app);
 
-var server = app.listen(PORT, function () {
-  var host = server.address().address;
-  var port = server.address().port;
-});
+var server = app.listen(PORT);

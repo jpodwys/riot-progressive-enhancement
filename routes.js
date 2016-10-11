@@ -3,12 +3,11 @@ var Sequelize = require('sequelize'),
   user = require('./middleware/userMW')(db, Sequelize),
   entry = require('./middleware/entryMW')(db, Sequelize),
   resMods = require('./middleware/response-mods'),
-  handlers = require('./middleware/handlers');
+  handlers = require('./middleware/handlers'),
+  criticalCSS = require('./middleware/criticalCSS');
 
 module.exports = function(app){
-  app.get('/baseline', function (req, res){
-    res.send(200);
-  });
+  /* Main routes--accessible via both form submission and AJAX calls */
   app.get('/', resMods.addQueryAndParams, handlers.getIndex, handlers.execute);
   app.post('/user/authenticate', user.attemptLogin, handlers.joinOrLogin, handlers.execute);
   app.get('/user/logout', app.restrict, handlers.logout, handlers.execute);
@@ -22,4 +21,28 @@ module.exports = function(app){
   app.post('/entry', app.restrict, entry.createEntry, handlers.postEntry, handlers.execute);
   app.put('/entry/:id', app.restrict, entry.updateEntry, handlers.putEntry, handlers.execute);
   app.delete('/entry/:id', app.restrict, entry.deleteEntry, handlers.deleteEntry, handlers.execute);
+
+  /* Routes only accessible via AJAX calls */
+  app.get('/getAllEntryIdsByOwnerId', app.restrict, entry.getAllEntryIdsByOwnerId, function (req, res){
+    res.set({
+      'Cache-Control': 'private, max-age=0, no-cache, no-store, must-revalidate',
+      'Pragma': 'no-cache',
+      'Expires': '0'
+    });
+    res.send({ids: req.response});
+  });
+
+  /* Convenience routes for development and metrics */
+  app.get('/baseline', function (req, res){ res.send(200); });
+  app.get('/user-count', user.getUserCount, function (req, res){ res.send({userCount: req.response}); });
+  app.get('/entry-count', entry.getEntryCount, function (req, res){ res.send({entryCount: req.response}); });
+
+  /* Route used for load testing verification */
+  app.get('/loaderio-3679bd0eee996f47e6d598640b4c785e', function (req, res){res.send('loaderio-3679bd0eee996f47e6d598640b4c785e')})
+
+  /* Routes for automated critical path CSS generation for auth'd pages */
+  app.get('/index-critical-css', criticalCSS('login-page'));
+  app.get('/entries-critical-css', criticalCSS('entry-list'));
+  app.get('/entry-critical-css', criticalCSS('entry-view'));
+  app.get('/edit-critical-css', criticalCSS('edit-entry'));
 }

@@ -1,1 +1,4 @@
-module.exports = require('superagent-cache')(null, null, {pruneParams: ['_method'], pruneOptions: ['content-type']});
+module.exports = require('superagent-cache')(null, null, {
+  pruneOptions: ['content-type'],
+  preventDuplicateCalls: true
+});

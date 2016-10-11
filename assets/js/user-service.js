@@ -3,19 +3,21 @@ var xhr = require('./xhr');
 exports.attemptJoin = function(user){
   return xhr.post('/user')
     .accept('application/json')
-    .send(user);
+    .send(user)
+    .expiration(0);
 }
 
 exports.attemptLogin = function(user){
   return xhr.post('/user/authenticate')
     .accept('application/json')
-    .send(user);
+    .send(user)
+    .expiration(0);
 }
 
-exports.updateAccount = function(entry){
+exports.updateAccount = function(user){
   
 }
 
-exports.deleteAccount = function(entry){
+exports.deleteAccount = function(user){
   
 }
