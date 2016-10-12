@@ -21,7 +21,6 @@ var page = require('page'), //3.2kb
   wrapperTag = document.getElementById('main-wrapper'),
   navLinks = document.getElementById('nav-links'),
   entriesLink = document.getElementById('entries-link'),
-  entryIds,
   timer;
 
 window.page = page;
@@ -140,37 +139,37 @@ function doneLoading(ctx, next){
   next();
 }
 
-function errorHandler(ctx, next){
-  // if(ctx.err){
-  //   switch(ctx.err.status){
-  //     case 400:
-  //       ctx.alert = {
-  //         type: 'error',
-  //         message: 'Invalid username/password combination.'
-  //       }
-  //       next();
-  //       break;
-  //     case 404:
-  //       ctx.alert = {
-  //         type: 'error',
-  //         message: 'The entry cannot be found.'
-  //       }
-  //       next();
-  //       break;
-  //     case 500:
-  //       ctx.alert = {
-  //         type: 'error',
-  //         message: 'Something went wrong. Please try again.'
-  //       }
-  //       next();
-  //       break;
-  //     default: next();
-  //   }
-  // }
-  // else{
-    next();
-  // }
-}
+// function errorHandler(ctx, next){
+//   // if(ctx.err){
+//   //   switch(ctx.err.status){
+//   //     case 400:
+//   //       ctx.alert = {
+//   //         type: 'error',
+//   //         message: 'Invalid username/password combination.'
+//   //       }
+//   //       next();
+//   //       break;
+//   //     case 404:
+//   //       ctx.alert = {
+//   //         type: 'error',
+//   //         message: 'The entry cannot be found.'
+//   //       }
+//   //       next();
+//   //       break;
+//   //     case 500:
+//   //       ctx.alert = {
+//   //         type: 'error',
+//   //         message: 'Something went wrong. Please try again.'
+//   //       }
+//   //       next();
+//   //       break;
+//   //     default: next();
+//   //   }
+//   // }
+//   // else{
+//     next();
+//   // }
+// }
 
 function renderView(tagName, data){
   mainTag.innerHTML = '<' + tagName + '></' + tagName + '>';
@@ -188,7 +187,7 @@ function renderView(tagName, data){
 //   });
 // }
 
-function entriesHandler(ctx, next){
+function entriesHandler(ctx){
   if(ctx.response){
     window.entryIds = ctx.response.ids.map(function (obj){
       return obj.id;
@@ -202,7 +201,6 @@ function entriesHandler(ctx, next){
     offset: (ctx.response) ? ctx.response.offset : 20,
     query: qs.parse(location.search.slice(1))
   });
-  next();
 }
 
 function entryHandler(ctx, next){
@@ -249,6 +247,19 @@ function fetchEntryIds(ctx, next){
   next();
 }
 
+function getPrevNext(ctx){
+  debugger
+  if(!ctx || !ctx.params || !ctx.params.id) return;
+  var index = window.entryIds.indexOf(parseInt(ctx.params.id, 10));
+  if(index === -1) return;
+  if(index - 1 > -1){
+    entryService.getEntryById(window.entryIds[index - 1]).end(function(r){});
+  }
+  if(index + 1 < window.entryIds.length){
+    entryService.getEntryById(window.entryIds[index + 1]).end(function(r){});
+  }
+}
+
 function setupRoutes(){
   page.base('/');
   page('*', clearIntervals);
@@ -266,18 +277,18 @@ function setupRoutes(){
   //   }
   // });
   // page('/', loginHandler);
-  page('entries', loading, restrict, entry.getEntriesByOwnerId, errorHandler, doneLoading, entriesHandler);
+  page('entries', loading, restrict, entry.getEntriesByOwnerId, doneLoading, entriesHandler);
   page('entry/new', restrict, newEntryHandler);
-  page('entry/:id', loading, entry.getEntryById, errorHandler, doneLoading, entryHandler, fetchEntryIds);
-  page('entry/:id/edit', restrict, entry.getEntryById, errorHandler, editEntryHandler);
+  page('entry/:id', loading, entry.getEntryById, doneLoading, entryHandler, fetchEntryIds, getPrevNext);
+  page('entry/:id/edit', restrict, entry.getEntryById, editEntryHandler);
 
-  page('*', function (ctx, next){
-    // debugger
-    // ctx.state.scrollPosition = ctx.state.scrollPosition || 0;
-    // setTimeout(function(){
-    //   window.scrollTo(0, ctx.state.scrollPosition);
-    // }, 0);
-  });
+  // page('*', function (ctx, next){
+  //   // debugger
+  //   // ctx.state.scrollPosition = ctx.state.scrollPosition || 0;
+  //   // setTimeout(function(){
+  //   //   window.scrollTo(0, ctx.state.scrollPosition);
+  //   // }, 0);
+  // });
 
   page({dispatch: true});
 
