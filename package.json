@@ -37,6 +37,7 @@
     "jquery": "2.2.3",
     "jsonwebtoken": "5.5.4",
     "lodash": "4.11.1",
+    "marked": "0.3.6",
     "method-override": "2.3.5",
     "mysql": "2.5.5",
     "page": "1.6.4",

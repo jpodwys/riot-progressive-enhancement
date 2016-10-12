@@ -7,7 +7,7 @@
     <span if="{!opts.entry.isPublic}">Private</span>
     <span if="{opts.entry.isPublic}">Public</span>
   </h1>
-  <pre class="entry-text">{opts.entry.text}</pre>
+  <pre name="text" class="entry-text"></pre>
   <div if="{opts.entry.isOwner}" class="entry-actions">
     <form method="post" action="/entry/{opts.entry.id}?_method=DELETE" onsubmit="{del}" class="form-submit-only">
       <input type="submit" value="Delete" class="pure-button button-warning action entry-action--left"/>
@@ -17,6 +17,22 @@
 
   <script>
     var self = this;
+    var marked = require('marked');
+    marked.setOptions({
+      renderer: new marked.Renderer(),
+      gfm: true,
+      tables: true,
+      breaks: false,
+      pedantic: false,
+      sanitize: false,
+      smartLists: true,
+      smartypants: false
+    });
+
+    marked(opts.entry.text, function (err, html){
+      self.text.innerHTML = html;
+    });
+
     self.edit = function(e){
       opts.page('/entry/' + opts.entry.id + '/edit', {data: opts.entry});
     }

@@ -1,4 +1,5 @@
 var riot = require('riot'),
+  marked = require('marked'),
   loginPage = require('../assets/tags/login-page.tag'),
   entryList = require('../assets/tags/entry-list.tag'),
   pagination = require('../assets/tags/pagination.tag'),
@@ -7,6 +8,17 @@ var riot = require('riot'),
   editEntry = require('../assets/tags/edit-entry.tag'),
   jwt = require('jsonwebtoken'),
   AES = require('../utils/aes');
+
+marked.setOptions({
+  renderer: new marked.Renderer(),
+  gfm: true,
+  tables: true,
+  breaks: false,
+  pedantic: false,
+  sanitize: false,
+  smartLists: true,
+  smartypants: false
+});
 
 /* Final Handler */
 
@@ -51,8 +63,20 @@ exports.execute = function(req, res){
       if(req.response || req.response === false){ // False here means form did execute data but nothing was returned
         if(hd.redirectUrl) res.redirect(hd.redirectUrl);
         else{
-          ejsObj.tag = riot.render(hd.riotTag, hd.responseMod(req.response));
-          res.render('wrapper', ejsObj);
+
+          if(hd.view === 'entry-view' && req.response && req.response.text){
+            marked(req.response.text, function (err, html){
+              req.response.text = html;
+              ejsObj.tag = riot.render(hd.riotTag, hd.responseMod(req.response));
+              res.render('wrapper', ejsObj);
+            });
+          } else {
+            ejsObj.tag = riot.render(hd.riotTag, hd.responseMod(req.response));
+            res.render('wrapper', ejsObj);
+          }
+
+          // ejsObj.tag = riot.render(hd.riotTag, hd.responseMod(req.response));
+          // res.render('wrapper', ejsObj);
         }
       }
       else if(req.err){
