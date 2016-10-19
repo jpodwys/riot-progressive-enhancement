@@ -1,0 +1,10 @@
+CACHE MANIFEST
+# V1
+
+CACHE:
+/entry/new
+/js/bundle.js
+/css/master-styles.css
+
+NETWORK:
+*

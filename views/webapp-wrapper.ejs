@@ -1,0 +1,72 @@
+<!doctype html>
+<html manifest="/manifest/appcache" type="text/cache-manifest">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <script id="load-css"></script>
+    <% if(!!stylesLoaded){ %>
+      <link rel="stylesheet" href="/css/master-styles.css">
+    <% } else { %>
+      <style>
+        <% if(view == 'login-page'){ %>
+          <%- include('partials/_index-critical') -%>
+        <% } else if(view == 'entry-list') { %>
+          <%- include('partials/_entries-critical') -%>
+        <% } else if(view == 'entry-view') { %>
+          <%- include('partials/_entry-critical') -%>
+        <% } else if(view == 'edit-entry' || view == 'new-entry') { %>
+          <%- include('partials/_edit-critical') -%>
+        <% } %>
+      </style>
+    <% } %>
+    <% if(jsPath && !loggedIn){ %>
+      <link rel="prefetch" href="/js/<%- jsPath %>.js">
+    <% } %>
+  </head>
+  <body>
+    <div id="main-wrapper">
+      <div id="view-wrapper">
+        <% if(!loggedIn && view != 'login-page'){ %>
+          <div id="nav-links" class="pure-menu pure-menu-horizontal">
+            <ul class="pure-menu-list">
+              <li class="pure-menu-item"><a id="entries-link" href="/" class="pure-menu-link">Login</a></li>
+            </ul>
+          </div>
+        <% } else if(loggedIn) { %>
+          <div id="nav-links" class="pure-menu pure-menu-horizontal">
+            <div class="spinner thecube">
+              <div class="cube c1"></div>
+              <div class="cube c2"></div>
+              <div class="cube c4"></div>
+              <div class="cube c3"></div>
+            </div>
+            <ul class="pure-menu-list">
+              <li class="pure-menu-item"><a id="entries-link" href="/entries" class="pure-menu-link">Entries</a></li>
+              <li class="pure-menu-item"><a id="new-entry-link" href="/entry/new" class="pure-menu-link">New Entry</a></li>
+              <li class="pure-menu-item">
+                <form method="get" action="/user/logout">
+                  <input type="submit" value="Logout" class="pure-menu-link"/>
+                </form>
+              </li>
+            </ul>
+          </div>
+        <% } %>
+        <main id="main"><%- tag %></main>
+      </div>
+    </div>
+    <% if(jsPath && loggedIn){ %>
+      <script async>
+        if('querySelector' in document
+            && 'localStorage' in window
+            && 'addEventListener' in window
+            && 'history' in window && history.pushState){
+          var tag = document.createElement('script');
+          tag.setAttribute('async', '');
+          tag.setAttribute('src', '/js/<%- jsPath %>.js');
+          tag.setAttribute('type', 'text/javascript');
+          document.getElementsByTagName('head')[0].appendChild(tag);
+        }
+      </script>
+    <% } %>
+  </body>
+</html>
