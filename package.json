@@ -57,6 +57,9 @@
     "nodemon": "1.8.1",
     "watchify": "3.7.0"
   },
+  "engines": {
+    "node": "4.x.x"
+  },
   "author": "jpodwys",
   "license": "MIT",
   "bugs": {
