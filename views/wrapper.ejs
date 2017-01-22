@@ -19,7 +19,7 @@
         <% } %>
       </style>
     <% } %>
-    <% if(jsPath && !loggedIn){ %>
+    <% if(jsPath && !loggedIn && view == 'login-page'){ %>
       <link rel="prefetch" href="/js/<%- jsPath %>.js">
     <% } %>
   </head>
