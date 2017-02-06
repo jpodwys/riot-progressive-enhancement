@@ -21,7 +21,6 @@ exports.execute = function(req, res){
   if(req.body && req.body.query && req.body.query.debug) jsPath = 'debug-bundle';
   var csr = (req.body && req.body.query && req.body.query.csr);
   var form = (req.headers.accept && req.headers.accept.indexOf('json') === -1);
-  var appcache = (req.body && req.body.query && req.body.query.appcache);
   var hd = req.handlerData || {};
   hd.responseMod = hd.responseMod || function(resp){return resp;};
 
@@ -63,8 +62,7 @@ exports.execute = function(req, res){
       }
       else{
         ejsObj.tag = riot.render(hd.riotTag);
-        if(appcache && hd.view === 'new-entry') res.render('webapp-wrapper', ejsObj);
-        else res.render('wrapper', ejsObj);
+        res.render('wrapper', ejsObj);
       }
     },
     function(){

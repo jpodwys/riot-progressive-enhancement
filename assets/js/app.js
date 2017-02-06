@@ -1,8 +1,6 @@
 var page = require('page'), //3.2kb
   qs = require('./qs'), //0.1kb
   xhr = require('./xhr'), //6.1kb (superagent is 3.3kb and superagent-cache is 2.8kb)
-  // userService = require('./user-service'),
-  // user = new (require('../../middleware/service-wrapper'))(userService),
   entryService = require('./entry-service'),
   entry = new (require('../../middleware/service-wrapper'))(entryService),
   prefetch = require('prefetch'), //0.7kb
@@ -10,7 +8,6 @@ var page = require('page'), //3.2kb
   swipe = require('./swipe'), //0.3kb
   arrow = require('./arrow'), //0.3kb
   riot = require('riot'), //~9kb
-  // loginPageTag = require('../tags/login-page.tag'),
   entryListTag = require('../tags/entry-list.tag'),
   paginationTag = require('../tags/pagination.tag'),
   entryViewTag = require('../tags/entry-view.tag'), //0.3kb
@@ -76,31 +73,29 @@ function readCookie(name) {
   return null;
 }
 
-// If touch is available, use fastclick, otherwise use prefetch
 if(('ontouchstart' in window) ||
   (navigator.maxTouchPoints > 0) ||
   (navigator.msMaxTouchPoints > 0)){
   fastclick(document.body);    
-} //else {
-  var prefetchCallback = function prefetchCallback(url, anchor){
-    if(url && ~url.indexOf('/entry')){
-      var index = url.substring(url.indexOf('/entry/') + 7);
-      entryService.getEntryById(index).end(function(r){});
-    }
-    else if(url && ~url.indexOf('/entries')){
-      var search = (~url.indexOf('?')) ? url.slice(url.indexOf('?') + 1) : '';
-      var query = qs.parse(search);
-      var q = {querystring: query};
-      entryService.getEntriesByOwnerId(q).end(function(r){});
-    }
+}
+var prefetchCallback = function prefetchCallback(url, anchor){
+  if(url && ~url.indexOf('/entry')){
+    var index = url.substring(url.indexOf('/entry/') + 7);
+    entryService.getEntryById(index).end(function(r){});
   }
-  prefetch.init({
-    containers: ['main', '#nav-links'],
-    exclusions: ['/edit', '/new'],
-    enableTouch: true,
-    callback: prefetchCallback
-  });
-// }
+  else if(url && ~url.indexOf('/entries')){
+    var search = (~url.indexOf('?')) ? url.slice(url.indexOf('?') + 1) : '';
+    var query = qs.parse(search);
+    var q = {querystring: query};
+    entryService.getEntriesByOwnerId(q).end(function(r){});
+  }
+}
+prefetch.init({
+  containers: ['main', '#nav-links'],
+  exclusions: ['/edit', '/new'],
+  enableTouch: true,
+  callback: prefetchCallback
+});
 
 window.journalIntervals = [];
 
@@ -140,35 +135,35 @@ function doneLoading(ctx, next){
 }
 
 // function errorHandler(ctx, next){
-//   // if(ctx.err){
-//   //   switch(ctx.err.status){
-//   //     case 400:
-//   //       ctx.alert = {
-//   //         type: 'error',
-//   //         message: 'Invalid username/password combination.'
-//   //       }
-//   //       next();
-//   //       break;
-//   //     case 404:
-//   //       ctx.alert = {
-//   //         type: 'error',
-//   //         message: 'The entry cannot be found.'
-//   //       }
-//   //       next();
-//   //       break;
-//   //     case 500:
-//   //       ctx.alert = {
-//   //         type: 'error',
-//   //         message: 'Something went wrong. Please try again.'
-//   //       }
-//   //       next();
-//   //       break;
-//   //     default: next();
-//   //   }
-//   // }
-//   // else{
+//   if(ctx.err){
+//     switch(ctx.err.status){
+//       case 400:
+//         ctx.alert = {
+//           type: 'error',
+//           message: 'Invalid username/password combination.'
+//         }
+//         next();
+//         break;
+//       case 404:
+//         ctx.alert = {
+//           type: 'error',
+//           message: 'The entry cannot be found.'
+//         }
+//         next();
+//         break;
+//       case 500:
+//         ctx.alert = {
+//           type: 'error',
+//           message: 'Something went wrong. Please try again.'
+//         }
+//         next();
+//         break;
+//       default: next();
+//     }
+//   }
+//   else{
 //     next();
-//   // }
+//   }
 // }
 
 function renderView(tagName, data){
@@ -178,14 +173,6 @@ function renderView(tagName, data){
   if(loggedIn) navLinks.hidden = false;
   else navLinks.hidden = true;
 }
-
-// function loginHandler(ctx){
-//   renderView('login-page', {
-//     page: page,
-//     userService: userService,
-//     alert: ctx.alert
-//   });
-// }
 
 function entriesHandler(ctx){
   if(ctx.response){
@@ -248,7 +235,6 @@ function fetchEntryIds(ctx, next){
 }
 
 function getPrevNext(ctx){
-  debugger
   if(!ctx || !ctx.params || !ctx.params.id) return;
   var index = window.entryIds.indexOf(parseInt(ctx.params.id, 10));
   if(index === -1) return;
@@ -263,32 +249,10 @@ function getPrevNext(ctx){
 function setupRoutes(){
   page.base('/');
   page('*', clearIntervals);
-  // page.exit('*', function (ctx, next){
-  //   debugger
-  //   if(ctx.state.scrollPosition != document.body.scrollTop){
-  //     ctx.state.scrollPosition = document.body.scrollTop;
-  //     if(ctx.state.path == window.location.pathname + window.location.search){
-  //       ctx.save(next);
-  //     } else {
-  //       next();
-  //     }
-  //   } else {
-  //     next();
-  //   }
-  // });
-  // page('/', loginHandler);
   page('entries', loading, restrict, entry.getEntriesByOwnerId, doneLoading, entriesHandler);
   page('entry/new', restrict, newEntryHandler);
   page('entry/:id', loading, entry.getEntryById, doneLoading, entryHandler, fetchEntryIds, getPrevNext);
   page('entry/:id/edit', restrict, entry.getEntryById, editEntryHandler);
-
-  // page('*', function (ctx, next){
-  //   // debugger
-  //   // ctx.state.scrollPosition = ctx.state.scrollPosition || 0;
-  //   // setTimeout(function(){
-  //   //   window.scrollTo(0, ctx.state.scrollPosition);
-  //   // }, 0);
-  // });
 
   page({dispatch: true});
 
@@ -296,7 +260,6 @@ function setupRoutes(){
     var stylesheet = loadCSS('/css/master-styles.css', document.getElementById('load-css'));
     onloadCSS(stylesheet, function(){
       createCookie('styles_loaded', 'true', 15);
-      // createCookie('styles_loaded', '', -1);
     });
   }
 
