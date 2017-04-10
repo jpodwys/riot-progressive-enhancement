@@ -39,7 +39,7 @@ exports.execute = function(req, res){
         return res.render('wrapper', ejsObj);
       },
       function(){
-        return res.send(400);
+        // return res.send(400);
       }
     );
   }
