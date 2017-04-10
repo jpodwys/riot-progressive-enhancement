@@ -6,6 +6,7 @@ var express = require('express'),
   cookieParser = require('cookie-parser'),
   ejs = require('ejs'),
   app = express(),
+  strictTransportSecurity = require('./middleware/strict-transport-security'),
   forceSsl = require('force-ssl-heroku'),
   jwtMW = require('express-jwt'),
   resMods = require('./middleware/response-mods'),
@@ -18,9 +19,11 @@ setInterval(function() {
   http.get('http://riot-demo.herokuapp.com');
 }, 900000); // Every 15 minutes
 
+app.disable('x-powered-by');
 app.set('views', './views');
 app.set('view engine', 'ejs');
 app.use(compress({threshold: '1.4kb'}));
+app.use(strictTransportSecurity);
 app.use(forceSsl);
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
