@@ -16,7 +16,7 @@ var express = require('express'),
 // Keep the dyno awake
 var http = require('http');
 setInterval(function() {
-  http.get('http://riot-demo.herokuapp.com');
+  http.get('https://riot-demo.herokuapp.com');
 }, 900000); // Every 15 minutes
 
 app.disable('x-powered-by');
@@ -24,7 +24,7 @@ app.set('views', './views');
 app.set('view engine', 'ejs');
 app.use(compress({threshold: '1.4kb'}));
 app.use(strictTransportSecurity);
-app.use(forceSsl);
+// app.use(forceSsl);
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(cookieParser());
