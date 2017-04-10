@@ -24,7 +24,7 @@ app.set('views', './views');
 app.set('view engine', 'ejs');
 app.use(compress({threshold: '1.4kb'}));
 app.use(strictTransportSecurity);
-// app.use(forceSsl);
+app.use(forceSsl);
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(cookieParser());
