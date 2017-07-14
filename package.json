@@ -58,7 +58,7 @@
     "watchify": "3.7.0"
   },
   "engines": {
-    "node": "4.x.x"
+    "node": "4.x"
   },
   "author": "jpodwys",
   "license": "MIT",
