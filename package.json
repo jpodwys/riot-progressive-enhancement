@@ -28,7 +28,7 @@
     "compression": "1.6.0",
     "cookie-parser": "1.4.1",
     "dotenv": "1.2.0",
-    "ejs": "2.3.3",
+    "ejs": "^2.3.3",
     "express": "4.13.1",
     "express-jwt": "3.3.0",
     "fastclick": "1.0.6",
