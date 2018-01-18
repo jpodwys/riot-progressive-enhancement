@@ -1,5 +1,5 @@
 var promise = require('zousan');
-var bcrypt = require('bcrypt');
+var bcrypt = require('bcryptjs');
 
 module.exports = function(User){
   var self = this;
