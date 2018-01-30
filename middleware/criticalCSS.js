@@ -1,4 +1,5 @@
 var riot = require('riot'),
+  allTags = require('../assets/tags/all-tags.tag'),
   loginPage = require('../assets/tags/login-page.tag'),
   entryList = require('../assets/tags/entry-list.tag'),
   pagination = require('../assets/tags/pagination.tag'),
@@ -29,11 +30,13 @@ var tagData = {
     }
   },
   'edit-entry': {
-    id: 1234,
-    date: '2016-05-14',
-    isOwner: true,
-    isPublic: 0,
-    text: 'Testing'
+    entry: {
+      id: 1234,
+      date: '2016-05-14',
+      isOwner: true,
+      isPublic: 0,
+      text: 'Testing'
+    }
   }
 }
 
@@ -42,6 +45,7 @@ module.exports = function(tagName){
     var tag;
 
     switch(tagName){
+      case 'all-tags':   tag = allTags;   break;
       case 'login-page': tag = loginPage; break;
       case 'entry-list': tag = entryList; break;
       case 'entry-view': tag = entryView; break;
@@ -49,12 +53,16 @@ module.exports = function(tagName){
       case 'new-entry' : tag = newEntry;  break;
     }
 
+    var config = (tagName === 'all-tags')
+      ? tagData
+      : tagData[tagName];
+
     res.render('wrapper', {
       view: tagName,
       jsPath: false,
       stylesLoaded: true,
-      loggedIn: (tagName != 'login-page'),
-      tag: riot.render(tag, tagData[tagName] || {})
+      loggedIn: (tagName !== 'login-page'),
+      tag: riot.render(tag, config || {})
     });
   }
 }

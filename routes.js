@@ -51,6 +51,7 @@ module.exports = function(app){
   // app.get('/loaderio-3679bd0eee996f47e6d598640b4c785e', function (req, res){res.send('loaderio-3679bd0eee996f47e6d598640b4c785e')})
 
   /* Routes for automated critical path CSS generation for auth'd pages */
+  app.get('/all-critical-css', criticalCSS('all-tags'));
   app.get('/index-critical-css', criticalCSS('login-page'));
   app.get('/entries-critical-css', criticalCSS('entry-list'));
   app.get('/entry-critical-css', criticalCSS('entry-view'));

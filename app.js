@@ -11,7 +11,7 @@ var express = require('express'),
   jwtMW = require('express-jwt'),
   resMods = require('./middleware/response-mods'),
   AES = require('./utils/aes'),
-  PORT = process.env.PORT || 3000;
+  PORT = process.env.PORT || 4000;
 
 // Keep the dyno awake
 var http = require('http');

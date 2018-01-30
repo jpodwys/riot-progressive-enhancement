@@ -17,31 +17,43 @@ module.exports = function(grunt) {
     },
 
     penthouse: {
+      all: {
+        outfile : './assets/css/styles.css',
+        css : './assets/css/master-styles.css',
+        url : 'http://localhost:4000/all-critical-css'
+      },
       index : {
         outfile : './views/partials/_index-critical.ejs',
         css : './assets/css/master-styles.css',
-        url : 'http://localhost:3000/index-critical-css'
+        url : 'http://localhost:4000/index-critical-css'
       },
       entryList: {
         outfile : './views/partials/_entries-critical.ejs',
         css : './assets/css/master-styles.css',
-        url : 'http://localhost:3000/entries-critical-css'
+        url : 'http://localhost:4000/entries-critical-css'
       },
       viewEntry: {
         outfile : './views/partials/_entry-critical.ejs',
         css : './assets/css/master-styles.css',
-        url : 'http://localhost:3000/entry-critical-css'
+        url : 'http://localhost:4000/entry-critical-css'
       },
       editEntry: {
         outfile : './views/partials/_edit-critical.ejs',
         css : './assets/css/master-styles.css',
-        url : 'http://localhost:3000/edit-critical-css'
+        url : 'http://localhost:4000/edit-critical-css'
       }
     },
 
     cssmin: {
       target: {
         files: [
+          {
+            expand: true,
+            cwd: './assets/css',
+            src: ['styles.css'],
+            dest: './assets/css',
+            ext: '.css'
+          },
           {
             expand: true,
             cwd: './views/partials',
