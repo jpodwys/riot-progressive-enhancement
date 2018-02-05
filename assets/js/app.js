@@ -257,7 +257,7 @@ function setupRoutes(){
   page({dispatch: true});
 
   if(!readCookie('styles_loaded')){
-    var stylesheet = loadCSS('/css/master-styles.css', document.getElementById('load-css'));
+    var stylesheet = loadCSS('/css/styles.css', document.getElementById('load-css'));
     onloadCSS(stylesheet, function(){
       createCookie('styles_loaded', 'true', 15);
     });
