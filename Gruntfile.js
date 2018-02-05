@@ -18,7 +18,7 @@ module.exports = function(grunt) {
 
     penthouse: {
       all: {
-        width : 768,
+        width : 320,
         height : 10000,
         keepLargerMediaQueries: true,
         outfile : './assets/css/styles.css',
@@ -26,7 +26,7 @@ module.exports = function(grunt) {
         url : 'http://localhost:4000/all-critical-css'
       },
       index : {
-        width : 768,
+        width : 320,
         height : 10000,
         keepLargerMediaQueries: true,
         outfile : './views/partials/_index-critical.ejs',
@@ -34,7 +34,7 @@ module.exports = function(grunt) {
         url : 'http://localhost:4000/index-critical-css'
       },
       entryList: {
-        width : 768,
+        width : 320,
         height : 10000,
         keepLargerMediaQueries: true,
         outfile : './views/partials/_entries-critical.ejs',
@@ -42,14 +42,14 @@ module.exports = function(grunt) {
         url : 'http://localhost:4000/entries-critical-css'
       },
       viewEntry: {
-        width : 768,
+        width : 320,
         height : 10000,
         outfile : './views/partials/_entry-critical.ejs',
         css : './assets/css/master-styles.css',
         url : 'http://localhost:4000/entry-critical-css'
       },
       editEntry: {
-        width : 768,
+        width : 320,
         height : 10000,
         keepLargerMediaQueries: true,
         outfile : './views/partials/_edit-critical.ejs',

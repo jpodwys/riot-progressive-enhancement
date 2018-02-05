@@ -20,4 +20,6 @@
   <edit-entry
     entry={opts['entry-view'].entry}>
   </edit-entry>
+
+  <new-entry></new-entry>
 </all-tags>

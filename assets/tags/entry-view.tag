@@ -7,7 +7,7 @@
     <span if="{!opts.entry.isPublic}">Private</span>
     <span if="{opts.entry.isPublic}">Public</span>
   </h1>
-  <pre class="entry-text">{opts.entry.text}</pre>
+  <div class="entry-text">{opts.entry.text}</div>
   <div if="{opts.entry.isOwner}" class="entry-actions">
     <form method="post" action="/entry/{opts.entry.id}?_method=DELETE" onsubmit="{del}" class="form-submit-only">
       <input
