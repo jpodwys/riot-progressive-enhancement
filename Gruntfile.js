@@ -18,26 +18,36 @@ module.exports = function(grunt) {
 
     penthouse: {
       all: {
+        width : 1000,
+        height : 10000,
         outfile : './assets/css/styles.css',
         css : './assets/css/master-styles.css',
         url : 'http://localhost:4000/all-critical-css'
       },
       index : {
+        width : 1000,
+        height : 10000,
         outfile : './views/partials/_index-critical.ejs',
         css : './assets/css/master-styles.css',
         url : 'http://localhost:4000/index-critical-css'
       },
       entryList: {
+        width : 1000,
+        height : 10000,
         outfile : './views/partials/_entries-critical.ejs',
         css : './assets/css/master-styles.css',
         url : 'http://localhost:4000/entries-critical-css'
       },
       viewEntry: {
+        width : 1000,
+        height : 10000,
         outfile : './views/partials/_entry-critical.ejs',
         css : './assets/css/master-styles.css',
         url : 'http://localhost:4000/entry-critical-css'
       },
       editEntry: {
+        width : 1000,
+        height : 10000,
         outfile : './views/partials/_edit-critical.ejs',
         css : './assets/css/master-styles.css',
         url : 'http://localhost:4000/edit-critical-css'

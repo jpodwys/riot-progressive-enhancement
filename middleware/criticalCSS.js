@@ -14,7 +14,7 @@ var tagData = {
     offset: 10,
     query: {},
     entries: [{
-      id: 1234,
+      id: 1,
       date: '2016-05-14',
       isPublic: 0,
       text: 'Testing'
