@@ -1,10 +1,10 @@
 CACHE MANIFEST
-# V5
+# V6
 
 CACHE:
 /entry/new
 /js/bundle.js
-/css/master-styles.css
+/css/styles.css
 
 NETWORK:
 *
