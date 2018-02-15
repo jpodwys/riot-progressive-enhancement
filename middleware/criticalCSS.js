@@ -37,6 +37,13 @@ var tagData = {
       isPublic: 0,
       text: 'Testing'
     }
+  },
+  'pagination': {
+    url: '/entries',
+    total: 100,
+    offset: 1,
+    current: 1,
+    queryString: '?'
   }
 }
 

@@ -5,7 +5,8 @@
     query={opts['entry-list'].query}
     offset={opts['entry-list'].offset}
     entries={opts['entry-list'].entries}
-    entry-count={opts['entry-list'].entryCount}>
+    entry-count={opts['entry-list'].entryCount}
+    data={opts['entry-list'].data}>
   </entry-list>
 
   <entry-view
@@ -22,4 +23,7 @@
   </edit-entry>
 
   <new-entry></new-entry>
+
+  <pagination
+    data={opts['pagination']}></pagination>
 </all-tags>
