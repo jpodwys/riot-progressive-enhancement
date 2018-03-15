@@ -14,10 +14,10 @@ var express = require('express'),
   PORT = process.env.PORT || 4000;
 
 // Keep the dyno awake
-var http = require('http');
-setInterval(function() {
-  http.get('https://riot-demo.herokuapp.com');
-}, 900000); // Every 15 minutes
+// var http = require('http');
+// setInterval(function() {
+//   http.get('https://riot-demo.herokuapp.com');
+// }, 900000); // Every 15 minutes
 
 app.disable('x-powered-by');
 app.set('views', './views');
