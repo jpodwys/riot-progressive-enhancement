@@ -62,10 +62,6 @@ All this boils down to a server-rendered web page that, if possible, enhances in
 * Decreased server load when single-page app conversion is successful
 * Better SEO (Yes, yes, Google does run JS, but it won't wait several seconds for your JS to download and run and Google is not the only search engine on the planet)
 
-# Deploy
-
-At some point not too long from now, I hope to have all JS bundles generated as part of the deploy script. I also hope to write thorough steps for how to get this running on your own Heroku instance. Additionally, I would like to better organize and clearly outline the code.
-
 # To Do
 
 #### Security:
@@ -114,5 +110,3 @@ At some point not too long from now, I hope to have all JS bundles generated as 
 - [ ] Use sequelize's `sync` feature so that it can generate the database schema on first run
 - [x] Generate `bundle.js` and `bloated-bundle.js` at deploy so I can remove them from github
 - [x] Combine `nodemon app.js` and the huge `watchify` commands I use into a single `npm run local` command
-
-... more incoming.
