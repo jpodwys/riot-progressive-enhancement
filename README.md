@@ -1,4 +1,4 @@
-# [WIP] riot-progressive-enhancement
+# (deprecated) riot-progressive-enhancement
 An isomorphoc progressive enhancement demo using express, riot, page.js, and superagent.
 
 # What is this?
